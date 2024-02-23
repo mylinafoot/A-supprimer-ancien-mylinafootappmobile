@@ -1,0 +1,240 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
+import 'package:linafoot/utils/liste_joueurs.dart';
+import 'package:linafoot/utils/recherche.dart';
+import 'package:svg_flutter/svg.dart';
+
+class Remplacement extends StatelessWidget {
+  //
+  String equipe;
+  Remplacement(this.equipe);
+  //
+  ArbitreController arbitreController = Get.find();
+  //
+  TextEditingController minute = TextEditingController();
+  //
+  @override
+  Widget build(BuildContext context) {
+    //
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Remplacement"),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(10),
+        children: [
+          //
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Entrant",
+              style: textStyle,
+            ),
+          ),
+          Container(
+            //height: 70,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey.shade600,
+              ),
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: () {
+                    //
+                    Recherche.affiche(ListJoueurs("entrant"), context);
+                    //
+                  },
+                  title: const Text("Ajouter"),
+                  trailing: const Icon(Icons.add),
+                ),
+                Obx(
+                  () => arbitreController.joueurRemplacantEntrant['nom'] != null
+                      ? ListTile(
+                          onTap: () {
+                            //
+                          },
+                          leading: SvgPicture.asset(
+                            'assets/IcTwotoneSports.svg',
+                            width: 25,
+                            height: 25,
+                            color: Colors.blue,
+                            semanticsLabel: 'IcTwotoneSports.svg',
+                          ),
+                          title: Text(
+                              "${arbitreController.joueurRemplacantEntrant['nom']}"),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Equipe: ",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Text(
+                                  "${arbitreController.joueurRemplacantEntrant['equipe']}")
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              //
+                              arbitreController.joueurRemplacantEntrant.value =
+                                  {};
+                              //
+                            },
+                          ),
+                        )
+                      : Container(),
+                ),
+              ],
+            ),
+          ),
+          //
+          const SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Sortant",
+              style: textStyle,
+            ),
+          ),
+          Container(
+            //height: 70,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey.shade600,
+              ),
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: () {
+                    //
+                    Recherche.affiche(ListJoueurs("sortant"), context);
+                    //
+                  },
+                  title: const Text("Ajouter"),
+                  trailing: const Icon(Icons.add),
+                ),
+                Obx(
+                  () => arbitreController.joueurRemplacantSortant['nom'] != null
+                      ? ListTile(
+                          onTap: () {
+                            //
+                          },
+                          leading: SvgPicture.asset(
+                            'assets/IcTwotoneSports.svg',
+                            width: 25,
+                            height: 25,
+                            color: Colors.blue,
+                            semanticsLabel: 'IcTwotoneSports.svg',
+                          ),
+                          title: Text(
+                              "${arbitreController.joueurRemplacantSortant['nom']}"),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Equipe: ",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Text(
+                                  "${arbitreController.joueurRemplacantSortant['equipe']}")
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              //
+                              arbitreController.joueurRemplacantSortant.value =
+                                  {};
+                              //
+                            },
+                          ),
+                        )
+                      : Container(),
+                ),
+              ],
+            ),
+          ),
+          //
+          const SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Minute(s)",
+              style: textStyle,
+            ),
+          ),
+          Container(
+            //height: 70,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey.shade600,
+              ),
+            ),
+            child: TextField(
+              controller: minute,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          //
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              //Equipe A
+              if ("Equipe A" == equipe) {
+                arbitreController.joueurRemplacantA.add({
+                  "entrant": arbitreController.joueurRemplacantEntrant.value,
+                  "sortant": arbitreController.joueurRemplacantSortant.value,
+                  "minute": minute.text,
+                });
+              } else {
+                arbitreController.joueurRemplacantB.add({
+                  "entrant": arbitreController.joueurRemplacantEntrant.value,
+                  "sortant": arbitreController.joueurRemplacantSortant.value,
+                  "minute": minute.text,
+                });
+              }
+              Get.back();
+            },
+            child: Text("Ajouter"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //
+  //
+  TextStyle textStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
+}
