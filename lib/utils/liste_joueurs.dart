@@ -2,43 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
+import 'package:linafoot/pages/rapports/officier/officier_controller.dart';
+import 'package:linafoot/pages/rapports/rapport_controller.dart';
 import 'package:svg_flutter/svg.dart';
 
 class ListJoueurs extends StatelessWidget {
   //
   CommissaireController commissaireController = Get.find();
   ArbitreController arbitreController = Get.find();
+  OfficierController officierController = Get.find();
   //
   String des;
-  ListJoueurs(this.des);
   //
-  RxList equipes = [
-    {
-      "nom": "Kalala Nzimbula Pierre",
-      "equipe": "TP MAZEMBE",
-      "categorie": "A1"
-    },
-    {
-      "nom": "Nzimbula Kalala André",
-      "equipe": "TP MAZEMBEv",
-      "categorie": "A1"
-    },
-    {"nom": "Kalubi Nzimbula Annee", "equipe": "TP MAZEMBE", "categorie": "A2"},
-    {"nom": "Nzita Lukasa Agé", "equipe": "TP MAZEMBE", "categorie": "A1"},
-    {"nom": "Mokilo Mokamba Jack", "equipe": "AS V.CLUB", "categorie": "A3"},
-    {"nom": "Mokilo Nzimbula Arise", "equipe": "AS V.CLUB", "categorie": "A3"},
-    {"nom": "Kalala Mbaka Arsene", "equipe": "AS V.CLUB", "categorie": "A1"},
-    {
-      "nom": "Mokamba Nzimbula Patou",
-      "equipe": "DCMP MOTEMA PEMBE",
-      "categorie": "A2"
-    },
-    {
-      "nom": "Kalala Nzimbula Pierre",
-      "equipe": "DCMP MOTEMA PEMBE",
-      "categorie": "A1"
-    },
-  ].obs;
+  RxList equipes = [].obs;
+  //
+  ListJoueurs(this.des, int equipe) {
+    //
+    if (equipe == 1) {
+      //
+      equipes.value = RapportController.joueurEquipeA;
+    } else {
+      //
+      equipes.value = RapportController.joueurEquipeB;
+    }
+  }
+  //
   //
   RxString mot = "".obs;
 
@@ -83,6 +71,9 @@ class ListJoueurs extends StatelessWidget {
                         //
                         arbitreController.avertissementsJoueurs.clear();
                         arbitreController.avertissementsJoueurs.add(equipe);
+                        //
+                        officierController.avertissementsJoueurs.clear();
+                        officierController.avertissementsJoueurs.add(equipe);
                       }
                       //
                       if ("Buts joueurs" == des) {
@@ -91,6 +82,9 @@ class ListJoueurs extends StatelessWidget {
                         //
                         arbitreController.butsJoueurs.clear();
                         arbitreController.butsJoueurs.add(equipe);
+                        //
+                        officierController.butsJoueurs.clear();
+                        officierController.butsJoueurs.add(equipe);
                       }
                       //
                       if ("Expulsions joueurs" == des) {
@@ -99,33 +93,51 @@ class ListJoueurs extends StatelessWidget {
                         //
                         arbitreController.expulssionsJoueurs.clear();
                         arbitreController.expulssionsJoueurs.add(equipe);
+                        //
+                        officierController.expulssionsJoueurs.clear();
+                        officierController.expulssionsJoueurs.add(equipe);
                       }
                       if ("autre A" == des) {
                         //joueurEqupeA
                         arbitreController.joueurEqupeA.add(equipe);
+                        //
+                        //officierController.joueurEqupeA.add(equipe);
                       }
                       if ("autre B" == des) {
                         //joueurEqupeA
                         arbitreController.joueurEqupeB.add(equipe);
+                        //
+                        //officierController.joueurEqupeB.add(equipe);
                       }
                       //
                       if ("autre A r" == des) {
                         //joueurEqupeA
                         arbitreController.joueurEquipeRemplacantA.add(equipe);
+                        //
+                        //officierController.joueurEquipeRemplacantA.add(equipe);
                       }
                       if ("autre B r" == des) {
                         //joueurEqupeA
                         arbitreController.joueurEquipeRemplacantB.add(equipe);
+                        //
+
+                        //officierController.joueurEquipeRemplacantB.add(equipe);
                       }
                       //
                       if ("entrant" == des) {
                         //joueurEqupeA
                         arbitreController.joueurRemplacantEntrant.value =
                             equipe;
+                        //
+                        officierController.joueurRemplacantEntrant.value =
+                            equipe;
                       }
                       if ("sortant" == des) {
                         //joueurEqupeA
                         arbitreController.joueurRemplacantSortant.value =
+                            equipe;
+                        //
+                        officierController.joueurRemplacantSortant.value =
                             equipe;
                       }
                       //
@@ -139,8 +151,9 @@ class ListJoueurs extends StatelessWidget {
                       color: Colors.blue,
                       semanticsLabel: 'MakiSoccer11.svg',
                     ),
-                    title: Text("${equipe['nom']}"),
-                    subtitle: Text("${equipe['equipe']}"),
+                    title: Text(
+                        "${equipe['nom']} ${equipe['postnom'] ?? ''} ${equipe['prenom'] ?? ''}"),
+                    subtitle: Text("${equipe['numero']}"),
                   );
                 } else {
                   return Container();

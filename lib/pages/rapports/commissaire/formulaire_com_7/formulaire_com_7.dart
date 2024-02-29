@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:linafoot/pages/accueil.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
 import 'package:linafoot/pages/rapports/commissaire/soumettre.dart';
 import 'package:linafoot/utils/loader.dart';
@@ -10,13 +11,15 @@ import 'evaluation.dart';
 
 class FormulaireCom7 extends StatelessWidget {
   //
+  int local;
+  //
   var box = GetStorage();
   //
   Map match;
   //
   PageController controller;
   //
-  TextEditingController commentaire = TextEditingController();
+  //TextEditingController commentaire = TextEditingController();
   //
   CommissaireController commissaireController = Get.find();
   //
@@ -27,7 +30,7 @@ class FormulaireCom7 extends StatelessWidget {
     "Match très difficile",
   ];
   //
-  FormulaireCom7(this.controller, this.match);
+  FormulaireCom7(this.controller, this.match, this.local);
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +233,7 @@ class FormulaireCom7 extends StatelessWidget {
         ),
         TextField(
           maxLines: 4,
-          controller: commentaire,
+          controller: commissaireController.commentaire.value,
           decoration: InputDecoration(
             label: Text("Commentaire"),
             border: OutlineInputBorder(
@@ -303,12 +306,250 @@ class FormulaireCom7 extends StatelessWidget {
                                 Get.back();
                                 Loader.loading();
                                 //
-                                match['rapport'] = {};
-                                //
-                                box.write("rapport${match['match']}", match);
+                                if (local == 2) {
+                                  //
+                                  Map rap = {
+                                    "idMatch": match['match'],
+                                    "typeRapport": 1,
+                                    "date": match['date'],
+                                    "commissaire": match['commissaire'],
+                                    "heure": match['heure'],
+                                    "categorie": match['categorie'],
+                                    "terrainNeutre": false,
+                                    "arbitreAssitant1":
+                                        match['arbitreAssitant1'],
+                                    "match": match['match'],
+                                    "journee": match['journee'],
+                                    "arbitreAssitant2":
+                                        match['arbitreAssitant2'],
+                                    "stade": match['stade'],
+                                    "arbitreCentrale": match['arbitreCentrale'],
+                                    "arbitreProtocolaire":
+                                        match['arbitreProtocolaire'],
+                                    "saison": "",
+                                    "idCalendrier": match['idCalendrier'],
+                                    "quiRecoit": match['quiRecoit'],
+                                    "idEquipeB": match['idEquipeB'],
+                                    "officierRapporteur":
+                                        match['officierRapporteur'],
+                                    "idEquipeA": match['idEquipeA'],
+                                    "nomEquipeA": match['nomEquipeA'],
+                                    "nombreDePlaces": match['nombreDePlaces'],
+                                    "nomEquipeB": match['nomEquipeB'],
+                                    "jouer": true,
+                                    "rapport": {
+                                      "heure":
+                                          commissaireController.heure.value,
+                                      "date": commissaireController.date.value,
+                                      "stade":
+                                          commissaireController.stade.value,
+                                      "equipeA":
+                                          commissaireController.equipeA.value,
+                                      "equipeB":
+                                          commissaireController.equipeB.value,
+                                      "resultatMitemps": commissaireController
+                                          .resultatMitemps.value,
+                                      "resultatFinal": commissaireController
+                                          .resultatFinal.value,
+                                      "arbitreCentral": commissaireController
+                                          .arbitreCentral.value,
+                                      "arbitreAssistant1": commissaireController
+                                          .arbitreAssistant1.value,
+                                      "arbitreAssistant2": commissaireController
+                                          .arbitreAssistant2.value,
+                                      "arbitreProtocolaire":
+                                          commissaireController
+                                              .arbitreProtocolaire.value,
+                                      //
+                                      "scoreMitemps": commissaireController
+                                          .scoreMitemps.value,
+                                      "scoreFin":
+                                          commissaireController.scoreFin.value,
+                                      //
+                                      "avertissementsJoueursGeneralA":
+                                          commissaireController
+                                              .avertissementsJoueursGeneralA
+                                              .value,
+                                      "expulssionsJoueursGeneralA":
+                                          commissaireController
+                                              .expulssionsJoueursGeneralA.value,
+                                      "butsJoueursGeneralA":
+                                          commissaireController
+                                              .butsJoueursGeneralA.value,
+                                      //
+                                      "avertissementsJoueursGeneralB":
+                                          commissaireController
+                                              .avertissementsJoueursGeneralB
+                                              .value,
+                                      "expulssionsJoueursGeneralB":
+                                          commissaireController
+                                              .expulssionsJoueursGeneralB.value,
+                                      "butsJoueursGeneralB":
+                                          commissaireController
+                                              .butsJoueursGeneralB.value,
+                                      //
+
+                                      "nombreSpectateur": commissaireController
+                                          .nombreSpectateur.value.text,
+                                      "attitudeJouerA": commissaireController
+                                          .attitudeJouerA.value,
+                                      "attitudeJouerB": commissaireController
+                                          .attitudeJouerB.value,
+                                      "attitudePublic": commissaireController
+                                          .attitudePublic.value,
+                                      "etatsTerrainListe": commissaireController
+                                          .etatsTerrainListe.value,
+                                      "etatsInstallationListe":
+                                          commissaireController
+                                              .etatsInstallationListe.value,
+                                      "incident": commissaireController
+                                          .incident.value.text,
+                                      "organisationGenerale":
+                                          commissaireController
+                                              .organisationGenerale.value,
+                                      "serviceControle": commissaireController
+                                          .serviceControle.value,
+                                      "servicePolice": commissaireController
+                                          .servicePolice.value,
+                                      "serviceSanitaire": commissaireController
+                                          .serviceSanitaire.value,
+                                      "organisation": commissaireController
+                                          .organisation.value,
+                                      "personnalite": commissaireController
+                                          .personnalite.value,
+                                      "conditionPhysique": commissaireController
+                                          .conditionPhysique.value,
+                                      "capacite":
+                                          commissaireController.capacite.value,
+                                      "execution":
+                                          commissaireController.execution.value,
+                                      "discipline": commissaireController
+                                          .discipline.value,
+                                      "evaluationArbitreAssistant":
+                                          commissaireController
+                                              .evaluationArbitreAssistant.value,
+                                      "evaluationArbitreReserve":
+                                          commissaireController
+                                              .evaluationArbitreReserve.value,
+
+                                      "commentaire": commissaireController
+                                          .commentaire.value.text,
+                                    }
+                                  };
+                                  //
+                                  commissaireController.envoyerRapport(rap);
+                                } else {
+                                  //
+                                  match['rapport'] = {
+                                    "heure": commissaireController.heure.value,
+                                    "date": commissaireController.date.value,
+                                    "stade": commissaireController.stade.value,
+                                    "equipeA":
+                                        commissaireController.equipeA.value,
+                                    "equipeB":
+                                        commissaireController.equipeB.value,
+                                    "resultatMitemps": commissaireController
+                                        .resultatMitemps.value,
+                                    "resultatFinal": commissaireController
+                                        .resultatFinal.value,
+                                    "arbitreCentral": commissaireController
+                                        .arbitreCentral.value,
+                                    "arbitreAssistant1": commissaireController
+                                        .arbitreAssistant1.value,
+                                    "arbitreAssistant2": commissaireController
+                                        .arbitreAssistant2.value,
+                                    "arbitreProtocolaire": commissaireController
+                                        .arbitreProtocolaire.value,
+                                    //
+                                    "scoreMitemps":
+                                        commissaireController.scoreMitemps,
+                                    "scoreFin": commissaireController.scoreFin,
+                                    //
+                                    "avertissementsJoueursGeneralA":
+                                        commissaireController
+                                            .avertissementsJoueursGeneralA
+                                            .value,
+                                    "expulssionsJoueursGeneralA":
+                                        commissaireController
+                                            .expulssionsJoueursGeneralA.value,
+                                    "butsJoueursGeneralA": commissaireController
+                                        .butsJoueursGeneralA.value,
+                                    //
+                                    "avertissementsJoueursGeneralB":
+                                        commissaireController
+                                            .avertissementsJoueursGeneralB
+                                            .value,
+                                    "expulssionsJoueursGeneralB":
+                                        commissaireController
+                                            .expulssionsJoueursGeneralB.value,
+                                    "butsJoueursGeneralB": commissaireController
+                                        .butsJoueursGeneralB.value,
+                                    //
+
+                                    "nombreSpectateur": commissaireController
+                                        .nombreSpectateur.value.text,
+                                    "attitudeJouerA": commissaireController
+                                        .attitudeJouerA.value,
+                                    "attitudeJouerB": commissaireController
+                                        .attitudeJouerB.value,
+                                    "attitudePublic": commissaireController
+                                        .attitudePublic.value,
+                                    "etatsTerrainListe": commissaireController
+                                        .etatsTerrainListe.value,
+                                    "etatsInstallationListe":
+                                        commissaireController
+                                            .etatsInstallationListe.value,
+                                    "incident": commissaireController
+                                        .incident.value.text,
+                                    "organisationGenerale":
+                                        commissaireController
+                                            .organisationGenerale.value,
+                                    "serviceControle": commissaireController
+                                        .serviceControle.value,
+                                    "servicePolice": commissaireController
+                                        .servicePolice.value,
+                                    "serviceSanitaire": commissaireController
+                                        .serviceSanitaire.value,
+                                    "organisation": commissaireController
+                                        .organisation.value,
+                                    "personnalite": commissaireController
+                                        .personnalite.value,
+                                    "conditionPhysique": commissaireController
+                                        .conditionPhysique.value,
+                                    "capacite":
+                                        commissaireController.capacite.value,
+                                    "execution":
+                                        commissaireController.execution.value,
+                                    "discipline":
+                                        commissaireController.discipline.value,
+                                    "evaluationArbitreAssistant":
+                                        commissaireController
+                                            .evaluationArbitreAssistant.value,
+                                    "evaluationArbitreReserve":
+                                        commissaireController
+                                            .evaluationArbitreReserve.value,
+                                    "commentaire": commissaireController
+                                        .commentaire.value.text,
+                                  };
+                                  //
+                                  match['jouer'] = true;
+                                  //
+                                  box.write("rapport${match['match']}", match);
+                                  //
+                                  Get.offAll(Accueil());
+                                  Get.snackbar(
+                                    "Rapport",
+                                    "Votre rapport a été enregistré en local",
+                                    backgroundColor: Colors.green,
+                                    colorText: Colors.white,
+                                  );
+                                  Get.back();
+                                }
                                 //
                               },
-                              child: Text("Enregistrer"),
+                              child: local == 2
+                                  ? const Text("Enoyer le rapport")
+                                  : const Text("Enregistrer"),
                             ),
                           ],
                         ),
@@ -329,12 +570,19 @@ class FormulaireCom7 extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 50,
                 width: 100,
-                child: const Text(
-                  "Enregistrer",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                child: local == 2
+                    ? const Text(
+                        "Envoyer",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text(
+                        "Enregistrer",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
               ),
             ),
           ],

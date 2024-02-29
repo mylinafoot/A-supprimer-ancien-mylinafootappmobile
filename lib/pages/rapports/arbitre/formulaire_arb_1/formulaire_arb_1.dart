@@ -62,6 +62,7 @@ class FormulaireArb1 extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: arbitreController.nMatch.value,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -88,21 +89,23 @@ class FormulaireArb1 extends StatelessWidget {
               color: Colors.grey.shade600,
             ),
           ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-              padding: const EdgeInsets.only(left: 10),
-              value: competition.value,
-              onChanged: (e) {
-                //
-                competition.value = e as int;
-              },
-              items: List.generate(competitions.length, (index) {
-                //
-                return DropdownMenuItem(
-                  child: Text("${competitions[index]}"),
-                  value: index,
-                );
-              }),
+          child: Obx(
+            () => DropdownButtonHideUnderline(
+              child: DropdownButton(
+                padding: const EdgeInsets.only(left: 10),
+                value: arbitreController.competition.value,
+                onChanged: (e) {
+                  //
+                  arbitreController.competition.value = e as int;
+                },
+                items: List.generate(competitions.length, (index) {
+                  //
+                  return DropdownMenuItem(
+                    value: index,
+                    child: Text("${competitions[index]}"),
+                  );
+                }),
+              ),
             ),
           ),
         ),
@@ -248,6 +251,7 @@ class FormulaireArb1 extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: arbitreController.jouea.value,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -342,7 +346,8 @@ class FormulaireArb1 extends StatelessWidget {
                   ).then((d) {
                     if (d != null) {
                       //
-                      date.value = "${d.day}-${d.month}-${d.year}";
+                      arbitreController.date.value =
+                          "${d.day}-${d.month}-${d.year}";
                     }
                     //
                   });
@@ -351,7 +356,7 @@ class FormulaireArb1 extends StatelessWidget {
                 trailing: const Icon(Icons.add),
               ),
               Obx(
-                () => date.value == ""
+                () => arbitreController.date.value == ""
                     ? Container()
                     : ListTile(
                         onTap: () {
@@ -361,8 +366,8 @@ class FormulaireArb1 extends StatelessWidget {
                           Icons.calendar_month,
                           color: Colors.blue.shade700,
                         ),
-                        title: Text(date.value),
-                        subtitle: Text(date.value),
+                        title: Text(arbitreController.date.value),
+                        subtitle: Text(arbitreController.date.value),
                       ),
               ),
             ],
@@ -398,7 +403,7 @@ class FormulaireArb1 extends StatelessWidget {
                   ).then((d) {
                     if (d != null) {
                       //
-                      heure.value = "${d.hour}:${d.minute}";
+                      arbitreController.heure.value = "${d.hour}:${d.minute}";
                     }
                     //
                   });
@@ -407,7 +412,7 @@ class FormulaireArb1 extends StatelessWidget {
                 trailing: const Icon(Icons.add),
               ),
               Obx(
-                () => heure.value == ""
+                () => arbitreController.heure.value == ""
                     ? Container()
                     : ListTile(
                         onTap: () {
@@ -417,8 +422,8 @@ class FormulaireArb1 extends StatelessWidget {
                           Icons.timelapse,
                           color: Colors.blue.shade700,
                         ),
-                        title: Text(heure.value),
-                        subtitle: Text(heure.value),
+                        title: Text(arbitreController.heure.value),
+                        subtitle: Text(arbitreController.heure.value),
                       ),
               ),
             ],
@@ -444,6 +449,8 @@ class FormulaireArb1 extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: arbitreController.nombreSpectateur.value,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -504,8 +511,8 @@ class FormulaireArb1 extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           //
-                          scoreMitemps['a'] = scoreA.text;
-                          scoreMitemps['b'] = scoreB.text;
+                          arbitreController.scoreMitemps['a'] = scoreA.text;
+                          arbitreController.scoreMitemps['b'] = scoreB.text;
                           //
                           Get.back();
                           //
@@ -550,8 +557,8 @@ class FormulaireArb1 extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "${scoreMitemps['a'] ?? '0'}",
-                          style: TextStyle(
+                          "${arbitreController.scoreMitemps['a'] ?? '0'}",
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
                             fontSize: 20,
@@ -573,8 +580,8 @@ class FormulaireArb1 extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          "${scoreMitemps['b'] ?? '0'} ",
-                          style: TextStyle(
+                          "${arbitreController.scoreMitemps['b'] ?? '0'} ",
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
                             fontSize: 20,
@@ -653,8 +660,8 @@ class FormulaireArb1 extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           //
-                          scoreFin['a'] = scoreA.text;
-                          scoreFin['b'] = scoreB.text;
+                          arbitreController.scoreFin['a'] = scoreA.text;
+                          arbitreController.scoreFin['b'] = scoreB.text;
                           //
                           Get.back();
                           //
@@ -697,7 +704,7 @@ class FormulaireArb1 extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "${scoreFin['a'] ?? '0'}",
+                          "${arbitreController.scoreFin['a'] ?? '0'}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -720,7 +727,7 @@ class FormulaireArb1 extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          "${scoreFin['b'] ?? '0'} ",
+                          "${arbitreController.scoreFin['b'] ?? '0'} ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -796,12 +803,12 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
-                            Text("${arbitreController.commissaire['league']}")
+                            Text("${arbitreController.commissaire['region']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -870,13 +877,13 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${arbitreController.arbitreCentral['league']}")
+                                "${arbitreController.arbitreCentral['region']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -946,13 +953,13 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${arbitreController.arbitreAssistant1['league']}"),
+                                "${arbitreController.arbitreAssistant1['region']}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -1021,14 +1028,14 @@ class FormulaireArb1 extends StatelessWidget {
                         subtitle: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                "League: ",
+                              const Text(
+                                "Region: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${arbitreController.arbitreAssistant2['league']}"),
+                                  "${arbitreController.arbitreAssistant2['region']}"),
                             ]),
                         trailing: IconButton(
                           icon: Icon(
@@ -1096,13 +1103,13 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${arbitreController.arbitreProtocolaire['league']}"),
+                                "${arbitreController.arbitreProtocolaire['region']}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -1166,7 +1173,7 @@ class FormulaireArb1 extends StatelessWidget {
     );
   }
 
-  TextStyle textStyle = TextStyle(
+  TextStyle textStyle = const TextStyle(
     fontWeight: FontWeight.bold,
   );
 }

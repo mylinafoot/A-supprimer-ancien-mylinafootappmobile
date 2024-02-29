@@ -12,6 +12,8 @@ import '../commissaire_controller.dart';
 
 class ActionMatch extends StatelessWidget {
   //
+  int equipe;
+  //
   CommissaireController commissaireController = Get.find();
   //
   TextEditingController numero = TextEditingController();
@@ -27,7 +29,9 @@ class ActionMatch extends StatelessWidget {
   RxInt raisonMotif = 1.obs;
   //
   String action;
-  ActionMatch(this.action) {
+  ActionMatch(this.action, this.equipe) {
+    //
+
     //
     if ("Avertissements joueurs" == action) {
       etats = [
@@ -102,16 +106,16 @@ class ActionMatch extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      onTap: () {
-                        //
-                        Recherche.affiche(ListEquipe("Equipe"), context);
-                      },
-                      title: const Text("Ajouter"),
-                      trailing: const Icon(Icons.add),
-                    ),
+                    // ListTile(
+                    //   onTap: () {
+                    //     //
+                    //     Recherche.affiche(ListEquipe("Equipe"), context);
+                    //   },
+                    //   title: const Text("Ajouter"),
+                    //   trailing: const Icon(Icons.add),
+                    // ),
                     Obx(
-                      () => commissaireController.equipe['nom'] != null
+                      () => equipe == 1
                           ? ListTile(
                               onTap: () {
                                 //
@@ -124,21 +128,46 @@ class ActionMatch extends StatelessWidget {
                                 semanticsLabel: 'GalaPortrait1.svg',
                               ),
                               title: Text(
-                                  "${commissaireController.equipe['nom']}"),
+                                  "${commissaireController.equipeA['nom']}"),
                               subtitle: Text(
-                                  "${commissaireController.equipe['province']}"),
-                              trailing: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                                onPressed: () {
-                                  //
-                                  commissaireController.equipe.value = {};
-                                },
-                              ),
+                                  "${commissaireController.equipeA['province']}"),
+                              // trailing: IconButton(
+                              //   icon: Icon(
+                              //     Icons.delete,
+                              //     color: Colors.red,
+                              //   ),
+                              //   onPressed: () {
+                              //     //
+                              //     commissaireController.equipe.value = {};
+                              //   },
+                              // ),
                             )
-                          : Container(),
+                          : ListTile(
+                              onTap: () {
+                                //
+                              },
+                              leading: SvgPicture.asset(
+                                'assets/IcBaselineSportsSoccer.svg',
+                                width: 25,
+                                height: 25,
+                                color: Colors.blue,
+                                semanticsLabel: 'GalaPortrait1.svg',
+                              ),
+                              title: Text(
+                                  "${commissaireController.equipeB['nom']}"),
+                              subtitle: Text(
+                                  "${commissaireController.equipeB['province']}"),
+                              // trailing: IconButton(
+                              //   icon: Icon(
+                              //     Icons.delete,
+                              //     color: Colors.red,
+                              //   ),
+                              //   onPressed: () {
+                              //     //
+                              //     commissaireController.equipe.value = {};
+                              //   },
+                              // ),
+                            ),
                     ),
                   ],
                 ),
@@ -146,23 +175,23 @@ class ActionMatch extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Numéro ",
-                  style: textStyle,
-                ),
-              ),
-              TextField(
-                controller: numero,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              //
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text(
+              //     "Numéro ",
+              //     style: textStyle,
+              //   ),
+              // ),
+              // TextField(
+              //   controller: numero,
+              //   keyboardType: TextInputType.number,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              // ),
+              // //
               const SizedBox(
                 height: 10,
               ),
@@ -186,7 +215,7 @@ class ActionMatch extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         //
-                        Recherche.affiche(ListJoueurs(action), context);
+                        Recherche.affiche(ListJoueurs(action, equipe), context);
                         //
                       },
                       title: const Text("Ajouter"),
@@ -214,7 +243,7 @@ class ActionMatch extends StatelessWidget {
                                       semanticsLabel: 'MakiSoccer11.svg',
                                     ),
                                     title: Text("${joueur['nom']}"),
-                                    subtitle: Text("${joueur['categorie']}"),
+                                    subtitle: Text("${joueur['numero']}"),
                                     trailing: IconButton(
                                       icon: Icon(
                                         Icons.delete,
@@ -255,8 +284,7 @@ class ActionMatch extends StatelessWidget {
                                           semanticsLabel: 'MakiSoccer11.svg',
                                         ),
                                         title: Text("${joueur['nom']}"),
-                                        subtitle:
-                                            Text("${joueur['categorie']}"),
+                                        subtitle: Text("${joueur['numero']}"),
                                         trailing: IconButton(
                                           icon: Icon(
                                             Icons.delete,
@@ -295,8 +323,7 @@ class ActionMatch extends StatelessWidget {
                                           semanticsLabel: 'MakiSoccer11.svg',
                                         ),
                                         title: Text("${joueur['nom']}"),
-                                        subtitle:
-                                            Text("${joueur['categorie']}"),
+                                        subtitle: Text("${joueur['numero']}"),
                                         trailing: IconButton(
                                           icon: Icon(
                                             Icons.delete,
@@ -477,22 +504,39 @@ class ActionMatch extends StatelessWidget {
                       "Expulsions joueurs" == action) {
                     infos['note'] = etats[raisonMotif.value];
                   } else {
-                    infos['note'] =
-                        ["Auto but", "Penalité", "Classique"][typeBut.value];
+                    infos['note'] = [
+                      "Auto but",
+                      "Penalité",
+                      "Classique"
+                    ][typeBut.value - 1];
                   }
                   //
-                  "Avertissements joueurs" == action
-                      ? commissaireController.avertissementsJoueursGeneral
-                          .add(infos)
-                      : "Expulsions joueurs" == action
-                          ? commissaireController.expulssionsJoueursGeneral
-                              .add(infos)
-                          : commissaireController.butsJoueursGeneral.add(infos);
+                  if (equipe == 1) {
+                    //
+                    "Avertissements joueurs" == action
+                        ? commissaireController.avertissementsJoueursGeneralA
+                            .add(infos)
+                        : "Expulsions joueurs" == action
+                            ? commissaireController.expulssionsJoueursGeneralA
+                                .add(infos)
+                            : commissaireController.butsJoueursGeneralA
+                                .add(infos);
+                  } else {
+                    //
+                    "Avertissements joueurs" == action
+                        ? commissaireController.avertissementsJoueursGeneralB
+                            .add(infos)
+                        : "Expulsions joueurs" == action
+                            ? commissaireController.expulssionsJoueursGeneralB
+                                .add(infos)
+                            : commissaireController.butsJoueursGeneralB
+                                .add(infos);
+                  }
                   //
                   commissaireController.equipe.value = {};
-                  //commissaireController.avertissementsJoueurs.value = [];
-                  //commissaireController.expulssionsJoueursGeneral.value = [];
-                  //commissaireController.butsJoueursGeneral.value = [];
+                  commissaireController.avertissementsJoueurs.value = [];
+                  commissaireController.expulssionsJoueurs.value = [];
+                  commissaireController.butsJoueurs.value = [];
                   //
                   Get.back();
                   //

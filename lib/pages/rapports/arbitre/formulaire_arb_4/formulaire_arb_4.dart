@@ -68,7 +68,7 @@ class FormulaireArb4 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Recherche.affiche(ListJoueurs("autre B"), context);
+                  Recherche.affiche(ListJoueurs("autre B", 2), context);
                   //
                 },
                 title: const Text("Ajouter"),
@@ -95,13 +95,13 @@ class FormulaireArb4 extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "League: ",
+                            "Numero: ",
                             style: TextStyle(
                               color: Colors.blue,
                             ),
                           ),
                           Text(
-                              "${arbitreController.joueurEqupeB[index]['equipe']}")
+                              "${arbitreController.joueurEqupeB[index]['numero']}")
                         ],
                       ),
                       trailing: IconButton(
@@ -146,7 +146,7 @@ class FormulaireArb4 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Recherche.affiche(ListJoueurs("autre B r"), context);
+                  Recherche.affiche(ListJoueurs("autre B r", 2), context);
                   //
                 },
                 title: const Text("Ajouter"),
@@ -174,13 +174,13 @@ class FormulaireArb4 extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "League: ",
+                            "Numero: ",
                             style: TextStyle(
                               color: Colors.blue,
                             ),
                           ),
                           Text(
-                              "${arbitreController.joueurEquipeRemplacantB[index]['equipe']}")
+                              "${arbitreController.joueurEquipeRemplacantB[index]['numero']}")
                         ],
                       ),
                       trailing: IconButton(

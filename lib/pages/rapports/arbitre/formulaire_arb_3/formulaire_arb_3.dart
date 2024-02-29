@@ -68,7 +68,7 @@ class FormulaireArb3 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Recherche.affiche(ListJoueurs("autre A"), context);
+                  Recherche.affiche(ListJoueurs("autre A", 1), context);
                   //
                 },
                 title: const Text("Ajouter"),
@@ -94,14 +94,14 @@ class FormulaireArb3 extends StatelessWidget {
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "League: ",
+                          const Text(
+                            "Numero: ",
                             style: TextStyle(
                               color: Colors.blue,
                             ),
                           ),
                           Text(
-                              "${arbitreController.joueurEqupeA[index]['equipe']}")
+                              "${arbitreController.joueurEqupeA[index]['numero']}")
                         ],
                       ),
                       trailing: IconButton(
@@ -146,7 +146,7 @@ class FormulaireArb3 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Recherche.affiche(ListJoueurs("autre A r"), context);
+                  Recherche.affiche(ListJoueurs("autre A r", 1), context);
                   //
                 },
                 title: const Text("Ajouter"),
@@ -174,13 +174,13 @@ class FormulaireArb3 extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "League: ",
+                            "Numero: ",
                             style: TextStyle(
                               color: Colors.blue,
                             ),
                           ),
                           Text(
-                              "${arbitreController.joueurEquipeRemplacantA[index]['equipe']}")
+                              "${arbitreController.joueurEquipeRemplacantA[index]['numero']}")
                         ],
                       ),
                       trailing: IconButton(

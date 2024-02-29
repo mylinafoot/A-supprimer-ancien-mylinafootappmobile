@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
+import 'package:linafoot/pages/rapports/officier/officier_controller.dart';
 import 'package:linafoot/utils/liste_joueurs.dart';
 import 'package:linafoot/utils/recherche.dart';
 import 'package:svg_flutter/svg.dart';
 
 class Remplacement extends StatelessWidget {
   //
-  String equipe;
-  Remplacement(this.equipe);
+  String numero;
+  Remplacement(this.numero);
   //
-  ArbitreController arbitreController = Get.find();
+  OfficierController officierController = Get.find();
   //
   TextEditingController minute = TextEditingController();
   //
@@ -46,54 +47,57 @@ class Remplacement extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     //
-                    Recherche.affiche(ListJoueurs("entrant"), context);
+                    Recherche.affiche(
+                        ListJoueurs("entrant", "Equipe A" == numero ? 1 : 2),
+                        context);
                     //
                   },
                   title: const Text("Ajouter"),
                   trailing: const Icon(Icons.add),
                 ),
                 Obx(
-                  () => arbitreController.joueurRemplacantEntrant['nom'] != null
-                      ? ListTile(
-                          onTap: () {
-                            //
-                          },
-                          leading: SvgPicture.asset(
-                            'assets/IcTwotoneSports.svg',
-                            width: 25,
-                            height: 25,
-                            color: Colors.blue,
-                            semanticsLabel: 'IcTwotoneSports.svg',
-                          ),
-                          title: Text(
-                              "${arbitreController.joueurRemplacantEntrant['nom']}"),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Equipe: ",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
+                  () =>
+                      officierController.joueurRemplacantEntrant['nom'] != null
+                          ? ListTile(
+                              onTap: () {
+                                //
+                              },
+                              leading: SvgPicture.asset(
+                                'assets/IcTwotoneSports.svg',
+                                width: 25,
+                                height: 25,
+                                color: Colors.blue,
+                                semanticsLabel: 'IcTwotoneSports.svg',
                               ),
-                              Text(
-                                  "${arbitreController.joueurRemplacantEntrant['equipe']}")
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              //
-                              arbitreController.joueurRemplacantEntrant.value =
-                                  {};
-                              //
-                            },
-                          ),
-                        )
-                      : Container(),
+                              title: Text(
+                                  "${officierController.joueurRemplacantEntrant['nom']}"),
+                              subtitle: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Numero: ",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  Text(
+                                      "${officierController.joueurRemplacantEntrant['numero']}")
+                                ],
+                              ),
+                              trailing: IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  //
+                                  officierController
+                                      .joueurRemplacantEntrant.value = {};
+                                  //
+                                },
+                              ),
+                            )
+                          : Container(),
                 ),
               ],
             ),
@@ -122,54 +126,57 @@ class Remplacement extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     //
-                    Recherche.affiche(ListJoueurs("sortant"), context);
+                    Recherche.affiche(
+                        ListJoueurs("sortant", "Equipe A" == numero ? 1 : 2),
+                        context);
                     //
                   },
                   title: const Text("Ajouter"),
                   trailing: const Icon(Icons.add),
                 ),
                 Obx(
-                  () => arbitreController.joueurRemplacantSortant['nom'] != null
-                      ? ListTile(
-                          onTap: () {
-                            //
-                          },
-                          leading: SvgPicture.asset(
-                            'assets/IcTwotoneSports.svg',
-                            width: 25,
-                            height: 25,
-                            color: Colors.blue,
-                            semanticsLabel: 'IcTwotoneSports.svg',
-                          ),
-                          title: Text(
-                              "${arbitreController.joueurRemplacantSortant['nom']}"),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Equipe: ",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
+                  () =>
+                      officierController.joueurRemplacantSortant['nom'] != null
+                          ? ListTile(
+                              onTap: () {
+                                //
+                              },
+                              leading: SvgPicture.asset(
+                                'assets/IcTwotoneSports.svg',
+                                width: 25,
+                                height: 25,
+                                color: Colors.blue,
+                                semanticsLabel: 'IcTwotoneSports.svg',
                               ),
-                              Text(
-                                  "${arbitreController.joueurRemplacantSortant['equipe']}")
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              //
-                              arbitreController.joueurRemplacantSortant.value =
-                                  {};
-                              //
-                            },
-                          ),
-                        )
-                      : Container(),
+                              title: Text(
+                                  "${officierController.joueurRemplacantSortant['nom']}"),
+                              subtitle: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Numero: ",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  Text(
+                                      "${officierController.joueurRemplacantSortant['numero']}")
+                                ],
+                              ),
+                              trailing: IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  //
+                                  officierController
+                                      .joueurRemplacantSortant.value = {};
+                                  //
+                                },
+                              ),
+                            )
+                          : Container(),
                 ),
               ],
             ),
@@ -210,19 +217,24 @@ class Remplacement extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               //Equipe A
-              if ("Equipe A" == equipe) {
-                arbitreController.joueurRemplacantA.add({
-                  "entrant": arbitreController.joueurRemplacantEntrant.value,
-                  "sortant": arbitreController.joueurRemplacantSortant.value,
+              if ("Equipe A" == numero) {
+                officierController.joueurRemplacantA.add({
+                  "entrant": officierController.joueurRemplacantEntrant.value,
+                  "sortant": officierController.joueurRemplacantSortant.value,
                   "minute": minute.text,
                 });
               } else {
-                arbitreController.joueurRemplacantB.add({
-                  "entrant": arbitreController.joueurRemplacantEntrant.value,
-                  "sortant": arbitreController.joueurRemplacantSortant.value,
+                officierController.joueurRemplacantB.add({
+                  "entrant": officierController.joueurRemplacantEntrant.value,
+                  "sortant": officierController.joueurRemplacantSortant.value,
                   "minute": minute.text,
                 });
               }
+              //
+              officierController.joueurRemplacantEntrant.value = {};
+              officierController.joueurRemplacantSortant.value = {};
+
+              //
               Get.back();
             },
             child: Text("Ajouter"),

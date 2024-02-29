@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
+import 'package:linafoot/pages/rapports/rapport_controller.dart';
 import 'package:svg_flutter/svg.dart';
 
 class ListEquipe extends StatelessWidget {
@@ -10,36 +11,11 @@ class ListEquipe extends StatelessWidget {
   ArbitreController arbitreController = Get.find();
   //
   String des;
-  ListEquipe(this.des);
+  ListEquipe(this.des) {
+    //
+  }
   //
-  RxList equipes = [
-    {
-      "nom": "Tout puissant Mazembe Englebert",
-      "province": "Lubumbashi",
-      "categorie": ""
-    },
-    {"nom": "FC Saint-Éloi Lupopo", "province": "Lubumbashi", "categorie": ""},
-    {"nom": "FC Lubumbashi sport", "province": "Lubumbashi", "categorie": ""},
-    {"nom": "CS Don Bosco", "province": "Lubumbashi", "categorie": ""},
-    {
-      "nom": "As Maniema Union de Kindu",
-      "province": "Maniema",
-      "categorie": ""
-    },
-    {
-      "nom": "As Dauphin noir de Goma",
-      "province": "Nord Kiva",
-      "categorie": ""
-    },
-    {"nom": "As Vita club", "province": "Kinshasa", "categorie": ""},
-    // {
-    //   "nom": "Dc Motema Pembe de Kinshasa",
-    //   "province": "Kinshasa",
-    //   "categorie": ""
-    // },
-    {"nom": "LES AIGLES DU CONGO", "province": "Kinshasa", "categorie": ""},
-    //{"nom": "FC LUBUMBASHI SPORT", "province": "Mbuji-Mayi", "categorie": ""},
-  ].obs;
+  RxList equipes = [].obs;
   //
   RxString mot = "".obs;
 
@@ -69,9 +45,10 @@ class ListEquipe extends StatelessWidget {
           Expanded(
             flex: 1,
             child: ListView(
-              children: List.generate(equipes.length, (index) {
+              children:
+                  List.generate(RapportController.equipes.length, (index) {
                 //
-                Map equipe = equipes[index];
+                Map equipe = RapportController.equipes[index];
                 //
                 if ("${equipe['nom']}".contains(mot.value)) {
                   //

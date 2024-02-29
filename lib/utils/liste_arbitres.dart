@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
+import 'package:linafoot/pages/rapports/rapport_controller.dart';
 import 'package:svg_flutter/svg.dart';
 
 class ListArbitre extends StatelessWidget {
@@ -12,45 +13,6 @@ class ListArbitre extends StatelessWidget {
   String des;
   ListArbitre(this.des);
   //
-  RxList equipes = [
-    {
-      "nom": "Kalala Nzimbula Pierre",
-      "province": "Lubumbashi",
-      "league": "Kinshasa"
-    },
-    {
-      "nom": "Nzimbula Kalala André",
-      "province": "Lubumbashi",
-      "league": "Lubumbashi"
-    },
-    {
-      "nom": "Kalubi Nzimbula Annee",
-      "province": "Maniema",
-      "league": "Nord Kivu"
-    },
-    {"nom": "Nzita Lukasa Agé", "province": "Maniema", "league": "Sub Kivu"},
-    {
-      "nom": "Mokilo Mokamba Jack",
-      "province": "Nord Kiva",
-      "league": "Kisangani"
-    },
-    {
-      "nom": "Mokilo Nzimbula Arise",
-      "province": "Kinshasa",
-      "league": "Kongo Central"
-    },
-    {"nom": "Kalala Mbaka Arsene", "province": "Kinshasa", "league": "Kindu"},
-    {
-      "nom": "Mokamba Nzimbula Patou",
-      "province": "Kinshasa",
-      "league": "Equateur"
-    },
-    {
-      "nom": "Kalala Nzimbula Pierre",
-      "province": "Mbuji-Mayi",
-      "league": "Bandundu"
-    },
-  ].obs;
   //
   RxString mot = "".obs;
 
@@ -80,9 +42,10 @@ class ListArbitre extends StatelessWidget {
           Expanded(
             flex: 1,
             child: ListView(
-              children: List.generate(equipes.length, (index) {
+              children:
+                  List.generate(RapportController.commissaires.length, (index) {
                 //
-                Map equipe = equipes[index];
+                Map equipe = RapportController.commissaires[index];
                 //
                 if ("${equipe['nom']}".contains(mot.value)) {
                   //

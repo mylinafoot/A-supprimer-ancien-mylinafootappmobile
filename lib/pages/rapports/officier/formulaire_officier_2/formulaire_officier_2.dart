@@ -25,7 +25,7 @@ class FormulaireOffice2 extends StatelessWidget {
         Align(
           alignment: Alignment.topLeft,
           child: Text(
-            "Avertissements joueurs",
+            "Avertissements joueurs equipe A",
             style: textStyle,
           ),
         ),
@@ -42,7 +42,7 @@ class FormulaireOffice2 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Get.to(ActionMatch("Avertissements joueurs"));
+                  Get.to(ActionMatch("Avertissements joueurs", 1));
                 },
                 title: const Text("Ajouter"),
                 //carte.svg
@@ -58,10 +58,10 @@ class FormulaireOffice2 extends StatelessWidget {
               Obx(
                 () => Column(
                   children: List.generate(
-                    officierController.avertissementsJoueursGeneral.length,
+                    officierController.avertissementsJoueursGeneralA.length,
                     (index) {
                       Map infos = officierController
-                          .avertissementsJoueursGeneral[index];
+                          .avertissementsJoueursGeneralA[index];
                       return ListTile(
                         onTap: () {
                           //
@@ -73,7 +73,7 @@ class FormulaireOffice2 extends StatelessWidget {
                           semanticsLabel: 'carte.svg',
                           color: Colors.yellow.shade700,
                         ),
-                        title: Text("${infos['equipe']['nom']}"),
+                        title: Text("${officierController.equipeA['nom']}"),
                         subtitle: Text("${infos['joueur']['nom']}"),
                         trailing: IconButton(
                           icon: const Icon(
@@ -82,7 +82,7 @@ class FormulaireOffice2 extends StatelessWidget {
                           ),
                           onPressed: () {
                             //
-                            officierController.avertissementsJoueursGeneral
+                            officierController.avertissementsJoueursGeneralA
                                 .removeAt(index);
                           },
                         ),
@@ -101,7 +101,7 @@ class FormulaireOffice2 extends StatelessWidget {
         Align(
           alignment: Alignment.topLeft,
           child: Text(
-            "Expulsions joueurs",
+            "Expulsions joueurs equipe A",
             style: textStyle,
           ),
         ),
@@ -118,7 +118,7 @@ class FormulaireOffice2 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Get.to(ActionMatch("Expulsions joueurs"));
+                  Get.to(ActionMatch("Expulsions joueurs", 1));
                 },
                 title: const Text("Ajouter"),
                 trailing: SvgPicture.asset(
@@ -133,10 +133,10 @@ class FormulaireOffice2 extends StatelessWidget {
               Obx(
                 () => Column(
                   children: List.generate(
-                    officierController.expulssionsJoueursGeneral.length,
+                    officierController.expulssionsJoueursGeneralA.length,
                     (index) {
                       Map infos =
-                          officierController.expulssionsJoueursGeneral[index];
+                          officierController.expulssionsJoueursGeneralA[index];
                       return ListTile(
                         onTap: () {
                           //
@@ -148,7 +148,7 @@ class FormulaireOffice2 extends StatelessWidget {
                           semanticsLabel: 'carte.svg',
                           color: Colors.red.shade700,
                         ),
-                        title: Text("${infos['equipe']['nom']}"),
+                        title: Text("${officierController.equipeA['nom']}"),
                         subtitle: Text("${infos['joueur']['nom']}"),
                         trailing: IconButton(
                           icon: const Icon(
@@ -157,7 +157,7 @@ class FormulaireOffice2 extends StatelessWidget {
                           ),
                           onPressed: () {
                             //
-                            officierController.expulssionsJoueursGeneral
+                            officierController.expulssionsJoueursGeneralA
                                 .removeAt(index);
                           },
                         ),
@@ -176,7 +176,7 @@ class FormulaireOffice2 extends StatelessWidget {
         Align(
           alignment: Alignment.topLeft,
           child: Text(
-            "Buts joueurs",
+            "Buts joueurs equipe A",
             style: textStyle,
           ),
         ),
@@ -193,7 +193,7 @@ class FormulaireOffice2 extends StatelessWidget {
               ListTile(
                 onTap: () {
                   //
-                  Get.to(ActionMatch("Buts joueurs"));
+                  Get.to(ActionMatch("Buts joueurs", 1));
                 },
                 title: const Text("Ajouter"),
                 trailing: const Icon(Icons.add),
@@ -201,9 +201,9 @@ class FormulaireOffice2 extends StatelessWidget {
               Obx(
                 () => Column(
                   children: List.generate(
-                    officierController.butsJoueursGeneral.length,
+                    officierController.butsJoueursGeneralA.length,
                     (index) {
-                      Map infos = officierController.butsJoueursGeneral[index];
+                      Map infos = officierController.butsJoueursGeneralA[index];
                       return ListTile(
                         onTap: () {
                           //
@@ -215,7 +215,7 @@ class FormulaireOffice2 extends StatelessWidget {
                           color: Colors.blue,
                           semanticsLabel: 'IcBaselineSportsSoccer.svg',
                         ),
-                        title: Text("${infos['equipe']['nom']}"),
+                        title: Text("${officierController.equipeA['nom']}"),
                         subtitle: Text("${infos['joueur']['nom']}"),
                         trailing: IconButton(
                           icon: const Icon(
@@ -224,7 +224,7 @@ class FormulaireOffice2 extends StatelessWidget {
                           ),
                           onPressed: () {
                             //
-                            officierController.butsJoueursGeneral
+                            officierController.butsJoueursGeneralA
                                 .removeAt(index);
                             //
                           },
@@ -237,54 +237,226 @@ class FormulaireOffice2 extends StatelessWidget {
             ],
           ),
         ),
-        // const SizedBox(
-        //   height: 10,
-        // ),
-        // Align(
-        //   alignment: Alignment.topLeft,
-        //   child: Text(
-        //     "Arbitre protocolaire",
-        //     style: textStyle,
-        //   ),
-        // ),
-        // Container(
-        //   //height: 70,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(10),
-        //     border: Border.all(
-        //       color: Colors.grey.shade600,
-        //     ),
-        //   ),
-        //   child: Column(
-        //     children: [
-        //       ListTile(
-        //         onTap: () {
-        //           //
-        //         },
-        //         title: const Text("Ajouter"),
-        //         trailing: const Icon(Icons.add),
-        //       ),
-        //       ListTile(
-        //         onTap: () {
-        //           //
-        //         },
-        //         leading: SvgPicture.asset(
-        //           'assets/IcTwotoneSports.svg',
-        //           width: 25,
-        //           height: 25,
-        //           semanticsLabel: 'IcTwotoneSports.svg',
-        //         ),
-        //         title: const Text("TELESI KIBOMA PATRICK"),
-        //         subtitle: const Text("A3"),
-        //         trailing: const Icon(
-        //           Icons.delete,
-        //           color: Colors.red,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        // //
+        //_________________________________________________
+        const SizedBox(
+          height: 10,
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Avertissements joueurs equipe B",
+            style: textStyle,
+          ),
+        ),
+        Container(
+          //height: 70,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.grey.shade600,
+            ),
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                onTap: () {
+                  //
+                  Get.to(ActionMatch("Avertissements joueurs", 2));
+                },
+                title: const Text("Ajouter"),
+                //carte.svg
+                trailing: SvgPicture.asset(
+                  'assets/carte.svg',
+                  width: 30,
+                  height: 30,
+                  semanticsLabel: 'carte.svg',
+                  color: Colors.yellow.shade700,
+                ),
+                //const Icon(Icons.add),
+              ),
+              Obx(
+                () => Column(
+                  children: List.generate(
+                    officierController.avertissementsJoueursGeneralB.length,
+                    (index) {
+                      Map infos = officierController
+                          .avertissementsJoueursGeneralB[index];
+                      return ListTile(
+                        onTap: () {
+                          //
+                        },
+                        leading: SvgPicture.asset(
+                          'assets/carte.svg',
+                          width: 30,
+                          height: 30,
+                          semanticsLabel: 'carte.svg',
+                          color: Colors.yellow.shade700,
+                        ),
+                        title: Text("${officierController.equipeB['nom']}"),
+                        subtitle: Text("${infos['joueur']['nom']}"),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            //
+                            officierController.avertissementsJoueursGeneralB
+                                .removeAt(index);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        //
+        const SizedBox(
+          height: 10,
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Expulsions joueurs equipe B",
+            style: textStyle,
+          ),
+        ),
+        Container(
+          //height: 70,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.grey.shade600,
+            ),
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                onTap: () {
+                  //
+                  Get.to(ActionMatch("Expulsions joueurs", 2));
+                },
+                title: const Text("Ajouter"),
+                trailing: SvgPicture.asset(
+                  'assets/carte.svg',
+                  width: 30,
+                  height: 30,
+                  semanticsLabel: 'carte.svg',
+                  color: Colors.red.shade700,
+                ),
+                //const Icon(Icons.add),
+              ),
+              Obx(
+                () => Column(
+                  children: List.generate(
+                    officierController.expulssionsJoueursGeneralB.length,
+                    (index) {
+                      Map infos =
+                          officierController.expulssionsJoueursGeneralB[index];
+                      return ListTile(
+                        onTap: () {
+                          //
+                        },
+                        leading: SvgPicture.asset(
+                          'assets/carte.svg',
+                          width: 30,
+                          height: 30,
+                          semanticsLabel: 'carte.svg',
+                          color: Colors.red.shade700,
+                        ),
+                        title: Text("${officierController.equipeB['nom']}"),
+                        subtitle: Text("${infos['joueur']['nom']}"),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            //
+                            officierController.expulssionsJoueursGeneralB
+                                .removeAt(index);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        //
+        const SizedBox(
+          height: 10,
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Buts joueurs equipe B",
+            style: textStyle,
+          ),
+        ),
+        Container(
+          //height: 70,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.grey.shade600,
+            ),
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                onTap: () {
+                  //
+                  Get.to(ActionMatch("Buts joueurs", 2));
+                },
+                title: const Text("Ajouter"),
+                trailing: const Icon(Icons.add),
+              ),
+              Obx(
+                () => Column(
+                  children: List.generate(
+                    officierController.butsJoueursGeneralB.length,
+                    (index) {
+                      Map infos = officierController.butsJoueursGeneralB[index];
+                      return ListTile(
+                        onTap: () {
+                          //
+                        },
+                        leading: SvgPicture.asset(
+                          'assets/IcBaselineSportsSoccer.svg',
+                          width: 25,
+                          height: 25,
+                          color: Colors.blue,
+                          semanticsLabel: 'IcBaselineSportsSoccer.svg',
+                        ),
+                        title: Text("${officierController.equipeB['nom']}"),
+                        subtitle: Text("${infos['joueur']['nom']}"),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            //
+                            officierController.butsJoueursGeneralB
+                                .removeAt(index);
+                            //
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+
         const SizedBox(
           height: 20,
         ),

@@ -15,6 +15,8 @@ class Loader {
     );
   }
 
+  static const backgroundColor = Color.fromARGB(255, 134, 3, 3);
+
   static Widget loadingW() {
     return Center(
       child: Container(

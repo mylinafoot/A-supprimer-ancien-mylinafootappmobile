@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:linafoot/pages/accueil.dart';
 import 'package:linafoot/utils/requete.dart';
 
 class CommissaireController extends GetxController {
@@ -48,11 +49,18 @@ class CommissaireController extends GetxController {
   RxList butsJoueurs = [].obs;
   //__________________________________________________
   //*
-  RxList avertissementsJoueursGeneral = [].obs;
+  RxList avertissementsJoueursGeneralA = [].obs;
   //*
-  RxList expulssionsJoueursGeneral = [].obs;
+  RxList expulssionsJoueursGeneralA = [].obs;
   //*
-  RxList butsJoueursGeneral = [].obs;
+  RxList butsJoueursGeneralA = [].obs;
+  //__________________________________________________
+  //*
+  RxList avertissementsJoueursGeneralB = [].obs;
+  //*
+  RxList expulssionsJoueursGeneralB = [].obs;
+  //*
+  RxList butsJoueursGeneralB = [].obs;
   //__________________________________________________
   //*
   Rx<TextEditingController> nombreSpectateur =
@@ -71,6 +79,10 @@ class CommissaireController extends GetxController {
   RxInt etatInstallation = 1.obs;
   //*
   RxList etatsInstallationListe = [].obs;
+  //_____________________________________________________
+  RxMap scoreMitemps = {}.obs;
+  RxMap scoreFin = {}.obs;
+  //_____________________________________________________
   //*
   Rx<TextEditingController> incident =
       Rx<TextEditingController>(TextEditingController());
@@ -99,42 +111,34 @@ class CommissaireController extends GetxController {
   //*
   RxMap discipline = {}.obs;
   //
-
+  Rx<TextEditingController> commentaire =
+      Rx<TextEditingController>(TextEditingController());
+  //*
   RxList evaluationArbitreAssistant = [].obs;
-  //
+  //*
   RxList evaluationArbitreReserve = [].obs;
   //
   //RxList butsJoueursGeneral = [].obs;
   //
-  Future<Map> getOneCommissaire(String id) async {
+  //
+  Future<void> envoyerRapport(Map r) async {
     //
-    //
-    Response response = await requete.getE("commissaire/one?id=$id");
+    Response response = await requete.postE("rapport", r);
     //
     if (response.isOk) {
-      print("rep: ${response.body}");
+      print("Arbitre: ${response.body}");
       //
-      return response.body;
+      Get.offAll(Accueil());
+      //
+      Get.snackbar("Succès", "Rapport envoyé");
+      //
+      //return response.body;
     } else {
       //
-      print("rep: ${response.body}");
-      return {};
-    }
-  }
-
-  //
-  //
-  Future<Map> getOneArbitre(String id) async {
-    //
-    //
-    Response response = await requete.getE("arbitre/one?id=$id");
-    //
-    if (response.isOk) {
-      //
-      return response.body;
-    } else {
-      //
-      return {};
+      Get.snackbar("Erreur", "Rapport non envoyé, vérifier votre connexion",
+          backgroundColor: Colors.red);
+      print("Arbitre: ${response.body}");
+      //return [];
     }
   }
   //

@@ -22,9 +22,26 @@ class LoginController extends GetxController {
     print(
         "${Requete.url}/commissaire/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}"); //&profil=agent
     //
-    Response rep = await requete.getE(
-        "commissaire/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}"); //&profil=agent
-    if (rep.statusCode == 200 || rep.statusCode == 201) {
+    Response? rep;
+    //
+    if (i == 1) {
+      rep = await requete.getE(
+          "commissaire/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}&mdpCommissaire=${e['mdpCommissaire']}"); //&profil=agent
+      //
+    }
+    if (i == 2) {
+      rep = await requete.getE(
+          "arbitre/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}&mdpArbitreCentrale=${e['mdpArbitreCentrale']}"); //&profil=agent
+      //
+    }
+    if (i == 3) {
+      rep = await requete.getE(
+          "arbitre/loginofficier?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}&mdpOfficier=${e['mdpOfficier']}"); //&profil=agent
+      //
+    }
+
+    //
+    if (rep!.statusCode == 200 || rep.statusCode == 201) {
       //
       print(rep.statusCode);
       print(rep.body);

@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:linafoot/pages/live/live_controller.dart';
+import 'package:linafoot/utils/loader.dart';
 import 'direct2.dart';
 import 'direct.dart';
 
@@ -328,7 +329,7 @@ class Live extends GetView<LiveController> {
         "Dimanche ",
         "4/21/2024",
         "FC LUBUMBASHI SPORT ",
-        "AS VITA CLUB ",
+        "AS VITA CLUB",
         "Stade KIBASA MALIBA",
         "15h30'"
       ],
@@ -460,7 +461,7 @@ class Live extends GetView<LiveController> {
         "",
         "4/18/2024",
         "LES AIGLES DU CONGO",
-        "AS VITA CLUB ",
+        "AS VITA CLUB",
         "Tata Raphael ",
         "15h30'"
       ],
@@ -533,9 +534,11 @@ class Live extends GetView<LiveController> {
         right: false,
         bottom: false,
         child: Scaffold(
+          backgroundColor: Loader.backgroundColor,
           appBar: AppBar(
             title: const Text("Match en direct"),
             centerTitle: true,
+            backgroundColor: Loader.backgroundColor,
           ),
           body: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -571,12 +574,14 @@ class Live extends GetView<LiveController> {
                       //
                       return Card(
                         //color: Colors.white,
+                        color: Colors.black,
                         child: InkWell(
                           onTap: () {
                             //
                             Get.dialog(
                               Center(
                                 child: Card(
+                                  color: Colors.black,
                                   elevation: 1,
                                   child: Container(
                                     height: 250,

@@ -8,6 +8,7 @@ import 'package:linafoot/pages/login/login.dart';
 import 'package:linafoot/pages/nous.dart';
 import 'package:linafoot/pages/programme/programme.dart';
 import 'package:linafoot/pages/statistique/statistique.dart';
+import 'package:linafoot/utils/loader.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -56,14 +57,18 @@ class Accueil extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return Scaffold(
+      backgroundColor: Loader.backgroundColor,
       body: PersistentTabView(
         context,
         controller: _controller,
+
         screens: [
           Scaffold(
+            backgroundColor: Loader.backgroundColor,
             appBar: AppBar(
               title: const Text("Linafoot"),
               centerTitle: true,
+              backgroundColor: Loader.backgroundColor,
               actions: [
                 IconButton(
                   onPressed: () {
@@ -271,85 +276,93 @@ class Accueil extends StatelessWidget {
           Statistique(),
           Live(),
           Actualites(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ListTile(
-                onTap: () {
-                  //
-                  Get.to(Nous());
-                },
-                leading: Icon(Icons.person),
-                title: Text("Profil"),
-                subtitle: Text(
-                  "Compte",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.blue,
+          Container(
+            color: Loader.backgroundColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListTile(
+                  onTap: () {
+                    //
+                    Get.to(Nous());
+                  },
+                  leading: Icon(Icons.person),
+                  title: Text("Profil"),
+                  subtitle: Text(
+                    "Compte",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                onTap: () {
-                  //
-                  Get.to(Nous());
-                },
-                leading: Icon(Icons.history),
-                title: Text("Abonnement"),
-                subtitle: Text(
-                  "Direct et billets",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.blue,
+                ListTile(
+                  onTap: () {
+                    //
+                    Get.to(Nous());
+                  },
+                  leading: Icon(Icons.history),
+                  title: Text("Abonnement"),
+                  subtitle: Text(
+                    "Direct et billets",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                onTap: () {
-                  //
-                  Get.to(Nous());
-                },
-                leading: Icon(Icons.info_outline_rounded),
-                title: Text("Qui sommes nous"),
-                subtitle: Text(
-                  "Missions & objectifs",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.blue,
+                ListTile(
+                  onTap: () {
+                    //
+                    Get.to(Nous());
+                  },
+                  leading: Icon(Icons.info_outline_rounded),
+                  title: Text("Qui sommes nous"),
+                  subtitle: Text(
+                    "Missions & objectifs",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                onTap: () {
-                  //
-                  //Get.to(Login());
-                },
-                leading: Icon(Icons.verified_user_outlined),
-                title: Text("Mention légale"),
-                subtitle: Text(
-                  "condition d'utilisation",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.blue,
+                ListTile(
+                  onTap: () {
+                    //
+                    //Get.to(Login());
+                  },
+                  leading: Icon(Icons.verified_user_outlined),
+                  title: Text("Mention légale"),
+                  subtitle: Text(
+                    "condition d'utilisation",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                onTap: () {
-                  //
-                  Get.to(Rapport());
-                },
-                leading: Icon(Icons.admin_panel_settings),
-                title: Text("Administration"),
-                subtitle: Text(
-                  "Rapports",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.blue,
+                ListTile(
+                  onTap: () {
+                    //
+                    Get.to(Rapport());
+                  },
+                  leading: Icon(Icons.admin_panel_settings),
+                  title: Text("Administration"),
+                  subtitle: Text(
+                    "Rapports",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
         items: [

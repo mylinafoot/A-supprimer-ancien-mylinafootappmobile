@@ -22,17 +22,13 @@ class FormulaireOffice1 extends StatelessWidget {
   RxInt equipeAfin = 0.obs;
   RxInt equipeBfin = 0.obs;
   //
-  RxMap scoreMitemps = {}.obs;
-  RxMap scoreFin = {}.obs;
   //
   //
   List competitions = [
-    "Linafoot",
-    "Ecofin",
-    "Autre",
+    "Ligue 1",
+    "Ligue 2",
   ];
   //
-  RxInt competition = 0.obs;
   //
   RxString date = "".obs;
   RxString heure = "".obs;
@@ -78,7 +74,7 @@ class FormulaireOffice1 extends StatelessWidget {
         Align(
           alignment: Alignment.topLeft,
           child: Text(
-            "Competition°",
+            "Competition",
             style: textStyle,
           ),
         ),
@@ -90,21 +86,23 @@ class FormulaireOffice1 extends StatelessWidget {
               color: Colors.grey.shade600,
             ),
           ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-              padding: const EdgeInsets.only(left: 10),
-              value: competition.value,
-              onChanged: (e) {
-                //
-                competition.value = e as int;
-              },
-              items: List.generate(competitions.length, (index) {
-                //
-                return DropdownMenuItem(
-                  child: Text("${competitions[index]}"),
-                  value: index,
-                );
-              }),
+          child: Obx(
+            () => DropdownButtonHideUnderline(
+              child: DropdownButton(
+                padding: const EdgeInsets.only(left: 10),
+                value: officierController.competition.value,
+                onChanged: (e) {
+                  //
+                  officierController.competition.value = e as int;
+                },
+                items: List.generate(competitions.length, (index) {
+                  //
+                  return DropdownMenuItem(
+                    child: Text("${competitions[index]}"),
+                    value: index,
+                  );
+                }),
+              ),
             ),
           ),
         ),
@@ -250,6 +248,7 @@ class FormulaireOffice1 extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: officierController.jouea.value,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -344,7 +343,8 @@ class FormulaireOffice1 extends StatelessWidget {
                   ).then((d) {
                     if (d != null) {
                       //
-                      date.value = "${d.day}-${d.month}-${d.year}";
+                      officierController.date.value =
+                          "${d.day}-${d.month}-${d.year}";
                     }
                     //
                   });
@@ -353,7 +353,7 @@ class FormulaireOffice1 extends StatelessWidget {
                 trailing: const Icon(Icons.add),
               ),
               Obx(
-                () => date.value == ""
+                () => officierController.date.value == ""
                     ? Container()
                     : ListTile(
                         onTap: () {
@@ -363,8 +363,8 @@ class FormulaireOffice1 extends StatelessWidget {
                           Icons.calendar_month,
                           color: Colors.blue.shade700,
                         ),
-                        title: Text(date.value),
-                        subtitle: Text(date.value),
+                        title: Text(officierController.date.value),
+                        subtitle: Text(officierController.date.value),
                       ),
               ),
             ],
@@ -400,7 +400,7 @@ class FormulaireOffice1 extends StatelessWidget {
                   ).then((d) {
                     if (d != null) {
                       //
-                      heure.value = "${d.hour}:${d.minute}";
+                      officierController.heure.value = "${d.hour}:${d.minute}";
                     }
                     //
                   });
@@ -409,7 +409,7 @@ class FormulaireOffice1 extends StatelessWidget {
                 trailing: const Icon(Icons.add),
               ),
               Obx(
-                () => heure.value == ""
+                () => officierController.heure.value == ""
                     ? Container()
                     : ListTile(
                         onTap: () {
@@ -419,8 +419,8 @@ class FormulaireOffice1 extends StatelessWidget {
                           Icons.timelapse,
                           color: Colors.blue.shade700,
                         ),
-                        title: Text(heure.value),
-                        subtitle: Text(heure.value),
+                        title: Text(officierController.heure.value),
+                        subtitle: Text(officierController.heure.value),
                       ),
               ),
             ],
@@ -446,6 +446,8 @@ class FormulaireOffice1 extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: officierController.nombreSpectateur.value,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -506,12 +508,12 @@ class FormulaireOffice1 extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           //
-                          scoreMitemps['a'] = scoreA.text;
-                          scoreMitemps['b'] = scoreB.text;
+                          officierController.scoreMitemps['a'] = scoreA.text;
+                          officierController.scoreMitemps['b'] = scoreB.text;
                           //
                           Get.back();
                           //
-                          print("scoreMitemps : $scoreMitemps");
+                          //print("scoreMitemps : $scoreMitemps");
                           //
                         },
                         child: Text("Enregistrer"),
@@ -552,7 +554,7 @@ class FormulaireOffice1 extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "${scoreMitemps['a'] ?? '0'}",
+                          "${officierController.scoreMitemps['a'] ?? '0'}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -575,7 +577,7 @@ class FormulaireOffice1 extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          "${scoreMitemps['b'] ?? '0'} ",
+                          "${officierController.scoreMitemps['b'] ?? '0'} ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -655,8 +657,8 @@ class FormulaireOffice1 extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           //
-                          scoreFin['a'] = scoreA.text;
-                          scoreFin['b'] = scoreB.text;
+                          officierController.scoreFin['a'] = scoreA.text;
+                          officierController.scoreFin['b'] = scoreB.text;
                           //
                           Get.back();
                           //
@@ -699,7 +701,7 @@ class FormulaireOffice1 extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "${scoreFin['a'] ?? '0'}",
+                          "${officierController.scoreFin['a'] ?? '0'}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -722,7 +724,7 @@ class FormulaireOffice1 extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          "${scoreFin['b'] ?? '0'} ",
+                          "${officierController.scoreFin['b'] ?? '0'} ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -799,13 +801,13 @@ class FormulaireOffice1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreCentral['league']}")
+                                "${officierController.arbitreCentral['region']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -874,13 +876,13 @@ class FormulaireOffice1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreCentral['league']}")
+                                "${officierController.arbitreCentral['region']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -950,13 +952,13 @@ class FormulaireOffice1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreAssistant1['league']}"),
+                                "${officierController.arbitreAssistant1['region']}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -1026,13 +1028,13 @@ class FormulaireOffice1 extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "League: ",
+                                "Region: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${officierController.arbitreAssistant2['league']}"),
+                                  "${officierController.arbitreAssistant2['region']}"),
                             ]),
                         trailing: IconButton(
                           icon: Icon(
@@ -1082,7 +1084,7 @@ class FormulaireOffice1 extends StatelessWidget {
                 trailing: const Icon(Icons.add),
               ),
               Obx(
-                () => officierController.arbitreReserve['nom'] != null
+                () => officierController.arbitreProtocolaire['nom'] != null
                     ? ListTile(
                         onTap: () {
                           //
@@ -1094,19 +1096,19 @@ class FormulaireOffice1 extends StatelessWidget {
                           color: Colors.blue,
                           semanticsLabel: 'IcTwotoneSports.svg',
                         ),
-                        title:
-                            Text("${officierController.arbitreReserve['nom']}"),
+                        title: Text(
+                            "${officierController.arbitreProtocolaire['nom']}"),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreReserve['league']}"),
+                                "${officierController.arbitreProtocolaire['region']}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -1116,7 +1118,7 @@ class FormulaireOffice1 extends StatelessWidget {
                           ),
                           onPressed: () {
                             //
-                            officierController.arbitreReserve.value = {};
+                            officierController.arbitreProtocolaire.value = {};
                             //
                           },
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
+import 'package:linafoot/pages/rapports/officier/officier_controller.dart';
 
 import 'remplacement.dart';
 
@@ -8,7 +9,7 @@ class FormulaireOffice3 extends StatelessWidget {
   //
   PageController controller;
   //
-  ArbitreController arbitreController = Get.find();
+  OfficierController officierController = Get.find();
   //
   FormulaireOffice3(this.controller);
   //
@@ -50,7 +51,7 @@ class FormulaireOffice3 extends StatelessWidget {
               Obx(
                 () => Column(
                   children: List.generate(
-                    arbitreController.joueurRemplacantA.length,
+                    officierController.joueurRemplacantA.length,
                     (i) {
                       return Card(
                         child: Column(
@@ -65,9 +66,9 @@ class FormulaireOffice3 extends StatelessWidget {
                                 color: Colors.blue,
                               ),
                               title: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['entrant']['nom']}"),
+                                  "${officierController.joueurRemplacantA[i]['entrant']['nom']}"),
                               subtitle: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['sortant']['nom']}\nMin: ${arbitreController.joueurRemplacantA[i]['minute']}"),
+                                  "${officierController.joueurRemplacantA[i]['entrant']['numero']}"),
                               trailing: IconButton(
                                 icon: Icon(
                                   Icons.delete,
@@ -75,7 +76,7 @@ class FormulaireOffice3 extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   //
-                                  arbitreController.joueurRemplacantA
+                                  officierController.joueurRemplacantA
                                       .removeAt(i);
                                   //
                                 },
@@ -90,9 +91,9 @@ class FormulaireOffice3 extends StatelessWidget {
                                 color: Colors.blue,
                               ),
                               title: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['sortant']['nom']}"),
+                                  "${officierController.joueurRemplacantA[i]['sortant']['nom']}"),
                               subtitle: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['sortant']['equipe']}"),
+                                  "${officierController.joueurRemplacantA[i]['sortant']['numero']}"),
                               trailing: IconButton(
                                 icon: Icon(
                                   Icons.delete,
@@ -100,7 +101,7 @@ class FormulaireOffice3 extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   //
-                                  arbitreController.joueurRemplacantA
+                                  officierController.joueurRemplacantA
                                       .removeAt(i);
                                   //
                                 },
@@ -110,7 +111,7 @@ class FormulaireOffice3 extends StatelessWidget {
                               leading: Icon(Icons.timelapse),
                               title: Text("Minute:"),
                               subtitle: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['minute']}"),
+                                  "${officierController.joueurRemplacantA[i]['minute']}"),
                             )
                           ],
                         ),

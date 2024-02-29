@@ -21,6 +21,8 @@ class _Direct extends State<Direct> {
   );
   //
   //https://youtube.com/live/Z68wBvGn2c8?feature=share
+  //https://youtube.com/live/Rzs5eiFftoM?feature=share
+  //https://youtube.com/live/EtdbAbrHIik?feature=share
   //
 
   @override
@@ -32,7 +34,7 @@ class _Direct extends State<Direct> {
         "https://youtube.com/live/Z68wBvGn2c8?feature=share");
     //
     _controller = YoutubePlayerController(
-      initialVideoId: 'Z68wBvGn2c8',
+      initialVideoId: 'EtdbAbrHIik',
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: true,

@@ -11,9 +11,11 @@ import 'package:svg_flutter/svg_flutter.dart';
 
 class ActionMatch extends StatelessWidget {
   //
+  int equipe;
+  //
   OfficierController officierController = Get.find();
   //
-  TextEditingController licence = TextEditingController();
+  TextEditingController numero = TextEditingController();
   //
   TextEditingController minute = TextEditingController();
   //
@@ -26,7 +28,9 @@ class ActionMatch extends StatelessWidget {
   RxInt raisonMotif = 1.obs;
   //
   String action;
-  ActionMatch(this.action) {
+  ActionMatch(this.action, this.equipe) {
+    //
+
     //
     if ("Avertissements joueurs" == action) {
       etats = [
@@ -101,16 +105,16 @@ class ActionMatch extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      onTap: () {
-                        //
-                        Recherche.affiche(ListEquipe("Equipe"), context);
-                      },
-                      title: const Text("Ajouter"),
-                      trailing: const Icon(Icons.add),
-                    ),
+                    // ListTile(
+                    //   onTap: () {
+                    //     //
+                    //     Recherche.affiche(ListEquipe("Equipe"), context);
+                    //   },
+                    //   title: const Text("Ajouter"),
+                    //   trailing: const Icon(Icons.add),
+                    // ),
                     Obx(
-                      () => officierController.equipe['nom'] != null
+                      () => equipe == 1
                           ? ListTile(
                               onTap: () {
                                 //
@@ -123,21 +127,46 @@ class ActionMatch extends StatelessWidget {
                                 semanticsLabel: 'GalaPortrait1.svg',
                               ),
                               title:
-                                  Text("${officierController.equipe['nom']}"),
+                                  Text("${officierController.equipeA['nom']}"),
                               subtitle: Text(
-                                  "${officierController.equipe['province']}"),
-                              trailing: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                                onPressed: () {
-                                  //
-                                  officierController.equipe.value = {};
-                                },
-                              ),
+                                  "${officierController.equipeA['province']}"),
+                              // trailing: IconButton(
+                              //   icon: Icon(
+                              //     Icons.delete,
+                              //     color: Colors.red,
+                              //   ),
+                              //   onPressed: () {
+                              //     //
+                              //     officierController.equipe.value = {};
+                              //   },
+                              // ),
                             )
-                          : Container(),
+                          : ListTile(
+                              onTap: () {
+                                //
+                              },
+                              leading: SvgPicture.asset(
+                                'assets/IcBaselineSportsSoccer.svg',
+                                width: 25,
+                                height: 25,
+                                color: Colors.blue,
+                                semanticsLabel: 'GalaPortrait1.svg',
+                              ),
+                              title:
+                                  Text("${officierController.equipeB['nom']}"),
+                              subtitle: Text(
+                                  "${officierController.equipeB['province']}"),
+                              // trailing: IconButton(
+                              //   icon: Icon(
+                              //     Icons.delete,
+                              //     color: Colors.red,
+                              //   ),
+                              //   onPressed: () {
+                              //     //
+                              //     officierController.equipe.value = {};
+                              //   },
+                              // ),
+                            ),
                     ),
                   ],
                 ),
@@ -145,23 +174,23 @@ class ActionMatch extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Licence ",
-                  style: textStyle,
-                ),
-              ),
-              TextField(
-                controller: licence,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              //
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text(
+              //     "Numéro ",
+              //     style: textStyle,
+              //   ),
+              // ),
+              // TextField(
+              //   controller: numero,
+              //   keyboardType: TextInputType.number,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              // ),
+              // //
               const SizedBox(
                 height: 10,
               ),
@@ -185,7 +214,7 @@ class ActionMatch extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         //
-                        Recherche.affiche(ListJoueurs(action), context);
+                        Recherche.affiche(ListJoueurs(action, equipe), context);
                         //
                       },
                       title: const Text("Ajouter"),
@@ -212,7 +241,7 @@ class ActionMatch extends StatelessWidget {
                                       semanticsLabel: 'MakiSoccer11.svg',
                                     ),
                                     title: Text("${joueur['nom']}"),
-                                    subtitle: Text("${joueur['categorie']}"),
+                                    subtitle: Text("${joueur['numero']}"),
                                     trailing: IconButton(
                                       icon: Icon(
                                         Icons.delete,
@@ -463,7 +492,7 @@ class ActionMatch extends StatelessWidget {
                   Map infos = {
                     "type": action,
                     "equipe": officierController.equipe.value,
-                    "licence": licence.text,
+                    "numero": numero.text,
                     "joueur": joueur,
                     "minute": minute.text,
                     "note": note.text,
@@ -474,22 +503,37 @@ class ActionMatch extends StatelessWidget {
                       "Expulsions joueurs" == action) {
                     infos['note'] = etats[raisonMotif.value];
                   } else {
-                    infos['note'] =
-                        ["Auto but", "Penalité", "Classique"][typeBut.value];
+                    infos['note'] = [
+                      "Auto but",
+                      "Penalité",
+                      "Classique"
+                    ][typeBut.value - 1];
                   }
                   //
-                  "Avertissements joueurs" == action
-                      ? officierController.avertissementsJoueursGeneral
-                          .add(infos)
-                      : "Expulsions joueurs" == action
-                          ? officierController.expulssionsJoueursGeneral
-                              .add(infos)
-                          : officierController.butsJoueursGeneral.add(infos);
+                  if (equipe == 1) {
+                    //
+                    "Avertissements joueurs" == action
+                        ? officierController.avertissementsJoueursGeneralA
+                            .add(infos)
+                        : "Expulsions joueurs" == action
+                            ? officierController.expulssionsJoueursGeneralA
+                                .add(infos)
+                            : officierController.butsJoueursGeneralA.add(infos);
+                  } else {
+                    //
+                    "Avertissements joueurs" == action
+                        ? officierController.avertissementsJoueursGeneralB
+                            .add(infos)
+                        : "Expulsions joueurs" == action
+                            ? officierController.expulssionsJoueursGeneralB
+                                .add(infos)
+                            : officierController.butsJoueursGeneralB.add(infos);
+                  }
                   //
                   officierController.equipe.value = {};
-                  //officierController.avertissementsJoueurs.value = [];
-                  //officierController.expulssionsJoueursGeneral.value = [];
-                  //officierController.butsJoueursGeneral.value = [];
+                  officierController.avertissementsJoueurs.value = [];
+                  officierController.expulssionsJoueurs.value = [];
+                  officierController.butsJoueurs.value = [];
                   //
                   Get.back();
                   //

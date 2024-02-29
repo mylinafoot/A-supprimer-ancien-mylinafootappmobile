@@ -71,16 +71,16 @@ class Evaluation extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      onTap: () {
-                        //
-                        Recherche.affiche(
-                            ListArbitre("Arbitre assistant 1"), context);
-                        //
-                      },
-                      title: const Text("Ajouter"),
-                      trailing: const Icon(Icons.add),
-                    ),
+                    // ListTile(
+                    //   onTap: () {
+                    //     //
+                    //     Recherche.affiche(
+                    //         ListArbitre("Arbitre assistant 1"), context);
+                    //     //
+                    //   },
+                    //   title: const Text("Ajouter"),
+                    //   trailing: const Icon(Icons.add),
+                    // ),
                     Obx(
                       () =>
                           commissaireController.arbitreAssistant1['nom'] != null
@@ -101,27 +101,27 @@ class Evaluation extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "League: ",
+                                        "Region: ",
                                         style: TextStyle(
                                           color: Colors.blue,
                                         ),
                                       ),
                                       Text(
-                                          "${commissaireController.arbitreAssistant1['league']}"),
+                                          "${commissaireController.arbitreAssistant1['region']}"),
                                     ],
                                   ),
-                                  trailing: IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      //
-                                      commissaireController
-                                          .arbitreAssistant1.value = {};
-                                      //
-                                    },
-                                  ),
+                                  // trailing: IconButton(
+                                  //   icon: Icon(
+                                  //     Icons.delete,
+                                  //     color: Colors.red,
+                                  //   ),
+                                  //   onPressed: () {
+                                  //     //
+                                  //     commissaireController
+                                  //         .arbitreAssistant1.value = {};
+                                  //     //
+                                  //   },
+                                  // ),
                                 )
                               : Container(),
                     ),

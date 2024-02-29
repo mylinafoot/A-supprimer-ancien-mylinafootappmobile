@@ -83,7 +83,7 @@ class FormulaireArb6 extends StatelessWidget {
                         onTap: () {
                           //
                         },
-                        leading: Icon(
+                        leading: const Icon(
                           Icons.person,
                           color: Colors.blue,
                         ),
@@ -92,7 +92,7 @@ class FormulaireArb6 extends StatelessWidget {
                         subtitle: Text(
                             "${arbitreController.officierEquipeA[i]['fonction']}"),
                         trailing: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete,
                             color: Colors.red,
                           ),

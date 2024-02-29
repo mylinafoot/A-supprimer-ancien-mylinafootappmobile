@@ -289,7 +289,8 @@ class FormulaireCom3 extends StatelessWidget {
                         trailing: IconButton(
                           onPressed: () {
                             //
-                            etatsTerrainListe.removeAt(index);
+                            commissaireController.etatsTerrainListe
+                                .removeAt(index);
                           },
                           icon: const Icon(
                             Icons.delete,
@@ -374,7 +375,8 @@ class FormulaireCom3 extends StatelessWidget {
                         trailing: IconButton(
                           onPressed: () {
                             //
-                            etatsInstallationListe.removeAt(index);
+                            commissaireController.etatsInstallationListe
+                                .removeAt(index);
                           },
                           icon: const Icon(
                             Icons.delete,

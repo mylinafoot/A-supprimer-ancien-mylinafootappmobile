@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linafoot/utils/loader.dart';
 
 import '../actus/actus.dart';
 import 'butteurs/butteurs.dart';
@@ -24,10 +25,11 @@ class Statistique extends StatelessWidget {
       //   ),
       // ),
       child: DefaultTabController(
-        length: 5,
+        length: 4,
         child: Padding(
           padding: const EdgeInsets.only(top: 35),
           child: Scaffold(
+            backgroundColor: Loader.backgroundColor,
             body: Column(
               children: [
                 Align(
@@ -44,10 +46,7 @@ class Statistique extends StatelessWidget {
                         text: "Equipes",
                       ),
                       Tab(
-                        text: "Butteurs",
-                      ),
-                      Tab(
-                        text: "Passeurs",
+                        text: "Butteurs & Passeurs",
                       ),
                       Tab(
                         text: "Cartons",
@@ -64,7 +63,6 @@ class Statistique extends StatelessWidget {
                     children: [
                       Classement(),
                       Butteurs(),
-                      Container(),
                       Container(),
                       Container(),
                     ],

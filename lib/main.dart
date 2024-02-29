@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
+import 'package:linafoot/utils/paiement_controller.dart';
 import 'pages/accueil.dart';
 import 'pages/historique/historique_controller.dart';
 import 'pages/live/live_controller.dart';
@@ -10,6 +12,7 @@ import 'pages/programme/programme_controller.dart';
 import 'pages/rapports/arbitre/arbitre_controller.dart';
 import 'pages/rapports/officier/officier_controller.dart';
 import 'pages/splash.dart';
+import 'utils/paiement.dart';
 
 void main() async {
   //
@@ -27,6 +30,11 @@ void main() async {
   ArbitreController arbitreController = Get.put(ArbitreController());
   //
   OfficierController officierController = Get.put(OfficierController());
+  //
+  PaiementController paiementController = Get.put(PaiementController());
+  //
+  //
+  await GetStorage.init();
   //
   runApp(const MyApp());
 }
@@ -51,9 +59,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         //cardColor: Colors.white,
       ),
-      home: Login(1),
-      //Splash()
-      //Accueil(),
+      home:
+          //Paiement()
+          //Login(3),
+          //Splash()
+          Accueil(),
     );
   }
 }

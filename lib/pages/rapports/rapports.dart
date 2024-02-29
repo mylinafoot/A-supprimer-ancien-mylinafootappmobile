@@ -47,7 +47,15 @@ class Rapport extends StatelessWidget {
           ListTile(
             onTap: () {
               //
+              //Get.to(Login(3));
+              //Get.to(HarbitreRapport());
+              //}
+              //if (i == 3) {
+              //Get.to(Profile(e, 3));
+              //Get.to(OfficierRapport());
+              //
               Get.to(Login(3));
+              //
             },
             leading: Icon(Icons.person),
             title: Text("Quatrième arbitre"),

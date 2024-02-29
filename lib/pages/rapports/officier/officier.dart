@@ -9,7 +9,9 @@ class OfficierRapport extends StatelessWidget {
   //
   Map match;
   //
-  OfficierRapport(this.match);
+  int local;
+  //
+  OfficierRapport(this.match, this.local);
   //
   PageController controller = PageController();
   //
@@ -33,7 +35,7 @@ class OfficierRapport extends StatelessWidget {
               FormulaireOffice1(controller),
               FormulaireOffice2(controller),
               FormulaireOffice3(controller),
-              FormulaireOffice4(controller),
+              FormulaireOffice4(controller, match, local),
             ],
           ),
         ),

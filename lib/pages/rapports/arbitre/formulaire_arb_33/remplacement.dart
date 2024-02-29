@@ -46,7 +46,9 @@ class Remplacement extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     //
-                    Recherche.affiche(ListJoueurs("entrant"), context);
+                    Recherche.affiche(
+                        ListJoueurs("entrant", "Equipe A" == equipe ? 1 : 2),
+                        context);
                     //
                   },
                   title: const Text("Ajouter"),
@@ -71,13 +73,13 @@ class Remplacement extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Equipe: ",
+                                "Numero: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${arbitreController.joueurRemplacantEntrant['equipe']}")
+                                  "${arbitreController.joueurRemplacantEntrant['numero']}")
                             ],
                           ),
                           trailing: IconButton(
@@ -122,7 +124,9 @@ class Remplacement extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     //
-                    Recherche.affiche(ListJoueurs("sortant"), context);
+                    Recherche.affiche(
+                        ListJoueurs("sortant", "Equipe A" == equipe ? 1 : 2),
+                        context);
                     //
                   },
                   title: const Text("Ajouter"),
@@ -147,13 +151,13 @@ class Remplacement extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Equipe: ",
+                                "Numero: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${arbitreController.joueurRemplacantSortant['equipe']}")
+                                  "${arbitreController.joueurRemplacantSortant['numero']}")
                             ],
                           ),
                           trailing: IconButton(
@@ -223,6 +227,11 @@ class Remplacement extends StatelessWidget {
                   "minute": minute.text,
                 });
               }
+              //
+              //
+              arbitreController.joueurRemplacantEntrant.clear();
+              arbitreController.joueurRemplacantSortant.clear();
+              //
               Get.back();
             },
             child: Text("Ajouter"),

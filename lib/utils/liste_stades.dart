@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
+import 'package:linafoot/pages/rapports/officier/officier_controller.dart';
 import 'package:svg_flutter/svg.dart';
 
 class ListStades extends StatelessWidget {
@@ -10,6 +11,7 @@ class ListStades extends StatelessWidget {
   //
   CommissaireController commissaireController = Get.find();
   ArbitreController arbitreController = Get.find();
+  OfficierController officierController = Get.find();
   //
   /**
    * 1. Tata Raphaël 
@@ -73,6 +75,7 @@ class ListStades extends StatelessWidget {
                       //
                       commissaireController.stade.value = equipe;
                       arbitreController.stade.value = equipe;
+                      officierController.stade.value = equipe;
                       Get.back();
                       // if (des == "Equipe A") {}
                       // //

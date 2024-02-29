@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:linafoot/pages/accueil.dart';
 import 'package:linafoot/utils/requete.dart';
 
 class OfficierController extends GetxController {
@@ -8,13 +10,24 @@ class OfficierController extends GetxController {
   //
   var box = GetStorage();
   //
-  RxMap equipe = {}.obs;
+  Rx<TextEditingController> nMatch =
+      Rx<TextEditingController>(TextEditingController());
+  //
+  Rx<TextEditingController> jouea =
+      Rx<TextEditingController>(TextEditingController());
   //
   RxMap stade = {}.obs;
+  //
+  RxInt competition = 0.obs;
+  //
+  RxMap equipe = {}.obs;
   //
   RxMap equipeA = {}.obs;
   //
   RxMap equipeB = {}.obs;
+  //
+  RxList arbitres = [].obs;
+  RxList commissaires = [].obs;
   //
   RxMap lieu = {}.obs;
   //
@@ -27,6 +40,7 @@ class OfficierController extends GetxController {
   RxMap arbitreAssistant1 = {}.obs;
   //
   RxMap arbitreAssistant2 = {}.obs;
+  RxMap arbitreProtocolaire = {}.obs;
   //
   RxMap arbitreAssistantEvaluation1 = {}.obs;
   //
@@ -35,6 +49,17 @@ class OfficierController extends GetxController {
   RxMap arbitreReserve = {}.obs;
   //
   RxList avertissementsJoueurs = [].obs;
+  //
+  RxMap scoreMitemps = {}.obs;
+  //
+  RxMap scoreFin = {}.obs;
+  //
+  RxString date = "".obs;
+  //
+  RxString heure = "".obs;
+  //
+  Rx<TextEditingController> nombreSpectateur =
+      Rx<TextEditingController>(TextEditingController());
   //
   RxList officierEquipeA = [].obs;
   RxList officierEquipeB = [].obs;
@@ -45,15 +70,49 @@ class OfficierController extends GetxController {
   //
   RxList butsJoueurs = [].obs;
   //__________________________________________________
-  RxList avertissementsJoueursGeneral = [].obs;
+  RxMap joueurRemplacantEntrant = {}.obs;
+  RxMap joueurRemplacantSortant = {}.obs;
+  //__________________________________________________
+  RxList avertissementsJoueursGeneralA = [].obs;
   //
-  RxList expulssionsJoueursGeneral = [].obs;
+  RxList joueurRemplacantA = [].obs;
   //
-  RxList butsJoueursGeneral = [].obs;
+  RxList joueurRemplacantB = [].obs;
+  //
+  RxList expulssionsJoueursGeneralA = [].obs;
+  //
+  RxList butsJoueursGeneralA = [].obs;
+  //__________________________________________________
+  RxList avertissementsJoueursGeneralB = [].obs;
+  //
+  RxList expulssionsJoueursGeneralB = [].obs;
+  //
+  RxList butsJoueursGeneralB = [].obs;
   //__________________________________________________
   RxList evaluationArbitreAssistant = [].obs;
   //
   RxList evaluationArbitreReserve = [].obs;
   //
+  //
+  Future<void> envoyerRapport(Map r) async {
+    //
+    Response response = await requete.postE("rapport", r);
+    //
+    if (response.isOk) {
+      print("Arbitre: ${response.body}");
+      //
+      Get.offAll(Accueil());
+      //
+      Get.snackbar("Succès", "Rapport envoyé");
+      //
+      //return response.body;
+    } else {
+      //
+      Get.snackbar("Erreur", "Rapport non envoyé, vérifier votre connexion",
+          backgroundColor: Colors.red);
+      print("Arbitre: ${response.body}");
+      //return [];
+    }
+  }
   //RxList butsJoueursGeneral = [].obs;
 }

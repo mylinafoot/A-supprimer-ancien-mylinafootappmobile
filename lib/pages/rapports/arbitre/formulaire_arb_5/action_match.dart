@@ -11,9 +11,11 @@ import 'package:svg_flutter/svg_flutter.dart';
 
 class ActionMatch extends StatelessWidget {
   //
+  int equipe;
+  //
   ArbitreController arbitreController = Get.find();
   //
-  TextEditingController licence = TextEditingController();
+  TextEditingController numero = TextEditingController();
   //
   TextEditingController minute = TextEditingController();
   //
@@ -26,7 +28,9 @@ class ActionMatch extends StatelessWidget {
   RxInt raisonMotif = 1.obs;
   //
   String action;
-  ActionMatch(this.action) {
+  ActionMatch(this.action, this.equipe) {
+    //
+
     //
     if ("Avertissements joueurs" == action) {
       etats = [
@@ -101,16 +105,16 @@ class ActionMatch extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      onTap: () {
-                        //
-                        Recherche.affiche(ListEquipe("Equipe"), context);
-                      },
-                      title: const Text("Ajouter"),
-                      trailing: const Icon(Icons.add),
-                    ),
+                    // ListTile(
+                    //   onTap: () {
+                    //     //
+                    //     Recherche.affiche(ListEquipe("Equipe"), context);
+                    //   },
+                    //   title: const Text("Ajouter"),
+                    //   trailing: const Icon(Icons.add),
+                    // ),
                     Obx(
-                      () => arbitreController.equipe['nom'] != null
+                      () => equipe == 1
                           ? ListTile(
                               onTap: () {
                                 //
@@ -122,21 +126,47 @@ class ActionMatch extends StatelessWidget {
                                 color: Colors.blue,
                                 semanticsLabel: 'GalaPortrait1.svg',
                               ),
-                              title: Text("${arbitreController.equipe['nom']}"),
+                              title:
+                                  Text("${arbitreController.equipeA['nom']}"),
                               subtitle: Text(
-                                  "${arbitreController.equipe['province']}"),
-                              trailing: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                                onPressed: () {
-                                  //
-                                  arbitreController.equipe.value = {};
-                                },
-                              ),
+                                  "${arbitreController.equipeA['province']}"),
+                              // trailing: IconButton(
+                              //   icon: Icon(
+                              //     Icons.delete,
+                              //     color: Colors.red,
+                              //   ),
+                              //   onPressed: () {
+                              //     //
+                              //     arbitreController.equipe.value = {};
+                              //   },
+                              // ),
                             )
-                          : Container(),
+                          : ListTile(
+                              onTap: () {
+                                //
+                              },
+                              leading: SvgPicture.asset(
+                                'assets/IcBaselineSportsSoccer.svg',
+                                width: 25,
+                                height: 25,
+                                color: Colors.blue,
+                                semanticsLabel: 'GalaPortrait1.svg',
+                              ),
+                              title:
+                                  Text("${arbitreController.equipeB['nom']}"),
+                              subtitle: Text(
+                                  "${arbitreController.equipeB['province']}"),
+                              // trailing: IconButton(
+                              //   icon: Icon(
+                              //     Icons.delete,
+                              //     color: Colors.red,
+                              //   ),
+                              //   onPressed: () {
+                              //     //
+                              //     arbitreController.equipe.value = {};
+                              //   },
+                              // ),
+                            ),
                     ),
                   ],
                 ),
@@ -144,23 +174,23 @@ class ActionMatch extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Licence ",
-                  style: textStyle,
-                ),
-              ),
-              TextField(
-                controller: licence,
-                //keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              //
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text(
+              //     "Numéro ",
+              //     style: textStyle,
+              //   ),
+              // ),
+              // TextField(
+              //   controller: numero,
+              //   keyboardType: TextInputType.number,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              // ),
+              // //
               const SizedBox(
                 height: 10,
               ),
@@ -184,7 +214,7 @@ class ActionMatch extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         //
-                        Recherche.affiche(ListJoueurs(action), context);
+                        Recherche.affiche(ListJoueurs(action, equipe), context);
                         //
                       },
                       title: const Text("Ajouter"),
@@ -211,7 +241,7 @@ class ActionMatch extends StatelessWidget {
                                       semanticsLabel: 'MakiSoccer11.svg',
                                     ),
                                     title: Text("${joueur['nom']}"),
-                                    subtitle: Text("${joueur['categorie']}"),
+                                    subtitle: Text("${joueur['numero']}"),
                                     trailing: IconButton(
                                       icon: Icon(
                                         Icons.delete,
@@ -250,8 +280,7 @@ class ActionMatch extends StatelessWidget {
                                           semanticsLabel: 'MakiSoccer11.svg',
                                         ),
                                         title: Text("${joueur['nom']}"),
-                                        subtitle:
-                                            Text("${joueur['categorie']}"),
+                                        subtitle: Text("${joueur['numero']}"),
                                         trailing: IconButton(
                                           icon: Icon(
                                             Icons.delete,
@@ -290,8 +319,7 @@ class ActionMatch extends StatelessWidget {
                                           semanticsLabel: 'MakiSoccer11.svg',
                                         ),
                                         title: Text("${joueur['nom']}"),
-                                        subtitle:
-                                            Text("${joueur['categorie']}"),
+                                        subtitle: Text("${joueur['numero']}"),
                                         trailing: IconButton(
                                           icon: Icon(
                                             Icons.delete,
@@ -461,7 +489,7 @@ class ActionMatch extends StatelessWidget {
                   Map infos = {
                     "type": action,
                     "equipe": arbitreController.equipe.value,
-                    "licence": licence.text,
+                    "numero": numero.text,
                     "joueur": joueur,
                     "minute": minute.text,
                     "note": note.text,
@@ -472,22 +500,36 @@ class ActionMatch extends StatelessWidget {
                       "Expulsions joueurs" == action) {
                     infos['note'] = etats[raisonMotif.value];
                   } else {
-                    infos['note'] =
-                        ["Auto but", "Penalité", "Classique"][typeBut.value];
+                    infos['note'] = [
+                      "Auto but",
+                      "Penalité",
+                      "Classique"
+                    ][typeBut.value - 1];
+                  }
+                  if (equipe == 1) {
+                    //
+                    "Avertissements joueurs" == action
+                        ? arbitreController.avertissementsJoueursGeneralA
+                            .add(infos)
+                        : "Expulsions joueurs" == action
+                            ? arbitreController.expulssionsJoueursGeneralA
+                                .add(infos)
+                            : arbitreController.butsJoueursGeneralA.add(infos);
+                  } else {
+                    //
+                    "Avertissements joueurs" == action
+                        ? arbitreController.avertissementsJoueursGeneralB
+                            .add(infos)
+                        : "Expulsions joueurs" == action
+                            ? arbitreController.expulssionsJoueursGeneralB
+                                .add(infos)
+                            : arbitreController.butsJoueursGeneralB.add(infos);
                   }
                   //
-                  "Avertissements joueurs" == action
-                      ? arbitreController.avertissementsJoueursGeneral
-                          .add(infos)
-                      : "Expulsions joueurs" == action
-                          ? arbitreController.expulssionsJoueursGeneral
-                              .add(infos)
-                          : arbitreController.butsJoueursGeneral.add(infos);
-                  //
                   arbitreController.equipe.value = {};
-                  //arbitreController.avertissementsJoueurs.value = [];
-                  //arbitreController.expulssionsJoueursGeneral.value = [];
-                  //arbitreController.butsJoueursGeneral.value = [];
+                  arbitreController.avertissementsJoueurs.value = [];
+                  arbitreController.expulssionsJoueurs.value = [];
+                  arbitreController.butsJoueurs.value = [];
                   //
                   Get.back();
                   //

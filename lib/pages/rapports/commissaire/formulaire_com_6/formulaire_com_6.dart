@@ -44,41 +44,48 @@ class FormulaireCom6 extends StatelessWidget {
   //____________________________________________________________________________
   FormulaireCom6(this.controller) {
     //
+    String rr = "1";
     //
-    personnalite.value =
-        commissaireController.personnalite['personnalite'] ?? 1;
-    faceJoueur.value = commissaireController.personnalite['faceJoueur'] ?? 1;
-    appreciation.value =
-        commissaireController.personnalite['appreciation'] ?? 1;
+    print("rapport: ${commissaireController.conditionPhysique['physique']}");
+    print(
+        "rapport: ${commissaireController.conditionPhysique['cpFaceJoueur']}");
+    print(
+        "rapport: ${commissaireController.conditionPhysique['physiqueCommentaire']}");
+
+    //personnalite.value =
+    //  int.parse("${commissaireController.personnalite['personnalite']}");
+    //faceJoueur.value =
+    //  int.parse("${commissaireController.personnalite['faceJoueur']}");
+    //appreciation.value =
+    //  int.parse("${commissaireController.personnalite['appreciation']}");
     appreciationCommentaire.text =
         commissaireController.personnalite['appreciationCommentaire'] ?? "";
     //
     //__________________________________________________________________________
 
     physique.value = commissaireController.conditionPhysique['physique'] ?? 1;
-    cpFaceJoueur.value =
-        commissaireController.conditionPhysique['cpFaceJoueur'] ?? 1;
+    cpFaceJoueur.value = commissaireController.conditionPhysique['index'] ?? 1;
     textPhysique.text =
         commissaireController.conditionPhysique['physiqueCommentaire'] ?? "";
 
     //__________________________________________________________________________
 
     capacite.value = commissaireController.capacite['capacite'] ?? 1;
-    caFaceJoueur.value = commissaireController.capacite['caFaceJoueur'] ?? 1;
+    caFaceJoueur.value = commissaireController.capacite['index'] ?? 1;
     textCapacite.text =
         commissaireController.capacite['capaciteCommentaire'] ?? "";
 
     //__________________________________________________________________________
 
     execution.value = commissaireController.execution['execution'] ?? 1;
-    exFaceJoueur.value = commissaireController.execution['exFaceJoueur'] ?? 1;
+    exFaceJoueur.value = commissaireController.execution['index'] ?? 1;
     textExecution.text =
         commissaireController.execution['executionCommentaire'] ?? "";
 
     //__________________________________________________________________________
 
     discipline.value = commissaireController.discipline['discipline'] ?? 1;
-    diFaceJoueur.value = commissaireController.discipline['diFaceJoueur'] ?? 1;
+    diFaceJoueur.value = commissaireController.discipline['index'] ?? 1;
     textDiscipline.text =
         commissaireController.discipline['disciplineCommentaire'] ?? "";
 
@@ -813,35 +820,52 @@ class FormulaireCom6 extends StatelessWidget {
                  */
                 //
                 commissaireController.personnalite.value = {
-                  "personnalite": personnalites[personnalite.value],
-                  "faceJoueur": faceJoueurs[faceJoueur.value],
+                  "index": faceJoueur.value,
+                  "personnalite": personnalites[personnalite.value - 1],
+                  "faceJoueur": faceJoueurs[faceJoueur.value - 1],
                   "appreciation": x[appreciation.value],
                   "appreciationCommentaire": appreciationCommentaire.text,
                 };
                 //
                 commissaireController.conditionPhysique.value = {
-                  "physique": x[physique.value],
-                  "cpFaceJoueur": faceJoueurs[cpFaceJoueur.value],
+                  "index": cpFaceJoueur.value,
+                  "physique": x[physique.value - 1],
+                  "cpFaceJoueur": faceJoueurs[cpFaceJoueur.value - 1],
                   "physiqueCommentaire": textPhysique.text,
                 };
                 //
                 commissaireController.capacite.value = {
-                  "capacite": x[capacite.value],
-                  "caFaceJoueur": faceJoueurs[caFaceJoueur.value],
+                  "index": caFaceJoueur.value,
+                  "capacite": x[capacite.value - 1],
+                  "caFaceJoueur": faceJoueurs[caFaceJoueur.value - 1],
                   "capaciteCommentaire": textCapacite.text,
                 };
                 //
                 commissaireController.execution.value = {
-                  "execution": x[execution.value],
-                  "exFaceJoueur": faceJoueurs[exFaceJoueur.value],
+                  "index": exFaceJoueur.value,
+                  "execution": x[execution.value - 1],
+                  "exFaceJoueur": faceJoueurs[exFaceJoueur.value - 1],
                   "executionCommentaire": textExecution.text,
                 };
                 //
                 commissaireController.discipline.value = {
-                  "discipline": x[discipline.value],
-                  "diFaceJoueur": faceJoueurs[diFaceJoueur.value],
+                  "index": diFaceJoueur.value,
+                  "discipline": x[discipline.value - 1],
+                  "diFaceJoueur": faceJoueurs[diFaceJoueur.value - 1],
                   "disciplineCommentaire": textDiscipline.text,
                 };
+                //
+                print(
+                    "commissaireController.personnalite: ${commissaireController.personnalite}");
+                print(
+                    "commissaireController.conditionPhysique: ${commissaireController.conditionPhysique}");
+                print(
+                    "commissaireController.capacite: ${commissaireController.capacite}");
+                print(
+                    "commissaireController.execution: ${commissaireController.execution}");
+                print(
+                    "commissaireController.discipline: ${commissaireController.discipline}");
+
                 //
                 controller.nextPage(
                     duration: const Duration(milliseconds: 300),

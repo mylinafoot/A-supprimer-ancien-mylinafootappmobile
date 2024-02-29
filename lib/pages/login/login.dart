@@ -19,6 +19,7 @@ class Login extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final telephone = TextEditingController();
   final mdp = TextEditingController();
+  final mdpMatch = TextEditingController();
   //
   DateTime dateTime = DateTime.now();
   //
@@ -26,6 +27,7 @@ class Login extends StatelessWidget {
   String codePays = "+243";
   LoginController loginController = Get.find();
   RxBool masquer = true.obs;
+  RxBool masquer2 = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -177,12 +179,53 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
+                        height: 20,
+                      ),
+                      Obx(
+                        () => TextFormField(
+                          controller: mdpMatch,
+                          //autofocus: true,
+                          //focusNode: FocusNode(skipTraversal: true),
+                          obscureText: masquer2.value,
+                          validator: (e) {
+                            if (e!.isEmpty) {
+                              return "Veuilliez inserer votre mot de passe";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 5),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            suffixIcon: Obx(
+                              () => IconButton(
+                                icon: vue.value
+                                    ? const Icon(Icons.remove_red_eye)
+                                    : const Icon(Icons.remove_red_eye),
+                                onPressed: () {
+                                  //
+                                  masquer2.value = !masquer2.value;
+                                },
+                              ),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.sports,
+                            ),
+                            hintText: "Code du match",
+                            hintStyle: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          //
-                          Loader.loading();
                           //
                           if (formKey.currentState!.validate()) {
                             //Get.off(Accueil());
@@ -207,17 +250,44 @@ class Login extends StatelessWidget {
                             //Get.offAll(Accueil());
                             //appController.login(e);
                             //loginController.login(e);
-
-                            //Get.to(Choix(i));
-                            Map e = {
-                              "telephone": telephone.text,
-                              "mdp": mdp.text,
-                              "date":
-                                  "${dateTime.day}-${dateTime.month}-${dateTime.year}",
-                            };
+//
                             //
-                            loginController.login(e, i);
-
+                            Loader.loading();
+                            //
+                            Map e = {};
+                            //
+                            if (i == 1) {
+                              e = {
+                                "telephone": telephone.text,
+                                "mdp": mdp.text,
+                                "mdpCommissaire": mdpMatch.text,
+                                "date":
+                                    "${dateTime.day}-${dateTime.month}-${dateTime.year}",
+                              };
+                              //
+                              loginController.login(e, i);
+                            } else if (i == 2) {
+                              e = {
+                                "telephone": telephone.text,
+                                "mdp": mdp.text,
+                                "mdpArbitreCentrale": mdpMatch.text,
+                                "date":
+                                    "${dateTime.day}-${dateTime.month}-${dateTime.year}",
+                              };
+                              //
+                              loginController.login(e, i);
+                            } else {
+                              e = {
+                                "telephone": telephone.text,
+                                "mdp": mdp.text,
+                                "mdpOfficier":
+                                    "425678977036534", // mdpMatch.text,
+                                "date":
+                                    "${dateTime.day}-${dateTime.month}-${dateTime.year}",
+                              };
+                              //
+                              loginController.login(e, i);
+                            }
                             //dateTime
                           }
                         },

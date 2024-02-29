@@ -67,7 +67,7 @@ class FormulaireArb33 extends StatelessWidget {
                               title: Text(
                                   "${arbitreController.joueurRemplacantA[i]['entrant']['nom']}"),
                               subtitle: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['sortant']['nom']}\nMin: ${arbitreController.joueurRemplacantA[i]['minute']}"),
+                                  "${arbitreController.joueurRemplacantA[i]['entrant']['numero']}"),
                               trailing: IconButton(
                                 icon: Icon(
                                   Icons.delete,
@@ -92,7 +92,7 @@ class FormulaireArb33 extends StatelessWidget {
                               title: Text(
                                   "${arbitreController.joueurRemplacantA[i]['sortant']['nom']}"),
                               subtitle: Text(
-                                  "${arbitreController.joueurRemplacantA[i]['sortant']['equipe']}"),
+                                  "${arbitreController.joueurRemplacantA[i]['sortant']['numero']}"),
                               trailing: IconButton(
                                 icon: Icon(
                                   Icons.delete,

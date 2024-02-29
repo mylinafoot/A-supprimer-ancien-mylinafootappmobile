@@ -14,7 +14,9 @@ class HarbitreRapport extends StatelessWidget {
   //
   Map match;
   //
-  HarbitreRapport(this.match);
+  int local;
+  //
+  HarbitreRapport(this.match, this.local);
   //
   PageController controller = PageController();
   //
@@ -43,7 +45,7 @@ class HarbitreRapport extends StatelessWidget {
               FormulaireArb4(controller),
               FormulaireArb5(controller),
               FormulaireArb6(controller),
-              FormulaireArb7(controller),
+              FormulaireArb7(controller, match, local),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:linafoot/pages/rapports/arbitre/arbitre_controller.dart';
 import 'package:svg_flutter/svg_flutter.dart';
 
 class FormulaireArb2 extends StatelessWidget {
@@ -14,6 +15,8 @@ class FormulaireArb2 extends StatelessWidget {
   RxInt etatInstallation = 1.obs;
   //
   TextEditingController nombreSpectateur = TextEditingController();
+  //
+  ArbitreController arbitreController = Get.find();
   //
   List etats = [
     "Tension et Excitation",
@@ -111,6 +114,8 @@ class FormulaireArb2 extends StatelessWidget {
                 onChanged: (e) {
                   //
                   meteo.value = e as int;
+                  arbitreController.meteo.value = meteos[meteo.value];
+                  //
                 },
                 value: meteo.value,
                 items: List.generate(
@@ -154,6 +159,11 @@ class FormulaireArb2 extends StatelessWidget {
                 onChanged: (e) {
                   //
                   attitudeJouerA.value = e as int;
+                  //
+                  arbitreController.comportementEquipeA.value =
+                      etats[attitudePublic.value];
+                  arbitreController.indexComportementEquipeA.value =
+                      attitudePublic.value;
                 },
                 value: attitudeJouerA.value,
                 items: List.generate(
@@ -196,6 +206,11 @@ class FormulaireArb2 extends StatelessWidget {
                 onChanged: (e) {
                   //
                   attitudeJouerB.value = e as int;
+                  //
+                  arbitreController.comportementEquipeB.value =
+                      etats[attitudePublic.value];
+                  arbitreController.indexComportementEquipeB.value =
+                      attitudePublic.value;
                 },
                 value: attitudeJouerB.value,
                 items: List.generate(
@@ -238,6 +253,11 @@ class FormulaireArb2 extends StatelessWidget {
                 onChanged: (e) {
                   //
                   attitudePublic.value = e as int;
+                  //
+                  arbitreController.comportementPubliqueEquipeA.value =
+                      etats[attitudePublic.value];
+                  arbitreController.indexComportementPubliqueEquipeB.value =
+                      attitudePublic.value;
                 },
                 value: attitudePublic.value,
                 items: List.generate(
@@ -280,6 +300,11 @@ class FormulaireArb2 extends StatelessWidget {
                 onChanged: (e) {
                   //
                   attitudePublic.value = e as int;
+                  //
+                  arbitreController.comportementPubliqueEquipeB.value =
+                      etats[attitudePublic.value];
+                  arbitreController.indexComportementPubliqueEquipeB.value =
+                      attitudePublic.value;
                 },
                 value: attitudePublic.value,
                 items: List.generate(
@@ -326,7 +351,7 @@ class FormulaireArb2 extends StatelessWidget {
                       //
                       etatTerrain.value = e as int;
                       //
-                      etatsTerrainListe.add(etatsTI[e]);
+                      arbitreController.etatsTerrainListe.add(etatsTI[e]);
                     },
                     isExpanded: true,
                     value: etatTerrain.value,
@@ -343,10 +368,10 @@ class FormulaireArb2 extends StatelessWidget {
               Obx(
                 () => Column(
                   children: List.generate(
-                    etatsTerrainListe.length,
+                    arbitreController.etatsTerrainListe.length,
                     (index) {
                       //
-                      String e = etatsTerrainListe[index];
+                      String e = arbitreController.etatsTerrainListe[index];
                       //
                       return ListTile(
                         onTap: () {
@@ -363,7 +388,7 @@ class FormulaireArb2 extends StatelessWidget {
                         trailing: IconButton(
                           onPressed: () {
                             //
-                            etatsTerrainListe.removeAt(index);
+                            arbitreController.etatsTerrainListe.removeAt(index);
                           },
                           icon: const Icon(
                             Icons.delete,
@@ -409,7 +434,7 @@ class FormulaireArb2 extends StatelessWidget {
                     onChanged: (e) {
                       //
                       etatInstallation.value = e as int;
-                      etatsInstallationListe.add(etatsTI[e]);
+                      arbitreController.etatsInstallationListe.add(etatsTI[e]);
                     },
                     isExpanded: true,
                     value: etatInstallation.value,
@@ -426,10 +451,11 @@ class FormulaireArb2 extends StatelessWidget {
               Obx(
                 () => Column(
                   children: List.generate(
-                    etatsInstallationListe.length,
+                    arbitreController.etatsInstallationListe.length,
                     (index) {
                       //
-                      String e = etatsInstallationListe[index];
+                      String e =
+                          arbitreController.etatsInstallationListe[index];
                       //
                       return ListTile(
                         onTap: () {
@@ -446,7 +472,8 @@ class FormulaireArb2 extends StatelessWidget {
                         trailing: IconButton(
                           onPressed: () {
                             //
-                            etatsInstallationListe.removeAt(index);
+                            arbitreController.etatsInstallationListe
+                                .removeAt(index);
                           },
                           icon: const Icon(
                             Icons.delete,

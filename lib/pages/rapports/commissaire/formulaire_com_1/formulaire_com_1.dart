@@ -21,8 +21,7 @@ class FormulaireCom1 extends StatelessWidget {
   RxInt equipeAfin = 0.obs;
   RxInt equipeBfin = 0.obs;
   //
-  RxMap scoreMitemps = {}.obs;
-  RxMap scoreFin = {}.obs;
+
   //
   RxString heure = "".obs;
 
@@ -36,8 +35,8 @@ class FormulaireCom1 extends StatelessWidget {
     //
     DateTime d = DateTime.now();
     //
-    commissaireController.commissaire.value = await commissaireController
-        .getOneCommissaire("${match['commissaire']}");
+    //commissaireController.commissaire.value = await commissaireController
+    // .getOneCommissaire("${match['commissaire']}");
     //
     commissaireController.date.value = "${d.day}-${d.month}-${d.year}";
     //
@@ -365,12 +364,13 @@ class FormulaireCom1 extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           //
-                          scoreMitemps['a'] = scoreA.text;
-                          scoreMitemps['b'] = scoreB.text;
+                          commissaireController.scoreMitemps['a'] = scoreA.text;
+                          commissaireController.scoreMitemps['b'] = scoreB.text;
                           //
                           Get.back();
                           //
-                          print("scoreMitemps : $scoreMitemps");
+                          print(
+                              "scoreMitemps : ${commissaireController.scoreMitemps}");
                           //
                         },
                         child: Text("Enregistrer"),
@@ -411,7 +411,7 @@ class FormulaireCom1 extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "${scoreMitemps['a'] ?? '0'}",
+                          "${commissaireController.scoreMitemps['a'] ?? '0'}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -434,7 +434,7 @@ class FormulaireCom1 extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          "${scoreMitemps['b'] ?? '0'} ",
+                          "${commissaireController.scoreMitemps['b'] ?? '0'} ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -514,8 +514,8 @@ class FormulaireCom1 extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           //
-                          scoreFin['a'] = scoreA.text;
-                          scoreFin['b'] = scoreB.text;
+                          commissaireController.scoreFin['a'] = scoreA.text;
+                          commissaireController.scoreFin['b'] = scoreB.text;
                           //
                           Get.back();
                           //
@@ -558,7 +558,7 @@ class FormulaireCom1 extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "${scoreFin['a'] ?? '0'}",
+                          "${commissaireController.scoreFin['a'] ?? '0'}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -581,7 +581,7 @@ class FormulaireCom1 extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          "${scoreFin['b'] ?? '0'} ",
+                          "${commissaireController.scoreFin['b'] ?? '0'} ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
@@ -652,18 +652,18 @@ class FormulaireCom1 extends StatelessWidget {
                           semanticsLabel: 'IcTwotoneSports.svg',
                         ),
                         title: Text(
-                            "${commissaireController.arbitreCentral['nom']}"),
+                            "${commissaireController.arbitreCentral['nom']} ${commissaireController.arbitreCentral['postnom']} ${commissaireController.arbitreCentral['prenom']}"),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "League: ",
+                            const Text(
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${commissaireController.arbitreCentral['league']}")
+                                "${commissaireController.arbitreCentral['region']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -728,18 +728,18 @@ class FormulaireCom1 extends StatelessWidget {
                           semanticsLabel: 'IcTwotoneSupportAgent.svg',
                         ),
                         title: Text(
-                            "${commissaireController.arbitreAssistant1['nom']}"),
+                            "${commissaireController.arbitreAssistant1['nom']} ${commissaireController.arbitreAssistant1['postnom']} ${commissaireController.arbitreAssistant1['prenom']}"),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${commissaireController.arbitreAssistant1['league']}"),
+                                "${commissaireController.arbitreAssistant1['region']}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -804,18 +804,18 @@ class FormulaireCom1 extends StatelessWidget {
                           semanticsLabel: 'IcTwotoneSupportAgent.svg',
                         ),
                         title: Text(
-                            "${commissaireController.arbitreAssistant2['nom']}"),
+                            "${commissaireController.arbitreAssistant2['nom']} ${commissaireController.arbitreAssistant2['postnom']} ${commissaireController.arbitreAssistant2['prenom']}"),
                         subtitle: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "League: ",
+                                "Region: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${commissaireController.arbitreAssistant2['league']}"),
+                                  "${commissaireController.arbitreAssistant2['region']}"),
                             ]),
                         trailing: IconButton(
                           icon: Icon(
@@ -878,18 +878,18 @@ class FormulaireCom1 extends StatelessWidget {
                           semanticsLabel: 'IcTwotoneSports.svg',
                         ),
                         title: Text(
-                            "${commissaireController.arbitreProtocolaire['nom']}"),
+                            "${commissaireController.arbitreProtocolaire['nom']} ${commissaireController.arbitreProtocolaire['postnom']} ${commissaireController.arbitreProtocolaire['prenom']}"),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "League: ",
+                              "Region: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${commissaireController.arbitreProtocolaire['league']}"),
+                                "${commissaireController.arbitreProtocolaire['region']}"),
                           ],
                         ),
                         trailing: IconButton(
