@@ -653,8 +653,8 @@ class Live extends GetView<LiveController> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          height: 40,
-                                          width: 40,
+                                          height: 50,
+                                          width: 50,
                                           decoration: BoxDecoration(
                                             //color: Colors.red,
                                             image: DecorationImage(
@@ -746,8 +746,8 @@ class Live extends GetView<LiveController> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          height: 40,
-                                          width: 40,
+                                          height: 50,
+                                          width: 50,
                                           decoration: BoxDecoration(
                                             //color: Colors.red,
                                             image: DecorationImage(

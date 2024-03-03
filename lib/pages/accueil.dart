@@ -111,7 +111,6 @@ class Accueil extends StatelessWidget {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               //margin: EdgeInsets.symmetric(horizontal: 5.0),
-
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: ExactAssetImage("assets/$i"),

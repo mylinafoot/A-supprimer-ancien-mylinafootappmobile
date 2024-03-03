@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -140,8 +142,8 @@ class Paiement extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    height: 40,
-                                    width: 40,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       //color: Colors.red,
                                       image: DecorationImage(
@@ -232,8 +234,8 @@ class Paiement extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    height: 40,
-                                    width: 40,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       //color: Colors.red,
                                       image: DecorationImage(
@@ -285,6 +287,8 @@ class Paiement extends StatelessWidget {
                     validator: (e) {
                       if (e!.isEmpty) {
                         return "Veuilliez inserer votre numéro de téléphone";
+                      } else if (e!.length >= 10) {
+                        return "Le numéro n'est pas correct !";
                       }
                       return null;
                     },
@@ -428,13 +432,162 @@ class Paiement extends StatelessWidget {
                       Map x = {
                         "id": match['id'],
                         "place": p['place'],
+                        "telephone": "00243${telephone.text}",
                         "nombrePlace": nombrePlace.text,
                         "montant": p['prix'],
                         "devise": p['devise'],
+                        "qrcode": mdpGenerer(),
                       };
                       //
                       Map reponse = await paiementController.sendOTP(x);
-                      if (reponse[""]) {}
+                      //Approuvé
+                      if (reponse["respcodedesc"] == "Client introuvable") {
+                        //
+                        Get.snackbar("Oups",
+                            "Vous n'etes pas client ILLICOCASH Veuillez-vous enregistrer dans un shop ILLICOCASH");
+                      } else {
+                        //
+                        TextEditingController otp = TextEditingController();
+                        //Get.snackbar("Succès", "Vous-avez reçu un code veuillez ");
+                        Get.dialog(Material(
+                          color: Colors.transparent,
+                          child: Center(
+                            child: Card(
+                              elevation: 1,
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 300,
+                                width: 300,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Veuillez inserer le code que vous avez reçu par SMS",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    TextField(
+                                      controller: otp,
+                                      textAlign: TextAlign.center,
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 5),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        prefixIcon: const Icon(Icons.numbers),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 40,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          flex: 4,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              //
+                                              Get.back();
+                                              Loader.loading();
+                                              //
+                                              x['otp'] = otp.text;
+                                              x['rrn'] = reponse["rrn"];
+                                              //
+                                              paiementController
+                                                  .payerVerification(x);
+                                            },
+                                            style: ButtonStyle(
+                                              fixedSize:
+                                                  MaterialStateProperty.all(
+                                                const Size(
+                                                  double.maxFinite,
+                                                  45,
+                                                ),
+                                              ),
+                                              shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                Color.fromARGB(255, 0, 90, 23),
+                                              ),
+                                            ),
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: double.maxFinite,
+                                              child: const Text(
+                                                "Valider",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          flex: 4,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              //
+                                              Get.back();
+                                            },
+                                            style: ButtonStyle(
+                                              fixedSize:
+                                                  MaterialStateProperty.all(
+                                                const Size(
+                                                  double.maxFinite,
+                                                  45,
+                                                ),
+                                              ),
+                                              shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Loader.backgroundColor),
+                                            ),
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: double.maxFinite,
+                                              child: const Text(
+                                                "Annuler",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ));
+                      }
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all(
@@ -510,4 +663,15 @@ class Paiement extends StatelessWidget {
   TextStyle textStyle = TextStyle(
     fontWeight: FontWeight.bold,
   );
+  //
+  String mdpGenerer() {
+    //
+    var r = Random();
+    //
+    String mdp = "";
+    for (int t = 0; t < 15; t++) {
+      mdp = "$mdp${r.nextInt(10)}";
+    }
+    return mdp;
+  }
 }

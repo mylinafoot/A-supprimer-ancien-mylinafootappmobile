@@ -7,6 +7,7 @@ import 'package:linafoot/pages/accueil.dart';
 import 'package:linafoot/pages/login/login.dart';
 
 import 'choix.dart';
+import 'live/direct3.dart';
 import 'statistique/statistique.dart';
 
 class Splash extends StatelessWidget {
@@ -18,6 +19,7 @@ class Splash extends StatelessWidget {
       //
       //Get.offAll(Choix());
       //Get.offAll(Login());
+      //Get.offAll(const Direct3());
       Get.offAll(Accueil());
     });
   }
