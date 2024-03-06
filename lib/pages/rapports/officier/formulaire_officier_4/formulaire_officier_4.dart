@@ -203,7 +203,7 @@ class FormulaireOffice4 extends StatelessWidget {
                                   //
                                   Map rap = {
                                     "idMatch": match['match'],
-                                    "typeRapport": 2,
+                                    "typeRapport": 3,
                                     "date": match['date'],
                                     "commissaire": match['commissaire'],
                                     "heure": match['heure'],
@@ -254,7 +254,6 @@ class FormulaireOffice4 extends StatelessWidget {
                                       "meteo": officierController
                                           .arbitreProtocolaire.value,
                                       //
-                                      //
                                       "joueurRemplacantA": officierController
                                           .joueurRemplacantA.value,
                                       //
@@ -266,6 +265,13 @@ class FormulaireOffice4 extends StatelessWidget {
                                           officierController.scoreMitemps.value,
                                       "scoreFin":
                                           officierController.scoreFin.value,
+                                      //
+                                      "nmatch":
+                                          officierController.nMatch.value.text,
+                                      "jouea":
+                                          officierController.jouea.value.text,
+                                      "nombreSpectateur": officierController
+                                          .nombreSpectateur.value.text,
                                       //
                                       "avertissementsJoueursGeneralA":
                                           officierController
@@ -287,13 +293,6 @@ class FormulaireOffice4 extends StatelessWidget {
                                       //
                                       "butsJoueursGeneralB": officierController
                                           .butsJoueursGeneralB.value,
-                                      //
-                                      "nmatch":
-                                          officierController.nMatch.value.text,
-                                      "jouea":
-                                          officierController.jouea.value.text,
-                                      "nombreSpectateur": officierController
-                                          .nombreSpectateur.value.text,
                                       //__________________________________________
                                       //officierController.officierEquipeA
                                       "officierEquipeA": officierController
@@ -303,7 +302,7 @@ class FormulaireOffice4 extends StatelessWidget {
                                           .officierEquipeB.value,
                                       //__________________________________________
                                       //
-                                    }
+                                    },
                                   };
                                   //
                                   //

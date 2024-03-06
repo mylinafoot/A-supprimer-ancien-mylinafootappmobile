@@ -229,8 +229,8 @@ class Remplacement extends StatelessWidget {
               }
               //
               //
-              arbitreController.joueurRemplacantEntrant.clear();
-              arbitreController.joueurRemplacantSortant.clear();
+              arbitreController.joueurRemplacantEntrant.value = {};
+              arbitreController.joueurRemplacantSortant.value = {};
               //
               Get.back();
             },

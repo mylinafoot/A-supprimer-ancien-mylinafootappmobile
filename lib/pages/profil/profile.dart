@@ -45,9 +45,33 @@ class Profile extends StatelessWidget {
             print("match:: $match");
             //
             Map mt = box.read("match${match['match']}") ?? {};
-            if (mt['commissaire'] != null) {
-              match['jouer'] = mt['jouer'];
+            //match['jouer'] = false;
+            if (match['typeRapport'] == type) {
+              match['jouer'] = mt['jouer'] ?? false;
+              print(
+                  "commissaire: ${match['jouer']} :: ${mt['mdpCommissaire']}");
+            } else {
+              print("commissaire: ${match['jouer']} :: ${mt['typeRapport']}");
             }
+
+            if (match['typeRapport'] == type) {
+              match['jouer'] = mt['jouer'] ?? false;
+              print(
+                  "arbitreCentrale: ${match['jouer']} :: ${mt['mdpArbitreCentrale']}");
+            } else {
+              print(
+                  "arbitreCentrale: ${match['jouer']} :: ${mt['typeRapport']}");
+            }
+
+            if (match['typeRapport'] == type) {
+              match['jouer'] = mt['jouer'] ?? false;
+              print(
+                  "arbitreProtocolaire: ${match['jouer']} :: ${mt['mdpOfficier']}");
+            } else {
+              print(
+                  "arbitreProtocolaire: ${match['jouer']} :: ${mt['typeRapport']}");
+            }
+
             //
             List ds = match['date'].split("-");
             //
@@ -69,6 +93,8 @@ class Profile extends StatelessWidget {
                       flex: 7,
                       child: InkWell(
                         onTap: () async {
+                          //
+                          print(match['jouer']);
                           //
                           if (!match['jouer']) {
                             //
@@ -95,8 +121,8 @@ class Profile extends StatelessWidget {
                             }
                           } else {
                             //
-                            Get.snackbar(
-                                "Erreur", "Ce match a déjà été rapporté");
+                            Get.snackbar("Désolé",
+                                "Aucun rapport n'a été enregistré en local pour ce match.");
                           }
                           //Get.to();
                         },
@@ -243,6 +269,7 @@ class Profile extends StatelessWidget {
                           //
                           Map rapport =
                               box.read("rapport${match['match']}") ?? {};
+                          print(rapport);
                           if (rapport["match"] != null) {
                             //
                             print("rapport: $type: ${rapport['rapport']}");
@@ -422,10 +449,11 @@ class Profile extends StatelessWidget {
         match['avertissementsJoueursGeneralA'];
     arbitreController.expulssionsJoueursGeneralA.value =
         match['expulssionsJoueursGeneralA'];
-    arbitreController.butsJoueursGeneralA.value = match['butsJoueursGeneralA'];
+    arbitreController.butsJoueursGeneralA.value =
+        match['butsJoueursGeneralA'] ?? [];
     //
     arbitreController.avertissementsJoueursGeneralB.value =
-        match['avertissementsJoueursGeneralB'];
+        match['avertissementsJoueursGeneralB'] ?? [];
     arbitreController.expulssionsJoueursGeneralB.value =
         match['expulssionsJoueursGeneralB'];
     //
@@ -449,7 +477,15 @@ class Profile extends StatelessWidget {
     //
     arbitreController.jouea.value.text = match['jouea'];
     //
-    arbitreController.nMatch.value.text = match['nMatch'];
+    arbitreController.nMatch.value.text = match['nmatch'] ?? "";
+    //comportementEquipeA
+    //indexComportementEquipeA
+    //
+    //comportementEquipeB
+    //indexComportementEquipeB
+    //
+    //
+    //
   }
 
   setMatchOfficier(Map match) {
@@ -521,7 +557,7 @@ class Profile extends StatelessWidget {
     //
     officierController.jouea.value.text = match['jouea'] ?? '';
     //
-    officierController.nMatch.value.text = match['nMatch'] ?? '';
+    officierController.nMatch.value.text = match['nmatch'] ?? '';
   }
 
   //
@@ -628,6 +664,7 @@ class Profile extends StatelessWidget {
     officierController.arbitreProtocolaire.value =
         await profilController.getOneArbitre("${match['arbitreProtocolaire']}");
     //
+    officierController.nMatch.value.text = "${match['nmatch']}";
     //*
     officierController.equipeA.value =
         await profilController.getOneEquipe("${match['idEquipeA']}");
@@ -647,6 +684,14 @@ class Profile extends StatelessWidget {
     //*
     RapportController.joueurEquipeB.value =
         await profilController.getAllJoueurEquipe("${match['idEquipeB']}");
+    //
+    officierController.nombreSpectateur.value.text =
+        match['nombreSpectateur'] ?? '';
+    //
+    officierController.jouea.value.text = match['jouea'] ?? '';
+    //
+    officierController.nMatch.value.text = match['nmatch'] ?? '';
+    //
     Get.back();
     return true;
   }

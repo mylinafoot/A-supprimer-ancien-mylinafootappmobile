@@ -101,6 +101,8 @@ class OfficierController extends GetxController {
     if (response.isOk) {
       print("Arbitre: ${response.body}");
       //
+      box.write("rapport${r['match']}", {});
+      //
       Get.offAll(Accueil());
       //
       Get.snackbar("Succès", "Rapport envoyé");

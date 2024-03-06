@@ -126,6 +126,9 @@ class CommissaireController extends GetxController {
     Response response = await requete.postE("rapport", r);
     //
     if (response.isOk) {
+      //
+      box.write("rapport${r['match']}", {});
+      //
       print("Arbitre: ${response.body}");
       //
       Get.offAll(Accueil());

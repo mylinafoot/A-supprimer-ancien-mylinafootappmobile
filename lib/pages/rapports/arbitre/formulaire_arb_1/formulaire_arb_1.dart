@@ -802,13 +802,14 @@ class FormulaireArb1 extends StatelessWidget {
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Region: ",
+                            const Text(
+                              "province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
-                            Text("${arbitreController.commissaire['region']}")
+                            Text(
+                                "${arbitreController.commissaire['province'] ?? ''}")
                           ],
                         ),
                         trailing: IconButton(
@@ -877,13 +878,13 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${arbitreController.arbitreCentral['region']}")
+                                "${arbitreController.arbitreCentral['province'] ?? ""}")
                           ],
                         ),
                         trailing: IconButton(
@@ -953,13 +954,13 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${arbitreController.arbitreAssistant1['region']}"),
+                                "${arbitreController.arbitreAssistant1['province'] ?? ""}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -1029,13 +1030,13 @@ class FormulaireArb1 extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Text(
-                                "Region: ",
+                                "province: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${arbitreController.arbitreAssistant2['region']}"),
+                                  "${arbitreController.arbitreAssistant2['province'] ?? ""}"),
                             ]),
                         trailing: IconButton(
                           icon: Icon(
@@ -1103,13 +1104,13 @@ class FormulaireArb1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${arbitreController.arbitreProtocolaire['region']}"),
+                                "${arbitreController.arbitreProtocolaire['province'] ?? ""}"),
                           ],
                         ),
                         trailing: IconButton(

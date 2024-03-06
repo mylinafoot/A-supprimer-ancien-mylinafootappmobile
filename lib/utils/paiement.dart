@@ -157,7 +157,7 @@ class Paiement extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Text(
-                                    "${match['nomEquipeB']}",
+                                    "${match['nomEquipeA']}",
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 13,
@@ -190,7 +190,7 @@ class Paiement extends StatelessWidget {
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "$d ${match['date']}",
+                                      "$d ${match['heure']}",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 10,
@@ -416,7 +416,7 @@ class Paiement extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 10,
-                        color: Colors.blue.shade900,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -431,6 +431,12 @@ class Paiement extends StatelessWidget {
                       //
                       Map x = {
                         "id": match['id'],
+                        "journee": match['journee'],
+                        "nomEquipeA": match['nomEquipeA'],
+                        "nomEquipeB": match['nomEquipeB'],
+                        "date": match['date'],
+                        "heure": match['heure'],
+                        "stade": match['stade'],
                         "place": p['place'],
                         "telephone": "00243${telephone.text}",
                         "nombrePlace": nombrePlace.text,
@@ -445,6 +451,9 @@ class Paiement extends StatelessWidget {
                         //
                         Get.snackbar("Oups",
                             "Vous n'etes pas client ILLICOCASH Veuillez-vous enregistrer dans un shop ILLICOCASH");
+                      } else if (reponse["place"] != null) {
+                        //
+                        Get.snackbar("Oups", reponse["place"]);
                       } else {
                         //
                         TextEditingController otp = TextEditingController();
@@ -501,7 +510,8 @@ class Paiement extends StatelessWidget {
                                               Loader.loading();
                                               //
                                               x['otp'] = otp.text;
-                                              x['rrn'] = reponse["rrn"];
+                                              x['referencenumber'] =
+                                                  reponse["referencenumber"];
                                               //
                                               paiementController
                                                   .payerVerification(x);
@@ -668,9 +678,11 @@ class Paiement extends StatelessWidget {
     //
     var r = Random();
     //
+    DateTime d = DateTime.now();
+    //
     String mdp = "";
     for (int t = 0; t < 15; t++) {
-      mdp = "$mdp${r.nextInt(10)}";
+      mdp = "${d.day}${d.month}${d.year}$mdp${r.nextInt(10)}";
     }
     return mdp;
   }

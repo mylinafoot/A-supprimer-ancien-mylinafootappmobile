@@ -8,12 +8,12 @@ class FormulaireCom5 extends StatelessWidget {
   //
   CommissaireController commissaireController = Get.find();
   //
-  RxInt organisationGenerale = 1.obs;
-  RxInt serviceControle = 1.obs;
+  RxInt organisationGenerale = 0.obs;
+  RxInt serviceControle = 0.obs;
   //
-  RxInt servicePolice = 1.obs;
-  RxInt serviceSanitaire = 1.obs;
-  RxInt organisation = 1.obs;
+  RxInt servicePolice = 0.obs;
+  RxInt serviceSanitaire = 0.obs;
+  RxInt organisation = 0.obs;
   //
   TextEditingController nombreSpectateur = TextEditingController();
   //
@@ -69,7 +69,7 @@ class FormulaireCom5 extends StatelessWidget {
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -111,7 +111,7 @@ class FormulaireCom5 extends StatelessWidget {
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -153,7 +153,7 @@ class FormulaireCom5 extends StatelessWidget {
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -195,7 +195,7 @@ class FormulaireCom5 extends StatelessWidget {
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -237,7 +237,7 @@ class FormulaireCom5 extends StatelessWidget {
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),

@@ -26,7 +26,7 @@ class ActionMatch extends StatelessWidget {
   //
   RxInt typeBut = 1.obs;
   //
-  RxInt raisonMotif = 1.obs;
+  RxInt raisonMotif = 0.obs;
   //
   String action;
   ActionMatch(this.action, this.equipe) {
@@ -404,7 +404,7 @@ class ActionMatch extends StatelessWidget {
                             items: List.generate(
                               etats.length,
                               (index) => DropdownMenuItem(
-                                value: index + 1,
+                                value: index,
                                 child: Text("${etats[index]}"),
                               ),
                             ),
@@ -500,7 +500,7 @@ class ActionMatch extends StatelessWidget {
                     //"type": ["Auto but", "Penalité", "Classique"][typeBut.value]
                   };
                   //
-                  if ("Avertissements joueurs" == action &&
+                  if ("Avertissements joueurs" == action ||
                       "Expulsions joueurs" == action) {
                     infos['note'] = etats[raisonMotif.value];
                   } else {

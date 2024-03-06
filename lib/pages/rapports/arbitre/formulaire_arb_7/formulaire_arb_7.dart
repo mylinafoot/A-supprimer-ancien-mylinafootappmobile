@@ -286,12 +286,13 @@ class FormulaireArb7 extends StatelessWidget {
                                       "arbitreProtocolaire": arbitreController
                                           .arbitreProtocolaire.value,
                                       //__________________________________________
-                                      "meteo": arbitreController
-                                          .arbitreProtocolaire.value,
+                                      "meteo": arbitreController.meteo.value,
                                       //
                                       "comportementEquipeA": arbitreController
                                           .comportementEquipeA.value,
                                       //
+                                      "comportementEquipeB": arbitreController
+                                          .comportementEquipeB.value,
                                       "comportementPubliqueEquipeA":
                                           arbitreController
                                               .comportementPubliqueEquipeA
@@ -363,10 +364,12 @@ class FormulaireArb7 extends StatelessWidget {
                                       "butsJoueursGeneralB": arbitreController
                                           .butsJoueursGeneralB.value,
                                       //
-                                      "nmatch": arbitreController.nMatch.value,
-                                      "jouea": arbitreController.jouea.value,
+                                      "nmatch":
+                                          arbitreController.nMatch.value.text,
+                                      "jouea":
+                                          arbitreController.jouea.value.text,
                                       "nombreSpectateur": arbitreController
-                                          .nombreSpectateur.value,
+                                          .nombreSpectateur.value.text,
                                       //__________________________________________
                                       //arbitreController.officierEquipeA
                                       "officierEquipeA": arbitreController
@@ -413,8 +416,7 @@ class FormulaireArb7 extends StatelessWidget {
                                     "arbitreProtocolaire": arbitreController
                                         .arbitreProtocolaire.value,
                                     //__________________________________________
-                                    "meteo": arbitreController
-                                        .arbitreProtocolaire.value,
+                                    "meteo": arbitreController.meteo.value,
                                     //
                                     "comportementEquipeA": arbitreController
                                         .comportementEquipeA.value,
@@ -464,10 +466,11 @@ class FormulaireArb7 extends StatelessWidget {
                                     "scoreFin":
                                         arbitreController.scoreFin.value,
                                     //
-                                    "nmatch": arbitreController.nMatch.value,
-                                    "jouea": arbitreController.jouea.value,
+                                    "nmatch":
+                                        arbitreController.nMatch.value.text,
+                                    "jouea": arbitreController.jouea.value.text,
                                     "nombreSpectateur": arbitreController
-                                        .nombreSpectateur.value,
+                                        .nombreSpectateur.value.text,
                                     //
                                     "avertissementsJoueursGeneralA":
                                         arbitreController

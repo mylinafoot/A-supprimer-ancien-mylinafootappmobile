@@ -43,15 +43,20 @@ void main() async {
   //
   await GetStorage.init();
   //
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  //
+  var box = GetStorage();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //
+    //box.erase();
+    //
     return GetMaterialApp(
       title: 'Linafoot',
       themeMode: ThemeMode.dark,

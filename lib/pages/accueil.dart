@@ -13,7 +13,9 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:svg_flutter/svg.dart';
 
 import 'actus/actus.dart';
+import 'billets/billets.dart';
 import 'historique/historique.dart';
+import 'live/direct3.dart';
 import 'live/live.dart';
 import 'rapports/commissaire/commissaire.dart';
 import 'rapports/rapports.dart';
@@ -128,12 +130,13 @@ class Accueil extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 9,
                   child: ListView(
                     padding: const EdgeInsets.only(
                       top: 50,
                       left: 30,
                       right: 30,
+                      bottom: 0,
                     ),
                     children: List.generate(
                       rencontres.length,
@@ -171,8 +174,17 @@ class Accueil extends StatelessWidget {
                                           ElevatedButton(
                                             onPressed: () {
                                               //
+                                              DateTime dateTime =
+                                                  DateTime.now();
+                                              print(dateTime);
+                                              if (dateTime.day == 3 &&
+                                                  dateTime.month == 3 &&
+                                                  dateTime.year == 2024) {
+                                                //
+                                                Get.to(const Direct3());
+                                              }
                                             },
-                                            child: Text("Acheter"),
+                                            child: const Text("Suivre"),
                                           ),
                                         ],
                                       ),
@@ -182,7 +194,7 @@ class Accueil extends StatelessWidget {
                               );
                             },
                             child: SizedBox(
-                              height: 200,
+                              height: 150,
                               width: double.maxFinite,
                               child: Column(
                                 children: [
@@ -211,14 +223,14 @@ class Accueil extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "${index + 7}/02/2024",
+                                          "03/03/2024",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          "17:00",
+                                          "15:30",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -234,8 +246,8 @@ class Accueil extends StatelessWidget {
                                         Expanded(
                                           flex: 4,
                                           child: Container(
-                                            child:
-                                                Image.asset("assets/${r[0]}"),
+                                            child: Image.asset(
+                                                "assets/AS_Vita_Club_(logo).png"),
                                           ),
                                         ),
                                         Container(
@@ -252,8 +264,8 @@ class Accueil extends StatelessWidget {
                                         Expanded(
                                           flex: 4,
                                           child: Container(
-                                            child:
-                                                Image.asset("assets/${r[1]}"),
+                                            child: Image.asset(
+                                                "assets/LES AIGLES DU CONGO.png"),
                                           ),
                                         ),
                                       ],
@@ -267,7 +279,10 @@ class Accueil extends StatelessWidget {
                       },
                     ),
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
               ],
             ),
           ),
@@ -283,12 +298,29 @@ class Accueil extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     //
+
                     Get.to(Nous());
                   },
                   leading: Icon(Icons.person),
                   title: Text("Profil"),
                   subtitle: Text(
                     "Compte",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    //
+                    Get.to(Billet());
+                  },
+                  leading: Icon(CupertinoIcons.ticket),
+                  title: Text("Billets"),
+                  subtitle: Text(
+                    "vos billets electronique",
                     style: TextStyle(
                       fontSize: 10,
                       color: Colors.blue,

@@ -17,8 +17,8 @@ class Login extends StatelessWidget {
   Login(this.i);
   //
   final formKey = GlobalKey<FormState>();
-  final telephone = TextEditingController();
-  final mdp = TextEditingController();
+  // final telephone = TextEditingController();
+  // final mdp = TextEditingController();
   final mdpMatch = TextEditingController();
   //
   DateTime dateTime = DateTime.now();
@@ -91,96 +91,98 @@ class Login extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 70,
-                      ),
-                      TextFormField(
-                        controller: telephone,
-                        keyboardType: TextInputType.number,
-                        //autofocus: true,
-                        //focusNode: FocusNode(skipTraversal: true),
-                        validator: (e) {
-                          if (e!.isEmpty) {
-                            return "Veuilliez inserer votre numéro de téléphone";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 5),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          prefixIcon: Icon(Icons.phone_android),
-                          // prefixIcon: CountryCodePicker(
-                          //   onChanged: (countryCode) {
-                          //     codePays = countryCode.dialCode!;
-                          //     if (kDebugMode) {
-                          //       print(codePays);
-                          //     }
-                          //   },
-                          //   // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                          //   initialSelection: 'CD',
-                          //   favorite: ['+243', 'CD'],
-                          //   // optional. Shows only country name and flag
-                          //   showCountryOnly: true,
-                          //   // optional. Shows only country name and flag when popup is closed.
-                          //   showOnlyCountryWhenClosed: false,
-                          //   // optional. aligns the flag and the Text left
-                          //   alignLeft: false,
-                          //   //showFlag: false,
-                          // ),
-                          hintText: "Téléphone",
-                          hintStyle: TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
+                      // const SizedBox(
+                      //   height: 70,
+                      // ),
+                      // TextFormField(
+                      //   controller: telephone,
+                      //   keyboardType: TextInputType.number,
+                      //   //autofocus: true,
+                      //   //focusNode: FocusNode(skipTraversal: true),
+                      //   validator: (e) {
+                      //     if (e!.isEmpty) {
+                      //       return "Veuilliez inserer votre numéro de téléphone";
+                      //     }
+                      //     return null;
+                      //   },
+                      //   decoration: InputDecoration(
+                      //     contentPadding:
+                      //         const EdgeInsets.symmetric(vertical: 5),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(20),
+                      //     ),
+                      //     prefixIcon: Icon(Icons.phone_android),
+                      //     // prefixIcon: CountryCodePicker(
+                      //     //   onChanged: (countryCode) {
+                      //     //     codePays = countryCode.dialCode!;
+                      //     //     if (kDebugMode) {
+                      //     //       print(codePays);
+                      //     //     }
+                      //     //   },
+                      //     //   // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                      //     //   initialSelection: 'CD',
+                      //     //   favorite: ['+243', 'CD'],
+                      //     //   // optional. Shows only country name and flag
+                      //     //   showCountryOnly: true,
+                      //     //   // optional. Shows only country name and flag when popup is closed.
+                      //     //   showOnlyCountryWhenClosed: false,
+                      //     //   // optional. aligns the flag and the Text left
+                      //     //   alignLeft: false,
+                      //     //   //showFlag: false,
+                      //     // ),
+                      //     hintText: "Téléphone",
+                      //     hintStyle: TextStyle(
+                      //       fontSize: 12,
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Obx(
+                      //   () => TextFormField(
+                      //     controller: mdp,
+                      //     //autofocus: true,
+                      //     //focusNode: FocusNode(skipTraversal: true),
+                      //     obscureText: masquer.value,
+                      //     validator: (e) {
+                      //       if (e!.isEmpty) {
+                      //         return "Veuilliez inserer votre mot de passe";
+                      //       }
+                      //       return null;
+                      //     },
+                      //     decoration: InputDecoration(
+                      //       contentPadding:
+                      //           const EdgeInsets.symmetric(vertical: 5),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(20),
+                      //       ),
+                      //       suffixIcon: Obx(
+                      //         () => IconButton(
+                      //           icon: vue.value
+                      //               ? const Icon(Icons.remove_red_eye)
+                      //               : const Icon(Icons.remove_red_eye),
+                      //           onPressed: () {
+                      //             //
+                      //             masquer.value = !masquer.value;
+                      //           },
+                      //         ),
+                      //       ),
+                      //       prefixIcon: Icon(
+                      //         Icons.lock,
+                      //       ),
+                      //       hintText: "Mot de passe",
+                      //       hintStyle: TextStyle(
+                      //         fontSize: 12,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+
                       const SizedBox(
                         height: 20,
                       ),
-                      Obx(
-                        () => TextFormField(
-                          controller: mdp,
-                          //autofocus: true,
-                          //focusNode: FocusNode(skipTraversal: true),
-                          obscureText: masquer.value,
-                          validator: (e) {
-                            if (e!.isEmpty) {
-                              return "Veuilliez inserer votre mot de passe";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 5),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            suffixIcon: Obx(
-                              () => IconButton(
-                                icon: vue.value
-                                    ? const Icon(Icons.remove_red_eye)
-                                    : const Icon(Icons.remove_red_eye),
-                                onPressed: () {
-                                  //
-                                  masquer.value = !masquer.value;
-                                },
-                              ),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                            ),
-                            hintText: "Mot de passe",
-                            hintStyle: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
                       Obx(
                         () => TextFormField(
                           controller: mdpMatch,
@@ -258,9 +260,7 @@ class Login extends StatelessWidget {
                             //
                             if (i == 1) {
                               e = {
-                                "telephone": telephone.text,
-                                "mdp": mdp.text,
-                                "mdpCommissaire": mdpMatch.text,
+                                "mdpMatch": mdpMatch.text,
                                 "date":
                                     "${dateTime.day}-${dateTime.month}-${dateTime.year}",
                               };
@@ -268,9 +268,7 @@ class Login extends StatelessWidget {
                               loginController.login(e, i);
                             } else if (i == 2) {
                               e = {
-                                "telephone": telephone.text,
-                                "mdp": mdp.text,
-                                "mdpArbitreCentrale": mdpMatch.text,
+                                "mdpMatch": mdpMatch.text,
                                 "date":
                                     "${dateTime.day}-${dateTime.month}-${dateTime.year}",
                               };
@@ -278,13 +276,11 @@ class Login extends StatelessWidget {
                               loginController.login(e, i);
                             } else {
                               e = {
-                                "telephone": telephone.text,
-                                "mdp": mdp.text,
-                                "mdpOfficier":
-                                    "425678977036534", // mdpMatch.text,
+                                "mdpMatch": mdpMatch.text, // mdpMatch.text,
                                 "date":
                                     "${dateTime.day}-${dateTime.month}-${dateTime.year}",
                               };
+
                               //
                               loginController.login(e, i);
                             }

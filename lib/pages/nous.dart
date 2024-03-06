@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:svg_flutter/svg_flutter.dart';
+import 'package:photo_view/photo_view.dart';
 
 class Nous extends StatefulWidget {
   @override
@@ -60,52 +60,36 @@ class _Nous extends State<Nous> {
     //
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              //
-              setState(() {
-                //
-                lumiere = !lumiere;
-                print("lumiere: $lumiere");
-              });
-            },
-            icon: SvgPicture.asset(
-              'assets/FLYERS.svg',
-              width: 30,
-              height: 30,
-              semanticsLabel: 'FLYERS.svg',
-              color: Colors.white,
+          // actions: [
+          //   IconButton(
+          //     onPressed: () {
+          //       //
+          //       setState(() {
+          //         //
+          //         lumiere = !lumiere;
+          //         print("lumiere: $lumiere");
+          //       });
+          //     },
+          //     icon: SvgPicture.asset(
+          //       'assets/FLYERS.svg',
+          //       width: 30,
+          //       height: 30,
+          //       semanticsLabel: 'FLYERS.svg',
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ],
+          ),
+      body: PageView(
+        children: List.generate(
+          14,
+          (index) => PhotoView(
+            imageProvider: AssetImage(
+              "assets/PRESENTATION-${index < 9 ? '0${index + 1}' : index}.jpg",
             ),
           ),
-        ],
+        ),
       ),
-      body: pathPDF.isNotEmpty
-          ? PDFView(
-              filePath: pathPDF,
-              enableSwipe: true,
-              swipeHorizontal: false,
-              autoSpacing: false,
-              pageFling: true,
-              preventLinkNavigation: true,
-              nightMode: lumiere,
-              onRender: (_pages) {
-                //
-              },
-              onError: (error) {
-                print(error.toString());
-              },
-              onPageError: (page, error) {
-                print('$page: ${error.toString()}');
-              },
-              onViewCreated: (PDFViewController pdfViewController) {
-                _controller.complete(pdfViewController);
-              },
-              onPageChanged: (int? page, int? total) {
-                print('page change: $page/$total');
-              },
-            )
-          : Container(),
     );
   }
 }

@@ -52,6 +52,9 @@ class FormulaireArb33 extends StatelessWidget {
                   children: List.generate(
                     arbitreController.joueurRemplacantA.length,
                     (i) {
+                      print(
+                          "arbitreController.joueurRemplacantA: ${arbitreController.joueurRemplacantA}");
+                      //
                       return Card(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

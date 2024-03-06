@@ -27,48 +27,40 @@ class CommissaireFormulaire extends StatelessWidget {
         left: false,
         right: false,
         bottom: false,
-        child: DefaultTabController(
-          length: 7,
-          child: Scaffold(
-            appBar: AppBar(
-              title: const Text("Rapport commissaire"),
-              centerTitle: true,
-            ),
-            body: Column(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: TabBar(
-                    tabAlignment: TabAlignment.center,
-                    isScrollable: true,
-                    labelStyle: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    tabs: List.generate(
-                      7,
-                      (index) => Tab(
-                        text: "Formulaire ${index + 1}",
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: TabBarView(
-                    children: [
-                      FormulaireCom1(controller, match),
-                      FormulaireCom2(controller),
-                      FormulaireCom3(controller),
-                      FormulaireCom4(controller),
-                      FormulaireCom5(controller),
-                      FormulaireCom6(controller),
-                      FormulaireCom7(controller, match, local),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Rapport commissaire"),
+            centerTitle: true,
+          ),
+          body: PageView(
+            controller: controller,
+            children: [
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: TabBar(
+              //     tabAlignment: TabAlignment.center,
+              //     isScrollable: true,
+              //     labelStyle: TextStyle(
+              //       fontSize: 10,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //     tabs: List.generate(
+              //       7,
+              //       (index) => Tab(
+              //         text: "Formulaire ${index + 1}",
+              //       ),
+              //     ),
+              //   ),
+              // ),
+
+              FormulaireCom1(controller, match),
+              FormulaireCom2(controller),
+              FormulaireCom3(controller),
+              FormulaireCom4(controller),
+              FormulaireCom5(controller),
+              FormulaireCom6(controller),
+              FormulaireCom7(controller, match, local),
+            ],
           ),
         ),
       ),

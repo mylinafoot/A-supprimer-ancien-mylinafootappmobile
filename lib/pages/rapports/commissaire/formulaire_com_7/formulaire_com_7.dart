@@ -338,6 +338,8 @@ class FormulaireCom7 extends StatelessWidget {
                                     "nomEquipeB": match['nomEquipeB'],
                                     "jouer": true,
                                     "rapport": {
+                                      "difficulte":
+                                          difficultes[difficulte.value],
                                       "heure":
                                           commissaireController.heure.value,
                                       "date": commissaireController.date.value,

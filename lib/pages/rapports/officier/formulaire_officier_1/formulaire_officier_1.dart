@@ -60,6 +60,7 @@ class FormulaireOffice1 extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: officierController.nMatch.value,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),

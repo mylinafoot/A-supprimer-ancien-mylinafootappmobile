@@ -7,12 +7,14 @@ class FormulaireArb2 extends StatelessWidget {
   //
   PageController controller;
   //
-  RxInt attitudeJouerA = 1.obs;
-  RxInt attitudeJouerB = 1.obs;
+  RxInt attitudeJouerA = 0.obs;
+  RxInt attitudeJouerB = 0.obs;
   //
-  RxInt attitudePublic = 1.obs;
-  RxInt etatTerrain = 1.obs;
-  RxInt etatInstallation = 1.obs;
+  RxInt etatTerrain = 0.obs;
+  RxInt etatInstallation = 0.obs;
+  //
+  RxInt attitudePublicA = 0.obs;
+  RxInt attitudePublicB = 0.obs;
   //
   TextEditingController nombreSpectateur = TextEditingController();
   //
@@ -121,7 +123,7 @@ class FormulaireArb2 extends StatelessWidget {
                 items: List.generate(
                   meteos.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${meteos[index]}"),
                   ),
                 ),
@@ -161,15 +163,15 @@ class FormulaireArb2 extends StatelessWidget {
                   attitudeJouerA.value = e as int;
                   //
                   arbitreController.comportementEquipeA.value =
-                      etats[attitudePublic.value];
+                      etats[attitudeJouerA.value];
                   arbitreController.indexComportementEquipeA.value =
-                      attitudePublic.value;
+                      attitudeJouerA.value;
                 },
                 value: attitudeJouerA.value,
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -208,15 +210,15 @@ class FormulaireArb2 extends StatelessWidget {
                   attitudeJouerB.value = e as int;
                   //
                   arbitreController.comportementEquipeB.value =
-                      etats[attitudePublic.value];
+                      etats[attitudeJouerB.value];
                   arbitreController.indexComportementEquipeB.value =
-                      attitudePublic.value;
+                      attitudeJouerB.value;
                 },
                 value: attitudeJouerB.value,
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -252,18 +254,18 @@ class FormulaireArb2 extends StatelessWidget {
               () => DropdownButton(
                 onChanged: (e) {
                   //
-                  attitudePublic.value = e as int;
+                  attitudePublicA.value = e as int;
                   //
                   arbitreController.comportementPubliqueEquipeA.value =
-                      etats[attitudePublic.value];
-                  arbitreController.indexComportementPubliqueEquipeB.value =
-                      attitudePublic.value;
+                      etats[attitudePublicA.value];
+                  arbitreController.indexAttitudePublic.value =
+                      attitudePublicA.value;
                 },
-                value: attitudePublic.value,
+                value: attitudePublicA.value,
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -299,18 +301,18 @@ class FormulaireArb2 extends StatelessWidget {
               () => DropdownButton(
                 onChanged: (e) {
                   //
-                  attitudePublic.value = e as int;
+                  attitudePublicB.value = e as int;
                   //
                   arbitreController.comportementPubliqueEquipeB.value =
-                      etats[attitudePublic.value];
+                      etats[attitudePublicB.value];
                   arbitreController.indexComportementPubliqueEquipeB.value =
-                      attitudePublic.value;
+                      attitudePublicB.value;
                 },
-                value: attitudePublic.value,
+                value: attitudePublicB.value,
                 items: List.generate(
                   etats.length,
                   (index) => DropdownMenuItem(
-                    value: index + 1,
+                    value: index,
                     child: Text("${etats[index]}"),
                   ),
                 ),
@@ -358,7 +360,7 @@ class FormulaireArb2 extends StatelessWidget {
                     items: List.generate(
                       etatsTI.length,
                       (index) => DropdownMenuItem(
-                        value: index + 1,
+                        value: index,
                         child: Text("${etatsTI[index]}"),
                       ),
                     ),
@@ -441,7 +443,7 @@ class FormulaireArb2 extends StatelessWidget {
                     items: List.generate(
                       etatsTI.length,
                       (index) => DropdownMenuItem(
-                        value: index + 1,
+                        value: index,
                         child: Text("${etatsTI[index]}"),
                       ),
                     ),

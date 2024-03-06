@@ -663,7 +663,7 @@ class FormulaireCom1 extends StatelessWidget {
                               ),
                             ),
                             Text(
-                                "${commissaireController.arbitreCentral['region']}")
+                                "${commissaireController.arbitreCentral['province'] ?? ''}")
                           ],
                         ),
                         trailing: IconButton(
@@ -739,7 +739,7 @@ class FormulaireCom1 extends StatelessWidget {
                               ),
                             ),
                             Text(
-                                "${commissaireController.arbitreAssistant1['region']}"),
+                                "${commissaireController.arbitreAssistant1['province'] ?? ''}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -815,7 +815,7 @@ class FormulaireCom1 extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                  "${commissaireController.arbitreAssistant2['region']}"),
+                                  "${commissaireController.arbitreAssistant2['province'] ?? ''}"),
                             ]),
                         trailing: IconButton(
                           icon: Icon(
@@ -889,7 +889,7 @@ class FormulaireCom1 extends StatelessWidget {
                               ),
                             ),
                             Text(
-                                "${commissaireController.arbitreProtocolaire['region']}"),
+                                "${commissaireController.arbitreProtocolaire['province'] ?? ''}"),
                           ],
                         ),
                         trailing: IconButton(

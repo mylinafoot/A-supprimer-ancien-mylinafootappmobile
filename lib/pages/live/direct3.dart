@@ -109,7 +109,7 @@ Page resource error:
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Actualité"),
+        title: const Text("Match"),
       ),
       body: WebViewWidget(
         // javascriptMode: JavascriptMode.unrestricted,
@@ -131,12 +131,12 @@ Page resource error:
       //     //https://www.youtube.com
       //     //"https://www.efoad.minepst.gouv.cd",
       //     ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controlleur!.reload();
-        },
-        child: const Icon(Icons.sync),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     controlleur!.reload();
+      //   },
+      //   child: const Icon(Icons.sync),
+      // ),
     );
   }
 }

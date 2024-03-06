@@ -20,23 +20,23 @@ class LoginController extends GetxController {
   Future<void> login(Map e, int i) async {
     //commissaire/login?telephone=0987654312&mdp=1234567&date=27-2-2024
     print(
-        "${Requete.url}/commissaire/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}"); //&profil=agent
+        "${Requete.url}/commissaire/login?mdp=${e['mdpMatch']}"); //&profil=agent
     //
     Response? rep;
     //
     if (i == 1) {
-      rep = await requete.getE(
-          "commissaire/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}&mdpCommissaire=${e['mdpCommissaire']}"); //&profil=agent
+      rep = await requete
+          .getE("commissaire/login?mdp=${e['mdpMatch']}"); //&profil=agent
       //
     }
     if (i == 2) {
-      rep = await requete.getE(
-          "arbitre/login?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}&mdpArbitreCentrale=${e['mdpArbitreCentrale']}"); //&profil=agent
+      rep = await requete
+          .getE("arbitre/login?mdp=${e['mdpMatch']}"); //&profil=agent
       //
     }
     if (i == 3) {
-      rep = await requete.getE(
-          "arbitre/loginofficier?telephone=${e['telephone']}&mdp=${e['mdp']}&date=${e['date']}&mdpOfficier=${e['mdpOfficier']}"); //&profil=agent
+      rep = await requete
+          .getE("arbitre/loginofficier?mdp=${e['mdpMatch']}"); //&profil=agent
       //
     }
 

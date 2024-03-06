@@ -29,6 +29,9 @@ class ArbitreController extends GetxController {
   Rx<TextEditingController> nombreSpectateur =
       Rx<TextEditingController>(TextEditingController());
   //
+  RxInt indexAttitudePublic = 0.obs;
+  RxString attitudePublicNom = "".obs;
+  //
 
   RxMap equipe = {}.obs;
   //
@@ -67,6 +70,7 @@ class ArbitreController extends GetxController {
   //*
   RxInt indexComportementEquipeB = 1.obs;
   //*
+  //RxInt indexAttitudePublic = 0.obs;
   //*
   RxString comportementPubliqueEquipeA = "".obs;
   //*
@@ -148,6 +152,8 @@ class ArbitreController extends GetxController {
     //
     if (response.isOk) {
       print("Arbitre: ${response.body}");
+      //
+      box.write("rapport${r['match']}", {});
       //
       Get.offAll(Accueil());
       //
