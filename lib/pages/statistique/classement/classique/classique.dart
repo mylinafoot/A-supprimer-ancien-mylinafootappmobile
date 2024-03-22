@@ -141,6 +141,7 @@ class Classique extends StatelessWidget {
                 (index) {
                   return ListView(
                     children: List.generate(20, (index) {
+                      return Container();
                       return Container(
                         padding: EdgeInsets.all(0),
                         color: index < 8

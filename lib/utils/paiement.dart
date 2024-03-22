@@ -9,14 +9,19 @@ import 'package:linafoot/utils/requete.dart';
 
 class Paiement extends StatelessWidget {
   //
+  String? titre;
+  //
   PaiementController paiementController = Get.find();
   //
   Map match;
   Map p = {};
   //
-  Paiement(this.match) {
+  Paiement(this.match, this.titre) {
+    print("Match::: $match");
     //
     List ds = match['date'].split("-");
+    //
+    //places.add({"place": "Test", "prix": 3000, "devise": "CDF"});
     //
     DateTime date =
         DateTime(int.parse(ds[2]), int.parse(ds[1]), int.parse(ds[0]));
@@ -63,6 +68,12 @@ class Paiement extends StatelessWidget {
       });
       //places.add("Tribune Centrale (${match['prixTribuneCentrale']}) CDF");
     }
+    //
+    if (match['prixVIP'] != null || match['prixVIP'] > 0) {
+      places.add(
+          {"place": "Place VIP", "prix": match['prixVIP'], "devise": "CDF"});
+      //places.add("Tribune Centrale (${match['prixTribuneCentrale']}) CDF");
+    }
   }
 
   final formKey = GlobalKey<FormState>();
@@ -85,9 +96,9 @@ class Paiement extends StatelessWidget {
       backgroundColor: Loader.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "",
-          style: TextStyle(
+        title: Text(
+          titre!,
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -108,8 +119,8 @@ class Paiement extends StatelessWidget {
                     height: 70,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage("assets/illicocash.png"),
-                        fit: BoxFit.contain,
+                        image: ExactAssetImage("assets/illicocash png.png"),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -263,7 +274,6 @@ class Paiement extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(
                     height: 20,
                   ),
@@ -332,79 +342,100 @@ class Paiement extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Place",
-                      style: textStyle,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    height: 50,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.shade500,
-                        width: 1.2,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: Obx(
-                        () => DropdownButton(
-                          onChanged: (e) {
-                            //
-                            place.value = e as int;
-                            p = places[place.value];
-                            //
-                          },
-                          value: place.value,
-                          items: List.generate(
-                            places.length,
-                            (index) => DropdownMenuItem(
-                              value: index,
-                              child: Text(
-                                  "${places[index]['place']} (${places[index]['prix']} ${places[index]['devise']} )"),
+                  titre! == "Acheter le billet"
+                      ? Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Place",
+                            style: textStyle,
+                          ),
+                        )
+                      : Container(),
+                  titre! == "Acheter le billet"
+                      ? Container(
+                          padding: const EdgeInsets.only(left: 10),
+                          height: 50,
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey.shade500,
+                              width: 1.2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: Obx(
+                              () => DropdownButton(
+                                onChanged: (e) {
+                                  //
+                                  place.value = e as int;
+                                  p = places[place.value];
+                                  //
+                                },
+                                value: place.value,
+                                items: List.generate(
+                                  places.length,
+                                  (index) => DropdownMenuItem(
+                                    value: index,
+                                    child: Text(
+                                        "${places[index]['place']} (${places[index]['prix']} ${places[index]['devise']} )"),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        )
+                      : Container(),
                   const SizedBox(
                     height: 20,
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Nombre de place(s)",
-                      style: textStyle,
-                    ),
-                  ),
-                  TextFormField(
-                    controller: nombrePlace,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                    //autofocus: true,
-                    //focusNode: FocusNode(skipTraversal: true),
-                    validator: (e) {
-                      if (e!.isEmpty) {
-                        return "Veuilliez inserer votre numéro de téléphone";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      prefixIcon: Icon(Icons.chair),
-                    ),
-                  ),
+                  titre! == "Acheter le billet"
+                      ? Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Nombre de billets",
+                            style: textStyle,
+                          ),
+                        )
+                      : Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Achat direct",
+                            style: textStyle,
+                          ),
+                        ),
+                  titre! == "Acheter le billet"
+                      ? TextFormField(
+                          controller: nombrePlace,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                          //autofocus: true,
+                          //focusNode: FocusNode(skipTraversal: true),
+                          validator: (e) {
+                            if (e!.isEmpty) {
+                              return "Veuilliez inserer votre numéro de téléphone";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 5),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            prefixIcon: Icon(Icons.chair),
+                          ),
+                        )
+                      : Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "3000 CDF",
+                            style: textStyle,
+                          ),
+                        ),
 
                   const SizedBox(
                     height: 10,
@@ -429,174 +460,245 @@ class Paiement extends StatelessWidget {
                       //
                       Loader.loading();
                       //
-                      Map x = {
-                        "id": match['id'],
-                        "journee": match['journee'],
-                        "nomEquipeA": match['nomEquipeA'],
-                        "nomEquipeB": match['nomEquipeB'],
-                        "date": match['date'],
-                        "heure": match['heure'],
-                        "stade": match['stade'],
-                        "place": p['place'],
-                        "telephone": "00243${telephone.text}",
-                        "nombrePlace": nombrePlace.text,
-                        "montant": p['prix'],
-                        "devise": p['devise'],
-                        "qrcode": mdpGenerer(),
-                      };
+                      Map x = titre! == "Acheter le billet"
+                          ? {
+                              "id": match['id'],
+                              "journee": match['journee'],
+                              "nomEquipeA": match['nomEquipeA'],
+                              "nomEquipeB": match['nomEquipeB'],
+                              "date": match['date'],
+                              "heure": match['heure'],
+                              "stade": match['stade'],
+                              "place": p['place'],
+                              "telephone": "00243${telephone.text}",
+                              "nombrePlace": nombrePlace.text,
+                              //"montant": 3000,
+                              "montant": double.parse('${p['prix']}') *
+                                  int.parse(nombrePlace.text),
+                              "devise": p['devise'],
+                              "qrcode": mdpGenerer(),
+                            }
+                          : {
+                              "id": match['id'],
+                              "journee": match['journee'],
+                              "nomEquipeA": match['nomEquipeA'],
+                              "nomEquipeB": match['nomEquipeB'],
+                              "date": match['date'],
+                              "heure": match['heure'],
+                              "stade": match['stade'],
+                              "place": "Direct",
+                              "telephone": "00243${telephone.text}",
+                              "nombrePlace": 1,
+                              "montant": 3000,
+                              "devise": "CDF",
+                              "qrcode": mdpGenerer(),
+                            };
+                      //
+                      print("x: $x");
                       //
                       Map reponse = await paiementController.sendOTP(x);
+                      print("reponse 1: $reponse");
                       //Approuvé
                       if (reponse["respcodedesc"] == "Client introuvable") {
                         //
-                        Get.snackbar("Oups",
-                            "Vous n'etes pas client ILLICOCASH Veuillez-vous enregistrer dans un shop ILLICOCASH");
+                        Get.snackbar(
+                          "Oups",
+                          "Vous n'etes pas client ILLICOCASH Veuillez-vous enregistrer dans un shop ILLICOCASH",
+                          colorText: Colors.white,
+                          backgroundColor: Colors.red.shade900,
+                        );
                       } else if (reponse["place"] != null) {
                         //
-                        Get.snackbar("Oups", reponse["place"]);
-                      } else {
+                        Get.snackbar(
+                          "Oups",
+                          reponse["place"],
+                          colorText: Colors.white,
+                          backgroundColor: Colors.red.shade900,
+                        );
+                      } else if (reponse["respcodedesc"] ==
+                          "Source de transaction inconnue") {
+                        Get.snackbar(
+                          "Oups",
+                          reponse["respcodedesc"],
+                          colorText: Colors.white,
+                          backgroundColor: Colors.red.shade900,
+                        );
+                        /**
+                         * 
+                         */
+                      } else if (reponse["respcodedesc"] ==
+                          "Le solde de ce compte est insuffisant. Veuillez contacter le call center au 4488 pour plus d' informations.") {
+                        Get.snackbar(
+                          "Oups",
+                          reponse["respcodedesc"],
+                          colorText: Colors.white,
+                          backgroundColor: Colors.red.shade900,
+                        );
+                        /**
+                         * Le solde de ce compte est insuffisant. Veuillez contacter le call center au 4488 pour plus d' informations.
+                         */
+                      } else if (reponse["respcode"] == "00" ||
+                          reponse["respcode"] == 00) {
                         //
                         TextEditingController otp = TextEditingController();
                         //Get.snackbar("Succès", "Vous-avez reçu un code veuillez ");
-                        Get.dialog(Material(
-                          color: Colors.transparent,
-                          child: Center(
-                            child: Card(
-                              elevation: 1,
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                height: 300,
-                                width: 300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Veuillez inserer le code que vous avez reçu par SMS",
+                        Get.dialog(
+                          Material(
+                            color: Colors.transparent,
+                            child: Center(
+                              child: Card(
+                                elevation: 1,
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: 300,
+                                  width: 300,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Veuillez inserer le code que vous avez reçu par SMS",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextField(
+                                        controller: otp,
                                         textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    TextField(
-                                      controller: otp,
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 5),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 5),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          prefixIcon: const Icon(Icons.numbers),
                                         ),
-                                        prefixIcon: const Icon(Icons.numbers),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          flex: 4,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              //
-                                              Get.back();
-                                              Loader.loading();
-                                              //
-                                              x['otp'] = otp.text;
-                                              x['referencenumber'] =
-                                                  reponse["referencenumber"];
-                                              //
-                                              paiementController
-                                                  .payerVerification(x);
-                                            },
-                                            style: ButtonStyle(
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                const Size(
-                                                  double.maxFinite,
-                                                  45,
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            flex: 4,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                //
+                                                Get.back();
+                                                Loader.loading();
+                                                //
+                                                x['otp'] = otp.text;
+                                                x["qrcode"] = mdpGenerer();
+                                                x['referencenumber'] =
+                                                    reponse["referencenumber"];
+                                                //
+                                                paiementController
+                                                    .payerVerification(
+                                                        x, titre!);
+                                              },
+                                              style: ButtonStyle(
+                                                fixedSize:
+                                                    MaterialStateProperty.all(
+                                                  const Size(
+                                                    double.maxFinite,
+                                                    45,
+                                                  ),
+                                                ),
+                                                shape:
+                                                    MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                ),
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                  Color.fromARGB(
+                                                      255, 0, 90, 23),
                                                 ),
                                               ),
-                                              shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                              ),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                Color.fromARGB(255, 0, 90, 23),
-                                              ),
-                                            ),
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              width: double.maxFinite,
-                                              child: const Text(
-                                                "Valider",
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.white,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: double.maxFinite,
+                                                child: const Text(
+                                                  "Valider",
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          flex: 4,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              //
-                                              Get.back();
-                                            },
-                                            style: ButtonStyle(
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                const Size(
-                                                  double.maxFinite,
-                                                  45,
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                //
+                                                Get.back();
+                                              },
+                                              style: ButtonStyle(
+                                                fixedSize:
+                                                    MaterialStateProperty.all(
+                                                  const Size(
+                                                    double.maxFinite,
+                                                    45,
+                                                  ),
                                                 ),
-                                              ),
-                                              shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
+                                                shape:
+                                                    MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
                                                 ),
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Loader.backgroundColor),
                                               ),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Loader.backgroundColor),
-                                            ),
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              width: double.maxFinite,
-                                              child: const Text(
-                                                "Annuler",
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.white,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: double.maxFinite,
+                                                child: const Text(
+                                                  "Annuler",
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ));
+                        );
+                      } else {
+                        //
+                        //  "Le solde de ce compte est insuffisant. Veuillez contacter le call center au 4488 pour plus d' informations.") {
+                        Get.snackbar(
+                          "Oups",
+                          reponse["respcodedesc"],
+                          colorText: Colors.white,
+                          backgroundColor: Colors.red.shade900,
+                        );
                       }
                     },
                     style: ButtonStyle(
@@ -680,10 +782,8 @@ class Paiement extends StatelessWidget {
     //
     DateTime d = DateTime.now();
     //
-    String mdp = "";
-    for (int t = 0; t < 15; t++) {
-      mdp = "${d.day}${d.month}${d.year}$mdp${r.nextInt(10)}";
-    }
+    String mdp =
+        "${d.year}${d.month}${d.day}${d.hour}${d.minute}${d.second}${d.millisecond}${d.microsecond}";
     return mdp;
   }
 }

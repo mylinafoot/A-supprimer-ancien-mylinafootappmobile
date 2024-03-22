@@ -10,6 +10,7 @@ class Classement extends StatelessWidget {
     //
     return DefaultTabController(
       length: 3,
+      initialIndex: 1,
       child: Column(
         //padding: EdgeInsets.only(left: 0, right: 0, top: 0),
         children: [

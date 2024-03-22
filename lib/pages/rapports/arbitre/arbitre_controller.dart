@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:linafoot/pages/accueil.dart';
 import 'package:linafoot/utils/requete.dart';
+import 'package:http/http.dart' as http;
 
 class ArbitreController extends GetxController {
   //
@@ -150,7 +151,7 @@ class ArbitreController extends GetxController {
     //
     Response response = await requete.postE("rapport", r);
     //
-    if (response.isOk) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print("Arbitre: ${response.body}");
       //
       box.write("rapport${r['match']}", {});

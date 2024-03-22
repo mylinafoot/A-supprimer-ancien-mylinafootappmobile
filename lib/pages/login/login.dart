@@ -317,39 +317,39 @@ class Login extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      OutlinedButton(
-                        onPressed: () {
-                          //
-                          //Get.to(MdpOublie());
-                          //
-                        },
-                        style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all(
-                            const Size(
-                              double.maxFinite,
-                              45,
-                            ),
-                          ),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          )),
-                          //backgroundColor:
-                          //  MaterialStateProperty.all(Colors.red.shade900),
-                        ),
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: double.maxFinite,
-                          child: const Text(
-                            "Mot de passe oublié",
-                            style: TextStyle(
-                              //color: Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // OutlinedButton(
+                      //   onPressed: () {
+                      //     //
+                      //     //Get.to(MdpOublie());
+                      //     //
+                      //   },
+                      //   style: ButtonStyle(
+                      //     fixedSize: MaterialStateProperty.all(
+                      //       const Size(
+                      //         double.maxFinite,
+                      //         45,
+                      //       ),
+                      //     ),
+                      //     shape:
+                      //         MaterialStateProperty.all(RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(20),
+                      //     )),
+                      //     //backgroundColor:
+                      //     //  MaterialStateProperty.all(Colors.red.shade900),
+                      //   ),
+                      //   child: Container(
+                      //     alignment: Alignment.center,
+                      //     width: double.maxFinite,
+                      //     child: const Text(
+                      //       "Mot de passe oublié",
+                      //       style: TextStyle(
+                      //         //color: Colors.black,
+                      //         fontSize: 12,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 50,
                       ),

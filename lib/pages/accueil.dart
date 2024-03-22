@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:linafoot/pages/affiche/affiche.dart';
 import 'package:linafoot/pages/choix.dart';
+import 'package:linafoot/pages/live/direct.dart';
 import 'package:linafoot/pages/login/login.dart';
 import 'package:linafoot/pages/nous.dart';
 import 'package:linafoot/pages/programme/programme.dart';
@@ -17,11 +19,16 @@ import 'billets/billets.dart';
 import 'historique/historique.dart';
 import 'live/direct3.dart';
 import 'live/live.dart';
+import 'profil/login_utilisateur.dart';
+import 'programme/programme_controller.dart';
 import 'rapports/commissaire/commissaire.dart';
 import 'rapports/rapports.dart';
 
 class Accueil extends StatelessWidget {
   //Choix//Historique//Programme//Live//Statistique//
+  //
+  ProgrammeController programmeController = Get.find();
+  //
   Rx vue = Rx(Statistique());
   //
   Accueil({super.key}) {
@@ -48,9 +55,9 @@ class Accueil extends StatelessWidget {
   ];
   //
   List pubs = [
-    "LOGO LINAFOOT RDC.png",
+    "illicocash png.png",
     "LOGO VERTICAL HD.png",
-    "LOGO LINAFOOT RDC.png",
+    "illicocash png.png",
     "LOGO VERTICAL HD.png",
     "LOGO VERTICAL HD.png"
   ];
@@ -71,6 +78,21 @@ class Accueil extends StatelessWidget {
               title: const Text("Linafoot"),
               centerTitle: true,
               backgroundColor: Loader.backgroundColor,
+              // leading: Container(
+              //   height: 70,
+              //   width: 70,
+              //   decoration: const BoxDecoration(
+              //       image: DecorationImage(
+              //     image: ExactAssetImage("assets/illicocash png.png"),
+              //     fit: BoxFit.cover,
+              //   )),
+              //   // child: Image.asset(
+              //   //   'assets/illicocash png.png',
+              //   //   //'assets/LOGO LINAFOOT RDC.png',
+              //   //   width: 100,
+              //   //   height: 100,
+              //   // ),
+              // ),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -88,8 +110,8 @@ class Accueil extends StatelessWidget {
                 ),
               ],
             ),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            body: ListView(
+              //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 25,
@@ -111,6 +133,8 @@ class Accueil extends StatelessWidget {
                           return Card(
                             elevation: 1,
                             child: Container(
+                              padding: const EdgeInsets.all(20),
+                              alignment: Alignment.bottomCenter,
                               width: MediaQuery.of(context).size.width,
                               //margin: EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
@@ -118,6 +142,10 @@ class Accueil extends StatelessWidget {
                                   image: ExactAssetImage("assets/$i"),
                                 ),
                               ),
+                              child: i == "illicocash png.png"
+                                  ? const Text(
+                                      "Achèter avec votre numéro IllicoCash")
+                                  : Container(),
                             ),
                             // child: Text(
                             //   'text $i',
@@ -129,155 +157,46 @@ class Accueil extends StatelessWidget {
                     }).toList(),
                   ),
                 ),
-                Expanded(
-                  flex: 9,
-                  child: ListView(
-                    padding: const EdgeInsets.only(
-                      top: 50,
-                      left: 30,
-                      right: 30,
-                      bottom: 0,
+                const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 30, right: 30, bottom: 5, top: 5),
+                    child: Text(
+                      "Acheter votre billet",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                    children: List.generate(
-                      rencontres.length,
-                      (index) {
-                        //
-                        List r = rencontres[index];
-                        //
-                        return Card(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: () {
-                              //
-                              Get.dialog(
-                                Center(
-                                  child: Card(
-                                    elevation: 1,
-                                    child: Container(
-                                      height: 150,
-                                      width: 200,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Image.asset(
-                                            'assets/LOGO LINAFOOT RDC.png',
-                                            width: 50,
-                                            height: 50,
-                                          ),
-                                          const Text(
-                                            "Acheter le billé de ce match",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              //
-                                              DateTime dateTime =
-                                                  DateTime.now();
-                                              print(dateTime);
-                                              if (dateTime.day == 3 &&
-                                                  dateTime.month == 3 &&
-                                                  dateTime.year == 2024) {
-                                                //
-                                                Get.to(const Direct3());
-                                              }
-                                            },
-                                            child: const Text("Suivre"),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            child: SizedBox(
-                              height: 150,
-                              width: double.maxFinite,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                    height: 25,
-                                    width: double.maxFinite,
-                                    //color: Colors.black,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          Colors.yellow,
-                                          Colors.blue.shade700,
-                                          Colors.blue.shade700,
-                                          Colors.red,
-                                        ],
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "03/03/2024",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "15:30",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 4,
-                                          child: Container(
-                                            child: Image.asset(
-                                                "assets/AS_Vita_Club_(logo).png"),
-                                          ),
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          width: 50,
-                                          child: Text(
-                                            "0 - 0",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 4,
-                                          child: Container(
-                                            child: Image.asset(
-                                                "assets/LES AIGLES DU CONGO.png"),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 5,
+                    left: 30,
+                    right: 30,
+                    bottom: 0,
+                  ),
+                  child: FutureBuilder(
+                    future: programmeController.getCalendrier(),
+                    builder: (c, t) {
+                      //
+                      if (t.hasData) {
+                        var id = t.data as int;
+                        print("id: $id");
+                        return Affiche("$id");
+                      } else if (t.hasError) {
+                        return Container();
+                      }
+                      return Center(
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -288,7 +207,7 @@ class Accueil extends StatelessWidget {
           ),
           Programme(),
           Statistique(),
-          Live(),
+          Direct(),
           Actualites(),
           Container(
             color: Loader.backgroundColor,
@@ -298,8 +217,8 @@ class Accueil extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     //
-
-                    Get.to(Nous());
+                    Get.to(LoginUtilisateur());
+                    //
                   },
                   leading: Icon(Icons.person),
                   title: Text("Profil"),
@@ -317,9 +236,9 @@ class Accueil extends StatelessWidget {
                     //
                     Get.to(Billet());
                   },
-                  leading: Icon(CupertinoIcons.ticket),
-                  title: Text("Billets"),
-                  subtitle: Text(
+                  leading: const Icon(CupertinoIcons.ticket),
+                  title: const Text("Billets"),
+                  subtitle: const Text(
                     "vos billets electronique",
                     style: TextStyle(
                       fontSize: 10,
@@ -328,22 +247,22 @@ class Accueil extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListTile(
-                  onTap: () {
-                    //
-                    Get.to(Nous());
-                  },
-                  leading: Icon(Icons.history),
-                  title: Text("Abonnement"),
-                  subtitle: Text(
-                    "Direct et billets",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                // ListTile(
+                //   onTap: () {
+                //     //
+                //     Get.to(Nous());
+                //   },
+                //   leading: Icon(Icons.history),
+                //   title: Text("Abonnement"),
+                //   subtitle: Text(
+                //     "Direct et billets",
+                //     style: TextStyle(
+                //       fontSize: 10,
+                //       color: Colors.blue,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
                 ListTile(
                   onTap: () {
                     //
@@ -463,6 +382,81 @@ class Accueil extends StatelessWidget {
         navBarStyle:
             NavBarStyle.style1, // Choose the nav bar style with this property.
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     Get.dialog(
+      //       Center(
+      //         child: Card(
+      //           elevation: 1,
+      //           child: Container(
+      //             padding: EdgeInsets.all(10),
+      //             height: 200,
+      //             width: 200,
+      //             child: Column(
+      //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //               children: [
+      //                 Align(
+      //                   alignment: Alignment.topCenter,
+      //                   child: Text(
+      //                     "Billet(s) achetés avec succès cliquez sur voir",
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle(
+      //                       fontSize: 20,
+      //                     ),
+      //                   ),
+      //                 ),
+      //                 ElevatedButton(
+      //                   onPressed: () async {
+      //                     //
+      //                     Get.back();
+      //                     Get.to(Billet());
+      //                     //
+      //                   },
+      //                   style: ButtonStyle(
+      //                     fixedSize: MaterialStateProperty.all(
+      //                       const Size(
+      //                         double.maxFinite,
+      //                         45,
+      //                       ),
+      //                     ),
+      //                     shape: MaterialStateProperty.all(
+      //                       RoundedRectangleBorder(
+      //                         borderRadius: BorderRadius.circular(20),
+      //                       ),
+      //                     ),
+      //                     backgroundColor:
+      //                         MaterialStateProperty.all(Colors.black),
+      //                   ),
+      //                   child: Container(
+      //                     alignment: Alignment.center,
+      //                     width: double.maxFinite,
+      //                     child: Row(
+      //                       mainAxisAlignment: MainAxisAlignment.center,
+      //                       children: [
+      //                         const Text(
+      //                           "Voir",
+      //                           style: TextStyle(
+      //                             fontSize: 15,
+      //                             color: Colors.white,
+      //                           ),
+      //                         ),
+      //                         const SizedBox(
+      //                           width: 5,
+      //                         ),
+      //                         Icon(Icons.qr_code)
+      //                       ],
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      //   child: Icon(Icons.filter),
+      // ),
     );
     // return Scaffold(
     //   //body: Obx(() => vue.value),

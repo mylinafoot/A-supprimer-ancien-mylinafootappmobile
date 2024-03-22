@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:linafoot/pages/live/live.dart';
+import 'package:linafoot/pages/programme/programme_controller.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Direct extends StatefulWidget {
@@ -12,52 +15,37 @@ class Direct extends StatefulWidget {
 
 class _Direct extends State<Direct> {
   //
-  YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'l8PMl7tUDIE',
-    flags: const YoutubePlayerFlags(
-      autoPlay: true,
-      mute: true,
-    ),
-  );
-  //
-  //https://youtube.com/live/Z68wBvGn2c8?feature=share
-  //https://youtube.com/live/Rzs5eiFftoM?feature=share
-  //https://youtube.com/live/EtdbAbrHIik?feature=share
-  //
+  ProgrammeController programmeController = Get.find();
 
   @override
   void initState() {
     super.initState();
     //
-    String? videoId;
-    videoId = YoutubePlayer.convertUrlToId(
-        "https://youtube.com/live/Z68wBvGn2c8?feature=share");
-    //
-    _controller = YoutubePlayerController(
-      initialVideoId: 'EtdbAbrHIik',
-      flags: const YoutubePlayerFlags(
-        autoPlay: true,
-        mute: true,
-      ),
-    );
-    print(videoId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: YoutubePlayerBuilder(
-        player: YoutubePlayer(
-          controller: _controller,
-        ),
-        builder: (context, player) {
-          return Column(
-            children: [
-              // some widgets
-              player,
-              //some other widgets
-            ],
+      //appBar: AppBar(),
+      body: FutureBuilder(
+        future: programmeController.getCalendrier(),
+        builder: (c, t) {
+          //
+          if (t.hasData) {
+            var id = t.data as int;
+            print("id: $id");
+            return Container(
+              child: Live('$id'),
+            );
+          } else if (t.hasError) {
+            return Container();
+          }
+          return Center(
+            child: Container(
+              height: 40,
+              width: 40,
+              child: const CircularProgressIndicator(),
+            ),
           );
         },
       ),

@@ -29,6 +29,7 @@ class ProgrammeMatchs extends StatelessWidget {
     return Obx(
       () => DefaultTabController(
         length: jr.value,
+        initialIndex: programmeController.journee.value - 1,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(

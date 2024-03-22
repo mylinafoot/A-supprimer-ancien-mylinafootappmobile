@@ -22,6 +22,7 @@ class ProgrammeJournee extends GetView<ProgrammeController> {
   Widget build(BuildContext context) {
     //
     return ListView(
+      padding: EdgeInsets.all(10),
       children: [
         FutureBuilder(
           future: controller.getAllMatchsDeLaJournee2(
@@ -56,7 +57,7 @@ class ProgrammeJournee extends GetView<ProgrammeController> {
                             InkWell(
                               onTap: () {
                                 //
-                                Get.to(Paiement(match));
+                                Get.to(Paiement(match, "Acheter le billet"));
                               },
                               child: Row(
                                 mainAxisAlignment:
@@ -87,7 +88,7 @@ class ProgrammeJournee extends GetView<ProgrammeController> {
                                             height: 10,
                                           ),
                                           Text(
-                                            "${match['nomEquipeB']}",
+                                            "${match['nomEquipeA']}",
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                               fontSize: 13,
@@ -132,7 +133,7 @@ class ProgrammeJournee extends GetView<ProgrammeController> {
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  "$d ${match['date']}",
+                                                  "$d ${match['heure']}",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 10,

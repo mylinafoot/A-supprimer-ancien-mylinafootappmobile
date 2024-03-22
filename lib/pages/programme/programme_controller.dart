@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:linafoot/utils/requete.dart';
+import 'package:http/http.dart' as http;
 
 class ProgrammeController extends GetxController with StateMixin<List> {
   //
   Requete requete = Requete();
   //
   RxMap equipeA = {}.obs;
+  //
+  RxInt journee = 0.obs;
   //
   RxMap equipeB = {}.obs;
   //
@@ -21,16 +26,33 @@ class ProgrammeController extends GetxController with StateMixin<List> {
   Future<List> getAllJourneeDeLaSaison(
       String idCalendrier, String categorie) async {
     //
-    change([], status: RxStatus.loading());
-    //
-    Response response =
+    http.Response response =
         await requete.getE("match/All/journee/$idCalendrier/$categorie");
     //
-    if (response.isOk) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print("response mt: ${response.statusCode}");
       print("response mt: ${response.body}");
       // change(response.body, status: RxStatus.success());
-      return response.body;
+      return jsonDecode(response.body);
+    } else {
+      //
+      print("response mt: ${response.statusCode}");
+      print("response mt: ${response.body}");
+      // change([], status: RxStatus.empty());
+      return [];
+    }
+  }
+
+  //
+  Future<List> getAllJourneeDeLaSaison2(String idCalendrier) async {
+    //
+    http.Response response = await requete.getE("match/all/$idCalendrier");
+    //
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("response mt: ${response.statusCode}");
+      print("response mt: ${response.body}");
+      // change(response.body, status: RxStatus.success());
+      return jsonDecode(response.body);
     } else {
       //
       print("response mt: ${response.statusCode}");
@@ -47,14 +69,14 @@ class ProgrammeController extends GetxController with StateMixin<List> {
     //
     change([], status: RxStatus.loading());
     //
-    Response response =
+    http.Response response =
         await requete.getE("match/All/match/$idCalendrier/$categorie/$journee");
     //
-    if (response.isOk) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print("response jr: ${response.statusCode}");
       print("response jr: ${response.body}");
       //
-      change(response.body, status: RxStatus.success());
+      change(jsonDecode(response.body), status: RxStatus.success());
     } else {
       //
       print("response jr: ${response.statusCode}");
@@ -69,14 +91,14 @@ class ProgrammeController extends GetxController with StateMixin<List> {
     //
     change([], status: RxStatus.loading());
     //
-    Response response =
+    http.Response response =
         await requete.getE("match/All/match/$idCalendrier/$categorie/$journee");
     //
-    if (response.isOk) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       // print("response: ${response.statusCode}");
       // print("response: ${response.body}");
       // change(response.body, status: RxStatus.success());
-      return response.body;
+      return jsonDecode(response.body);
     } else {
       //
       // print("response: ${response.statusCode}");
@@ -89,19 +111,39 @@ class ProgrammeController extends GetxController with StateMixin<List> {
   //
   Future<int> getCalendrier() async {
     //
-    Response response = await requete.getE("calendrier/actuel");
+    http.Response response = await requete.getE("calendrier/actuel");
     //
-    if (response.isOk) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print("response: ${response.statusCode}");
       print("response: ${response.body}");
       // change(response.body, status: RxStatus.success());
-      return response.body;
+      return jsonDecode(response.body);
     } else {
       //
       print("response: ${response.statusCode}");
       print("response: ${response.body}");
       // change([], status: RxStatus.empty());
       return 0;
+    }
+  }
+
+  //
+  Future<List> getAfficher(String idCalendrier) async {
+    //
+    http.Response response =
+        await requete.getE("match/allaffiches/$idCalendrier");
+    //
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("response: all ${response.statusCode}");
+      print("response: all ${response.body}");
+      // change(response.body, status: RxStatus.success());
+      return jsonDecode(response.body);
+    } else {
+      //
+      print("response: all ${response.statusCode}");
+      print("response: all ${response.body}");
+      // change([], status: RxStatus.empty());
+      return [];
     }
   }
 }

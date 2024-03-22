@@ -22,7 +22,8 @@ class LoginController extends GetxController {
     print(
         "${Requete.url}/commissaire/login?mdp=${e['mdpMatch']}"); //&profil=agent
     //
-    Response? rep;
+    http.Response? rep;
+    Response? rep2;
     //
     if (i == 1) {
       rep = await requete
@@ -45,7 +46,7 @@ class LoginController extends GetxController {
       //
       print(rep.statusCode);
       print(rep.body);
-      List e = rep.body;
+      List e = jsonDecode(rep.body);
       //
       Get.back();
 
@@ -156,7 +157,7 @@ class LoginController extends GetxController {
     print("${Requete.url}utilisateur");
     //&profil=agent
     //
-    Response rep = await requete.putE("utilisateur/mdp", e);
+    http.Response rep = await requete.putE("utilisateur/mdp", e);
     if (rep.statusCode == 200 || rep.statusCode == 201) {
       //
       print("rep: ${rep.body}");
@@ -205,7 +206,7 @@ class LoginController extends GetxController {
     String code = "$i1$i2$i3$i4$i5$i6$i7$i8$i9";
     print("le code: $code");
     //
-    Response response =
+    http.Response response =
         await requete.getE("utilisateur/sendmdp/$telephone/$code/$exit");
     if (response.statusCode == 200 || response.statusCode == 201) {
       //

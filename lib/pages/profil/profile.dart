@@ -152,7 +152,7 @@ class Profile extends StatelessWidget {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${match['nomEquipeB']}",
+                                      "${match['nomEquipeA']}",
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         fontSize: 13,

@@ -8,6 +8,9 @@ import 'package:linafoot/utils/loader.dart';
 import 'programme_controller.dart';
 
 class Programme extends GetView<ProgrammeController> {
+  //
+  ProgrammeController programmeController = Get.find();
+  //
   @override
   Widget build(BuildContext context) {
     //
@@ -33,7 +36,7 @@ class Programme extends GetView<ProgrammeController> {
         child: Scaffold(
           backgroundColor: Loader.backgroundColor,
           appBar: AppBar(
-            title: const Text("Calendrier de Match"),
+            title: const Text("Calendrier officiel du playoff"),
             centerTitle: true,
             backgroundColor: Loader.backgroundColor,
             bottom: PreferredSize(
@@ -41,12 +44,27 @@ class Programme extends GetView<ProgrammeController> {
               child: Container(
                 padding: const EdgeInsets.only(bottom: 10),
                 alignment: Alignment.center,
-                child: Text(
-                  "Calendrier officiel du playoff",
+                child: const Text.rich(
+                  TextSpan(
+                    children: [
+                      // TextSpan(
+                      //   text: "Calendrier officiel du playoff",
+                      //   style: TextStyle(
+                      //     fontSize: 20,
+                      //     color: Colors.white,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      TextSpan(
+                        text: "Acheter votre billet en cliquant sur le match",
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -55,27 +73,28 @@ class Programme extends GetView<ProgrammeController> {
           body: Column(
             children: [
               Expanded(
-                  flex: 1,
-                  child: FutureBuilder(
-                    future: controller.getCalendrier(),
-                    builder: (c, t) {
-                      //
-                      if (t.hasData) {
-                        var id = t.data as int;
-                        print("id: $id");
-                        return ProgrammeMatchs('$id', "playoff");
-                      } else if (t.hasError) {
-                        return Container();
-                      }
-                      return Center(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          child: const CircularProgressIndicator(),
-                        ),
-                      );
-                    },
-                  )),
+                flex: 1,
+                child: FutureBuilder(
+                  future: controller.getCalendrier(),
+                  builder: (c, t) {
+                    //
+                    if (t.hasData) {
+                      var id = t.data as int;
+                      print("id: $id");
+                      return ProgrammeMatchs('$id', "playoff");
+                    } else if (t.hasError) {
+                      return Container();
+                    }
+                    return Center(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

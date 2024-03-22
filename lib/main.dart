@@ -58,24 +58,24 @@ class MyApp extends StatelessWidget {
     //box.erase();
     //
     return GetMaterialApp(
-      title: 'Linafoot',
-      themeMode: ThemeMode.dark,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
-        colorScheme: const ColorScheme.dark(primary: Colors.red),
-        textTheme: const TextTheme(
-          titleSmall: TextStyle(fontSize: 10),
-        ),
-        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        title: 'Linafoot',
+        themeMode: ThemeMode.dark,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.from(
+          colorScheme: const ColorScheme.dark(primary: Colors.red),
+          textTheme: const TextTheme(
+            titleSmall: TextStyle(fontSize: 10),
+          ),
+          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
 
-        useMaterial3: true,
-        //cardColor: Colors.white,
-      ),
-      home:
-          //Paiement()
-          //Login(3),
-          //Splash()
-          Accueil(),
-    );
+          useMaterial3: true,
+          //cardColor: Colors.white,
+        ),
+        home:
+            //Paiement()
+            //Login(3),
+            Splash()
+        //Accueil(),
+        );
   }
 }

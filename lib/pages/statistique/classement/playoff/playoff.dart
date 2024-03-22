@@ -147,6 +147,7 @@ class Playoff extends StatelessWidget {
               children: List.generate(
                 equipes.length,
                 (index) {
+                  return Container();
                   return ListView(
                     children: List.generate(8, (index) {
                       return Container(
