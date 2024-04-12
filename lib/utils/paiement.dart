@@ -489,7 +489,7 @@ class Paiement extends StatelessWidget {
                               "place": "Direct",
                               "telephone": "00243${telephone.text}",
                               "nombrePlace": 1,
-                              "montant": 3000,
+                              "montant": 1500,
                               "devise": "CDF",
                               "qrcode": mdpGenerer(),
                             };

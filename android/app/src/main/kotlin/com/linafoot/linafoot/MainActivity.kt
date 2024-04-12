@@ -1,4 +1,4 @@
-package com.example.linafoot
+package com.linafoot.linafoot
 
 import io.flutter.embedding.android.FlutterActivity
 

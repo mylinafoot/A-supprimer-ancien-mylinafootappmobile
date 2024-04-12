@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math' as math;
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -148,6 +149,67 @@ class LoginController extends GetxController {
       //
       Get.back();
       Get.snackbar("Erreur", "Un problème lors de l'enregistrement");
+    }
+  }
+
+  //utilisateur
+  Future<Map> loginUtilisateur(String telephone, String code) async {
+    //commissaire/login?telephone=0987654312&mdp=1234567&date=27-2-2024
+    //String code = await getCode();
+    print(
+        "${Requete.url}/utilisateur/login?telephone=$telephone&code=$code"); //&profil=agent
+    //
+    http.Response rep = await requete.getE(
+        "utilisateur/login?telephone=$telephone&code=$code"); //&profil=agent
+    //
+    if (rep.statusCode == 200 || rep.statusCode == 201) {
+      //
+      Get.back();
+      //
+      print(rep.statusCode);
+      print(rep.body);
+      //
+      return jsonDecode(rep.body);
+      //
+    } else {
+      //
+      print(rep.statusCode);
+      print(rep.body);
+      //
+      Get.back();
+
+      Get.snackbar("Erreur", "Un problème lors de l'authentification");
+      return {"status": "vide"};
+    }
+  }
+
+  //utilisateur
+  Future<Map> modifierUtilisateur(Map utilisateur) async {
+    //commissaire/login?telephone=0987654312&mdp=1234567&date=27-2-2024
+    //String code = await getCode();
+    print("$utilisateur"); //&profil=agent
+    //
+    http.Response rep =
+        await requete.putE("utilisateur", utilisateur); //&profil=agent
+    //
+    if (rep.statusCode == 200 || rep.statusCode == 201) {
+      //
+      Get.back();
+      //
+      print(rep.statusCode);
+      print(rep.body);
+      //
+      return jsonDecode(rep.body);
+      //
+    } else {
+      //
+      print(rep.statusCode);
+      print(rep.body);
+      //
+      Get.back();
+
+      Get.snackbar("Erreur", "Un problème lors de l'authentification");
+      return {"status": "vide"};
     }
   }
 

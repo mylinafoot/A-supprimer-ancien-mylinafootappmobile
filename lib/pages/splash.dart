@@ -33,12 +33,14 @@ class Splash extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            const SizedBox(),
             Container(
-              height: 200,
-              width: 200,
+              height: 280,
+              width: 280,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(140),
+              ),
               child: Image.asset(
                 'assets/mylinafoot.jpg',
                 //'assets/LOGO LINAFOOT RDC.png',
@@ -47,14 +49,59 @@ class Splash extends StatelessWidget {
               ),
             ),
             Container(
-              height: 200,
-              width: 200,
-              child: Image.asset(
-                'assets/illicocash png.png',
-                //'assets/LOGO LINAFOOT RDC.png',
-                width: 100,
-                height: 100,
+              height: 180,
+              width: double.maxFinite,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Sponsorisé par:",
+                    style: TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                  Container(
+                    height: 100,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      //color: Colors.yellow,
+                      image: DecorationImage(
+                          image: ExactAssetImage("assets/illicocash png.png"),
+                          fit: BoxFit.cover),
+                    ),
+                  )
+                ],
               ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  height: 30,
+                  width: 200,
+                  child: const Text(
+                    "Propriété de la Linafoot, tout droit reservé.",
+                    style: TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  height: 30,
+                  width: 200,
+                  child: const Text(
+                    "écrit par EcosysRdc",
+                    style: TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

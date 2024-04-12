@@ -22,12 +22,12 @@ class Billet extends StatelessWidget {
     return Scaffold(
       backgroundColor: Loader.backgroundColor,
       appBar: AppBar(
-        title: Text("Billets"),
+        title: const Text("Billets"),
         centerTitle: true,
         backgroundColor: Loader.backgroundColor,
       ),
       body: ListView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         children: List.generate(billets.length, (index) {
           //
           Map match = billets[index];
@@ -103,6 +103,16 @@ class Billet extends StatelessWidget {
                         data: '${match['qrCode']}',
                         version: QrVersions.auto,
                         size: 200.0,
+                        //
+                        backgroundColor: match['typePlace'] == "Pourtour"
+                            ? Colors.yellow
+                            : match['typePlace'] == "Tribune Lateralle"
+                                ? Colors.red
+                                : match['typePlace'] == "Tribune Honneur"
+                                    ? Colors.blue
+                                    : match['typePlace'] == "Tribune Centrale"
+                                        ? Colors.brown
+                                        : Colors.green,
                       ),
                     ),
                   ),
@@ -118,7 +128,7 @@ class Billet extends StatelessWidget {
                             child: Text(
                               "JOURNEE ${match['journee']}",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -130,7 +140,7 @@ class Billet extends StatelessWidget {
                             child: Text(
                               "${match['date']}",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -152,12 +162,12 @@ class Billet extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Align(
+                              const Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   "vs",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,

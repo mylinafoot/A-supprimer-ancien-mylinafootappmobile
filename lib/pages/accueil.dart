@@ -9,6 +9,7 @@ import 'package:linafoot/pages/live/direct.dart';
 import 'package:linafoot/pages/login/login.dart';
 import 'package:linafoot/pages/nous.dart';
 import 'package:linafoot/pages/programme/programme.dart';
+import 'package:linafoot/pages/statistique/classement/classement.dart';
 import 'package:linafoot/pages/statistique/statistique.dart';
 import 'package:linafoot/utils/loader.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -16,20 +17,22 @@ import 'package:svg_flutter/svg.dart';
 
 import 'actus/actus.dart';
 import 'billets/billets.dart';
+import 'entree.dart';
 import 'historique/historique.dart';
 import 'live/direct3.dart';
 import 'live/live.dart';
+import 'plus.dart';
 import 'profil/login_utilisateur.dart';
 import 'programme/programme_controller.dart';
 import 'rapports/commissaire/commissaire.dart';
 import 'rapports/rapports.dart';
+import 'sababalar/sababalar.dart';
 
 class Accueil extends StatelessWidget {
   //Choix//Historique//Programme//Live//Statistique//
+
   //
-  ProgrammeController programmeController = Get.find();
-  //
-  Rx vue = Rx(Statistique());
+  Rx vue = Rx(Entree());
   //
   Accueil({super.key}) {
     //
@@ -53,335 +56,451 @@ class Accueil extends StatelessWidget {
     {"titre": "Admin", "icon": "GalaPortrait1.svg"},
     //{"titre": "A propos", "icon": "IonHelpOutline.svg"},
   ];
-  //
-  List pubs = [
-    "illicocash png.png",
-    "LOGO VERTICAL HD.png",
-    "illicocash png.png",
-    "LOGO VERTICAL HD.png",
-    "LOGO VERTICAL HD.png"
-  ];
+
   //
   @override
   Widget build(BuildContext context) {
     //
     return Scaffold(
       backgroundColor: Loader.backgroundColor,
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-
-        screens: [
-          Scaffold(
-            backgroundColor: Loader.backgroundColor,
-            appBar: AppBar(
-              title: const Text("Linafoot"),
-              centerTitle: true,
-              backgroundColor: Loader.backgroundColor,
-              // leading: Container(
-              //   height: 70,
-              //   width: 70,
-              //   decoration: const BoxDecoration(
-              //       image: DecorationImage(
-              //     image: ExactAssetImage("assets/illicocash png.png"),
-              //     fit: BoxFit.cover,
-              //   )),
-              //   // child: Image.asset(
-              //   //   'assets/illicocash png.png',
-              //   //   //'assets/LOGO LINAFOOT RDC.png',
-              //   //   width: 100,
-              //   //   height: 100,
-              //   // ),
-              // ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    //BxsHelpCircle
-                    Get.to(Nous());
-                    //
-                  },
-                  icon: SvgPicture.asset(
-                    'assets/BxsHelpCircle.svg',
-                    width: 30,
-                    height: 30,
-                    semanticsLabel: 'BxsHelpCircle.svg',
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            body: ListView(
-              //mainAxisAlignment: MainAxisAlignment.start,
+      body: Stack(
+        children: [
+          Container(
+            height: Get.size.height,
+            width: Get.size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  height: Get.size.height / 2.2,
-                  //color: Colors.red,
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      height: 350,
-                      autoPlay: true,
-                      viewportFraction: 0.9,
-                      autoPlayAnimationDuration: const Duration(seconds: 1),
-                      enlargeCenterPage: true,
-                    ),
-                    items: pubs.map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Card(
-                            elevation: 1,
-                            child: Container(
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.bottomCenter,
-                              width: MediaQuery.of(context).size.width,
-                              //margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: ExactAssetImage("assets/$i"),
-                                ),
-                              ),
-                              child: i == "illicocash png.png"
-                                  ? const Text(
-                                      "Achèter avec votre numéro IllicoCash")
-                                  : Container(),
-                            ),
-                            // child: Text(
-                            //   'text $i',
-                            //   style: TextStyle(fontSize: 16.0),
-                            // ),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  ),
-                ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 30, right: 30, bottom: 5, top: 5),
-                    child: Text(
-                      "Acheter votre billet",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: Get.size.height,
+                    width: Get.size.width,
+                    decoration: const BoxDecoration(
+                      //color: Colors.amber,
+                      image: DecorationImage(
+                        image: ExactAssetImage("assets/arriere_plan.jpg"),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 5,
-                    left: 30,
-                    right: 30,
-                    bottom: 0,
-                  ),
-                  child: FutureBuilder(
-                    future: programmeController.getCalendrier(),
-                    builder: (c, t) {
-                      //
-                      if (t.hasData) {
-                        var id = t.data as int;
-                        print("id: $id");
-                        return Affiche("$id");
-                      } else if (t.hasError) {
-                        return Container();
-                      }
-                      return Center(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          child: const CircularProgressIndicator(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-              ],
-            ),
-          ),
-          Programme(),
-          Statistique(),
-          Direct(),
-          Actualites(),
-          Container(
-            color: Loader.backgroundColor,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ListTile(
-                  onTap: () {
-                    //
-                    Get.to(LoginUtilisateur());
-                    //
-                  },
-                  leading: Icon(Icons.person),
-                  title: Text("Profil"),
-                  subtitle: Text(
-                    "Compte",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: Get.size.height,
+                    width: Get.size.width,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage("assets/arriere_plan.jpg"),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
-                ListTile(
-                  onTap: () {
-                    //
-                    Get.to(Billet());
-                  },
-                  leading: const Icon(CupertinoIcons.ticket),
-                  title: const Text("Billets"),
-                  subtitle: const Text(
-                    "vos billets electronique",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: Get.size.height,
+                    width: Get.size.width,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage("assets/arriere_plan.jpg"),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
-                // ListTile(
-                //   onTap: () {
-                //     //
-                //     Get.to(Nous());
-                //   },
-                //   leading: Icon(Icons.history),
-                //   title: Text("Abonnement"),
-                //   subtitle: Text(
-                //     "Direct et billets",
-                //     style: TextStyle(
-                //       fontSize: 10,
-                //       color: Colors.blue,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-                ListTile(
-                  onTap: () {
-                    //
-                    Get.to(Nous());
-                  },
-                  leading: Icon(Icons.info_outline_rounded),
-                  title: Text("Qui sommes nous"),
-                  subtitle: Text(
-                    "Missions & objectifs",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    //
-                    //Get.to(Login());
-                  },
-                  leading: Icon(Icons.verified_user_outlined),
-                  title: Text("Mention légale"),
-                  subtitle: Text(
-                    "condition d'utilisation",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    //
-                    Get.to(Rapport());
-                  },
-                  leading: Icon(Icons.admin_panel_settings),
-                  title: Text("Administration"),
-                  subtitle: Text(
-                    "Rapports",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: Get.size.height,
+                    width: Get.size.width,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage("assets/arriere_plan.jpg"),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
+          Obx(() => vue.value)
         ],
-        items: [
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.home_rounded),
-            title: ("Accueil"),
-            activeColorPrimary: CupertinoColors.activeBlue,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.history),
-            title: ("Calendrier"),
-            activeColorPrimary: CupertinoColors.activeBlue,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(CupertinoIcons.chart_pie),
-            title: ("Classements"),
-            activeColorPrimary: CupertinoColors.activeBlue,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(CupertinoIcons.play_circle),
-            title: ("Direct"),
-            activeColorPrimary: CupertinoColors.activeBlue,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.language),
-            title: ("Actualité"),
-            activeColorPrimary: CupertinoColors.activeBlue,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(CupertinoIcons.profile_circled),
-            title: ("Plus"),
-            activeColorPrimary: CupertinoColors.activeBlue,
-            inactiveColorPrimary: CupertinoColors.systemGrey,
-          ),
-        ],
-        confineInSafeArea: true,
-        backgroundColor: Colors.grey.shade900, // Default is Colors.white.
-        handleAndroidBackButtonPress: true, // Default is true.
-        resizeToAvoidBottomInset:
-            true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-        stateManagement: true, // Default is true.
-        hideNavigationBarWhenKeyboardShows:
-            true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-        decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          colorBehindNavBar: Colors.white,
-        ),
-        popAllScreensOnTapOfSelectedTab: false,
-        popAllScreensOnTapAnyTabs: true,
-        popActionScreens: PopActionScreensType.once,
-        itemAnimationProperties: const ItemAnimationProperties(
-          // Navigation Bar's items animation properties.
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
-        ),
-        screenTransitionAnimation: const ScreenTransitionAnimation(
-          // Screen transition animation on change of selected tab.
-          animateTabTransition: true,
-          curve: Curves.ease,
-          duration: Duration(milliseconds: 100),
-        ),
-        navBarStyle:
-            NavBarStyle.style1, // Choose the nav bar style with this property.
       ),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          onTap: (e) {
+            //
+            currentIndex.value = e;
+            //
+            if (e == 0) {
+              vue.value = Entree();
+            }
+            if (e == 1) {
+              vue.value = Programme();
+            }
+            // if (e == 2) {
+            //   vue.value = Statistique();
+            // }
+            if (e == 2) {
+              vue.value = Direct();
+            }
+            if (e == 3) {
+              vue.value = Actualites();
+            }
+            // if (e == 5) {
+            //   vue.value = Sababalar();
+            // }
+            if (e == 4) {
+              vue.value = Plus();
+            }
+          },
+          currentIndex: currentIndex.value,
+          unselectedItemColor: Colors.grey.shade500,
+          selectedItemColor: Loader.backgroundColor,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_rounded), label: "Accueil"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.history), label: "Calendrier"),
+            //BottomNavigationBarItem(
+            //  icon: Icon(CupertinoIcons.chart_pie), label: "Classements"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.play_circle), label: "Direct"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.language), label: "Actualité"),
+            //BottomNavigationBarItem(icon: Icon(Icons.games), label: "Jeux"),
+            BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.profile_circled), label: "Plus"),
+          ],
+        ),
+      ),
+      // body: PersistentTabView(
+      //   context,
+      //   controller: _controller,
+      //   screens: [
+      //     Scaffold(
+      //       backgroundColor: Loader.backgroundColor,
+      //       appBar: AppBar(
+      //         title: const Text("Linafoot"),
+      //         centerTitle: true,
+      //         backgroundColor: Loader.backgroundColor,
+      //         // leading: Container(
+      //         //   height: 70,
+      //         //   width: 70,
+      //         //   decoration: const BoxDecoration(
+      //         //       image: DecorationImage(
+      //         //     image: ExactAssetImage("assets/illicocash png.png"),
+      //         //     fit: BoxFit.cover,
+      //         //   )),
+      //         //   // child: Image.asset(
+      //         //   //   'assets/illicocash png.png',
+      //         //   //   //'assets/LOGO LINAFOOT RDC.png',
+      //         //   //   width: 100,
+      //         //   //   height: 100,
+      //         //   // ),
+      //         // ),
+      //         actions: [
+      //           IconButton(
+      //             onPressed: () {
+      //               //BxsHelpCircle
+      //               Get.to(Nous());
+      //               //
+      //             },
+      //             icon: SvgPicture.asset(
+      //               'assets/BxsHelpCircle.svg',
+      //               width: 30,
+      //               height: 30,
+      //               semanticsLabel: 'BxsHelpCircle.svg',
+      //               color: Colors.white,
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //       body: ListView(
+      //         //mainAxisAlignment: MainAxisAlignment.start,
+      //         children: [
+      //           const SizedBox(
+      //             height: 25,
+      //           ),
+      //           Container(
+      //             height: Get.size.height / 2.2,
+      //             //color: Colors.red,
+      //             child: CarouselSlider(
+      //               options: CarouselOptions(
+      //                 height: 350,
+      //                 autoPlay: true,
+      //                 viewportFraction: 0.9,
+      //                 autoPlayAnimationDuration: const Duration(seconds: 1),
+      //                 enlargeCenterPage: true,
+      //               ),
+      //               items: pubs.map((i) {
+      //                 return Builder(
+      //                   builder: (BuildContext context) {
+      //                     return Card(
+      //                       elevation: 1,
+      //                       child: Container(
+      //                         padding: const EdgeInsets.all(20),
+      //                         alignment: Alignment.bottomCenter,
+      //                         width: MediaQuery.of(context).size.width,
+      //                         //margin: EdgeInsets.symmetric(horizontal: 5.0),
+      //                         decoration: BoxDecoration(
+      //                           image: DecorationImage(
+      //                             image: ExactAssetImage("assets/$i"),
+      //                           ),
+      //                         ),
+      //                         child: i == "illicocash png.png"
+      //                             ? const Text(
+      //                                 "Achèter avec votre numéro IllicoCash")
+      //                             : Container(),
+      //                       ),
+      //                       // child: Text(
+      //                       //   'text $i',
+      //                       //   style: TextStyle(fontSize: 16.0),
+      //                       // ),
+      //                     );
+      //                   },
+      //                 );
+      //               }).toList(),
+      //             ),
+      //           ),
+      //           const Align(
+      //             alignment: Alignment.center,
+      //             child: Padding(
+      //               padding:
+      //                   EdgeInsets.only(left: 30, right: 30, bottom: 5, top: 5),
+      //               child: Text(
+      //                 "Acheter votre billet",
+      //                 style: TextStyle(
+      //                   fontWeight: FontWeight.bold,
+      //                   color: Colors.white,
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.only(
+      //               top: 5,
+      //               left: 30,
+      //               right: 30,
+      //               bottom: 0,
+      //             ),
+      //             child: FutureBuilder(
+      //               future: programmeController.getCalendrier(),
+      //               builder: (c, t) {
+      //                 //
+      //                 if (t.hasData) {
+      //                   var id = t.data as int;
+      //                   print("id: $id");
+      //                   return Affiche("$id");
+      //                 } else if (t.hasError) {
+      //                   return Container();
+      //                 }
+      //                 return Center(
+      //                   child: Container(
+      //                     height: 40,
+      //                     width: 40,
+      //                     child: const CircularProgressIndicator(),
+      //                   ),
+      //                 );
+      //               },
+      //             ),
+      //           ),
+      //           const SizedBox(
+      //             height: 40,
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //     Programme(),
+      //     Statistique(),
+      //     Direct(),
+      //     Actualites(),
+      //     Sababalar(),
+      //     Container(
+      //       color: Loader.backgroundColor,
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+      //           ListTile(
+      //             onTap: () {
+      //               //
+      //               Get.to(LoginUtilisateur());
+      //               //
+      //             },
+      //             leading: Icon(Icons.person),
+      //             title: Text("Profil"),
+      //             subtitle: Text(
+      //               "Compte",
+      //               style: TextStyle(
+      //                 fontSize: 10,
+      //                 color: Colors.blue,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ),
+      //           ListTile(
+      //             onTap: () {
+      //               //
+      //               Get.to(Billet());
+      //             },
+      //             leading: const Icon(CupertinoIcons.ticket),
+      //             title: const Text("Billets"),
+      //             subtitle: const Text(
+      //               "vos billets electronique",
+      //               style: TextStyle(
+      //                 fontSize: 10,
+      //                 color: Colors.blue,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ),
+      //           // ListTile(
+      //           //   onTap: () {
+      //           //     //
+      //           //     Get.to(Nous());
+      //           //   },
+      //           //   leading: Icon(Icons.history),
+      //           //   title: Text("Abonnement"),
+      //           //   subtitle: Text(
+      //           //     "Direct et billets",
+      //           //     style: TextStyle(
+      //           //       fontSize: 10,
+      //           //       color: Colors.blue,
+      //           //       fontWeight: FontWeight.bold,
+      //           //     ),
+      //           //   ),
+      //           // ),
+      //           ListTile(
+      //             onTap: () {
+      //               //
+      //               Get.to(Nous());
+      //             },
+      //             leading: Icon(Icons.info_outline_rounded),
+      //             title: Text("Qui sommes nous"),
+      //             subtitle: Text(
+      //               "Missions & objectifs",
+      //               style: TextStyle(
+      //                 fontSize: 10,
+      //                 color: Colors.blue,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ),
+      //           ListTile(
+      //             onTap: () {
+      //               //
+      //               //Get.to(Login());
+      //             },
+      //             leading: Icon(Icons.verified_user_outlined),
+      //             title: Text("Mention légale"),
+      //             subtitle: Text(
+      //               "condition d'utilisation",
+      //               style: TextStyle(
+      //                 fontSize: 10,
+      //                 color: Colors.blue,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ),
+      //           ListTile(
+      //             onTap: () {
+      //               //
+      //               Get.to(Rapport());
+      //             },
+      //             leading: Icon(Icons.admin_panel_settings),
+      //             title: Text("Administration"),
+      //             subtitle: Text(
+      //               "Rapports",
+      //               style: TextStyle(
+      //                 fontSize: 10,
+      //                 color: Colors.blue,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      //   items: [
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(Icons.home_rounded),
+      //       title: ("Accueil"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(Icons.history),
+      //       title: ("Calendrier"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(CupertinoIcons.chart_pie),
+      //       title: ("Classements"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(CupertinoIcons.play_circle),
+      //       title: ("Direct"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(Icons.language),
+      //       title: ("Actualité"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(Icons.games),
+      //       title: ("Jeux"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //     //
+      //     PersistentBottomNavBarItem(
+      //       icon: Icon(CupertinoIcons.profile_circled),
+      //       title: ("Plus"),
+      //       activeColorPrimary: CupertinoColors.activeBlue,
+      //       inactiveColorPrimary: CupertinoColors.systemGrey,
+      //     ),
+      //   ],
+      //   confineInSafeArea: true,
+      //   backgroundColor: Colors.grey.shade900, // Default is Colors.white.
+      //   handleAndroidBackButtonPress: true, // Default is true.
+      //   resizeToAvoidBottomInset:
+      //       true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      //   stateManagement: true, // Default is true.
+      //   hideNavigationBarWhenKeyboardShows:
+      //       true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      //   decoration: NavBarDecoration(
+      //     borderRadius: BorderRadius.circular(10.0),
+      //     colorBehindNavBar: Colors.white,
+      //   ),
+      //   popAllScreensOnTapOfSelectedTab: false,
+      //   popAllScreensOnTapAnyTabs: true,
+      //   popActionScreens: PopActionScreensType.once,
+      //   itemAnimationProperties: const ItemAnimationProperties(
+      //     // Navigation Bar's items animation properties.
+      //     duration: Duration(milliseconds: 200),
+      //     curve: Curves.ease,
+      //   ),
+      //   screenTransitionAnimation: const ScreenTransitionAnimation(
+      //     // Screen transition animation on change of selected tab.
+      //     animateTabTransition: true,
+      //     curve: Curves.ease,
+      //     duration: Duration(milliseconds: 100),
+      //   ),
+      //   navBarStyle:
+      //       NavBarStyle.style1, // Choose the nav bar style with this property.
+      // ),
+
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () async {
       //     Get.dialog(
