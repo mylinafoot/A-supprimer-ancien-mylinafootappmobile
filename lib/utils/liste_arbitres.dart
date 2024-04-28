@@ -41,55 +41,61 @@ class ListArbitre extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: ListView(
-              children:
-                  List.generate(RapportController.commissaires.length, (index) {
-                //
-                Map equipe = RapportController.commissaires[index];
-                //
-                if ("${equipe['nom']}".contains(mot.value)) {
+            child: Obx(
+              () => ListView(
+                children: List.generate(RapportController.commissaires.length,
+                    (index) {
                   //
-                  return ListTile(
-                    onTap: () {
-                      //
-                      if (des == "Arbitre central") {
-                        commissaireController.arbitreCentral.value = equipe;
-                        arbitreController.arbitreCentral.value = equipe;
-                      }
-                      //
-                      if (des == "Arbitre assistant 1") {
-                        commissaireController.arbitreAssistant1.value = equipe;
-                        arbitreController.arbitreAssistant1.value = equipe;
-                      }
-                      //
-                      if (des == "Arbitre assistant 2") {
-                        commissaireController.arbitreAssistant2.value = equipe;
-                        arbitreController.arbitreAssistant2.value = equipe;
-                      }
+                  Map equipe = RapportController.commissaires[index];
+                  //
+                  if ("${equipe['nom']}"
+                      .toLowerCase()
+                      .contains(mot.value.toLowerCase())) {
+                    //
+                    return ListTile(
+                      onTap: () {
+                        //
+                        if (des == "Arbitre central") {
+                          commissaireController.arbitreCentral.value = equipe;
+                          arbitreController.arbitreCentral.value = equipe;
+                        }
+                        //
+                        if (des == "Arbitre assistant 1") {
+                          commissaireController.arbitreAssistant1.value =
+                              equipe;
+                          arbitreController.arbitreAssistant1.value = equipe;
+                        }
+                        //
+                        if (des == "Arbitre assistant 2") {
+                          commissaireController.arbitreAssistant2.value =
+                              equipe;
+                          arbitreController.arbitreAssistant2.value = equipe;
+                        }
 
-                      if (des == "Arbitre protocolaire") {
-                        commissaireController.arbitreProtocolaire.value =
-                            equipe;
-                        arbitreController.arbitreProtocolaire.value = equipe;
-                      }
-                      Get.back();
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/IcBaselineSportsSoccer.svg',
-                      width: 25,
-                      height: 25,
-                      color: Colors.blue,
-                      semanticsLabel: 'GalaPortrait1.svg',
-                    ),
-                    title: Text("${equipe['nom']}"),
-                    subtitle: Text("${equipe['league']}"),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
+                        if (des == "Arbitre protocolaire") {
+                          commissaireController.arbitreProtocolaire.value =
+                              equipe;
+                          arbitreController.arbitreProtocolaire.value = equipe;
+                        }
+                        Get.back();
+                      },
+                      leading: SvgPicture.asset(
+                        'assets/IcBaselineSportsSoccer.svg',
+                        width: 25,
+                        height: 25,
+                        color: Colors.blue,
+                        semanticsLabel: 'GalaPortrait1.svg',
+                      ),
+                      title: Text("${equipe['nom']}"),
+                      subtitle: Text("${equipe['league']}"),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

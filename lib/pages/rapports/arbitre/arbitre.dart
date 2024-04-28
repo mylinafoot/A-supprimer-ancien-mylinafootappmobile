@@ -37,7 +37,7 @@ class HarbitreRapport extends StatelessWidget {
           body: PageView(
             controller: controller,
             children: [
-              FormulaireArb1(controller),
+              FormulaireArb1(controller, match),
               FormulaireArb2(controller),
               FormulaireArb3(controller),
               FormulaireArb33(controller),

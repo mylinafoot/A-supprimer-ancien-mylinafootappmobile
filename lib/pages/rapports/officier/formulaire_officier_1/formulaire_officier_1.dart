@@ -33,7 +33,14 @@ class FormulaireOffice1 extends StatelessWidget {
   RxString date = "".obs;
   RxString heure = "".obs;
   //
-  FormulaireOffice1(this.controller);
+  Map match = {};
+  //
+  FormulaireOffice1(this.controller, this.match) {
+    //
+    officierController.date.value = match['date'];
+    officierController.heure.value = match['heure'];
+    officierController.stade['nom'] = match['stade'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +289,7 @@ class FormulaireOffice1 extends StatelessWidget {
                 onTap: () {
                   //
                   //
-                  Recherche.affiche(ListStades(), context);
+                  //Recherche.affiche(ListStades(), context);
                 },
                 title: const Text("Ajouter"),
                 trailing: const Icon(Icons.add),
@@ -302,11 +309,17 @@ class FormulaireOffice1 extends StatelessWidget {
                           semanticsLabel: 'IcSharpLocationOn.svg',
                         ),
                         title: Text("${officierController.stade['nom']}"),
-                        subtitle:
-                            Text("${officierController.stade['province']}"),
-                        trailing: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                        //subtitle: Text("${officierController.stade['region']}"),
+                        trailing: IconButton(
+                          onPressed: () {
+                            //
+                            officierController.stade.isEmpty;
+                            //
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
               ),
@@ -335,21 +348,21 @@ class FormulaireOffice1 extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                onTap: () {
-                  //
-                  showDatePicker(
-                    context: context,
-                    firstDate: DateTime(2023),
-                    lastDate: DateTime(2030),
-                  ).then((d) {
-                    if (d != null) {
-                      //
-                      officierController.date.value =
-                          "${d.day}-${d.month}-${d.year}";
-                    }
-                    //
-                  });
-                },
+                // onTap: () {
+                //   //
+                //   showDatePicker(
+                //     context: context,
+                //     firstDate: DateTime(2023),
+                //     lastDate: DateTime(2030),
+                //   ).then((d) {
+                //     if (d != null) {
+                //       //
+                //       officierController.date.value =
+                //           "${d.day}-${d.month}-${d.year}";
+                //     }
+                //     //
+                //   });
+                // },
                 title: const Text("Ajouter"),
                 trailing: const Icon(Icons.add),
               ),
@@ -796,19 +809,18 @@ class FormulaireOffice1 extends StatelessWidget {
                           color: Colors.blue,
                           semanticsLabel: 'IcTwotoneSports.svg',
                         ),
-                        title:
-                            Text("${officierController.arbitreCentral['nom']}"),
+                        title: Text("${officierController.commissaire['nom']}"),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "Province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreCentral['region']}")
+                                "${officierController.arbitreCentral['province']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -877,13 +889,13 @@ class FormulaireOffice1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "Province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreCentral['region']}")
+                                "${officierController.arbitreCentral['province']}")
                           ],
                         ),
                         trailing: IconButton(
@@ -953,13 +965,13 @@ class FormulaireOffice1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "Province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreAssistant1['region']}"),
+                                "${officierController.arbitreAssistant1['province']}"),
                           ],
                         ),
                         trailing: IconButton(
@@ -1029,13 +1041,13 @@ class FormulaireOffice1 extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Region: ",
+                                "Province: ",
                                 style: TextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
                               Text(
-                                  "${officierController.arbitreAssistant2['region']}"),
+                                  "${officierController.arbitreAssistant2['province']}"),
                             ]),
                         trailing: IconButton(
                           icon: Icon(
@@ -1103,13 +1115,13 @@ class FormulaireOffice1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Region: ",
+                              "Province: ",
                               style: TextStyle(
                                 color: Colors.blue,
                               ),
                             ),
                             Text(
-                                "${officierController.arbitreProtocolaire['region']}"),
+                                "${officierController.arbitreProtocolaire['province']}"),
                           ],
                         ),
                         trailing: IconButton(

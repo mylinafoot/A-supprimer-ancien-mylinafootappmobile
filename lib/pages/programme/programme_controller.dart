@@ -73,14 +73,14 @@ class ProgrammeController extends GetxController with StateMixin<List> {
         await requete.getE("match/All/match/$idCalendrier/$categorie/$journee");
     //
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("response jr: ${response.statusCode}");
-      print("response jr: ${response.body}");
+      print("response Jn: ${response.statusCode}");
+      print("response Jn: ${response.body}");
       //
       change(jsonDecode(response.body), status: RxStatus.success());
     } else {
       //
-      print("response jr: ${response.statusCode}");
-      print("response jr: ${response.body}");
+      print("response Jn: ${response.statusCode}");
+      print("response Jn: ${response.body}");
       change([], status: RxStatus.empty());
     }
   }

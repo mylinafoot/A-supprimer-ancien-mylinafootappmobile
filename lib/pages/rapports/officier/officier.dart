@@ -32,7 +32,7 @@ class OfficierRapport extends StatelessWidget {
           body: PageView(
             controller: controller,
             children: [
-              FormulaireOffice1(controller),
+              FormulaireOffice1(controller, match),
               FormulaireOffice2(controller),
               FormulaireOffice3(controller),
               FormulaireOffice4(controller, match, local),

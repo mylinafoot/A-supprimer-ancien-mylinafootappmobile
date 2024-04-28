@@ -35,7 +35,13 @@ class FormulaireArb1 extends StatelessWidget {
   RxString date = "".obs;
   RxString heure = "".obs;
   //
-  FormulaireArb1(this.controller);
+  Map match = {};
+  //
+  FormulaireArb1(this.controller, this.match) {
+    arbitreController.date.value = match['date'];
+    arbitreController.heure.value = match['heure'];
+    arbitreController.stade['nom'] = match['stade'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -394,20 +400,20 @@ class FormulaireArb1 extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                onTap: () {
-                  //
-                  showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                    //lastDate: TimeOfDay(2030),
-                  ).then((d) {
-                    if (d != null) {
-                      //
-                      arbitreController.heure.value = "${d.hour}:${d.minute}";
-                    }
-                    //
-                  });
-                },
+                // onTap: () {
+                //   //
+                //   showTimePicker(
+                //     context: context,
+                //     initialTime: TimeOfDay.now(),
+                //     //lastDate: TimeOfDay(2030),
+                //   ).then((d) {
+                //     if (d != null) {
+                //       //
+                //       arbitreController.heure.value = "${d.hour}:${d.minute}";
+                //     }
+                //     //
+                //   });
+                // },
                 title: const Text("Ajouter"),
                 trailing: const Icon(Icons.add),
               ),

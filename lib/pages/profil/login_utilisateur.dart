@@ -366,7 +366,6 @@ class LoginUtilisateur extends StatelessWidget {
               ),
             ),
           ),
-
           // RichText(
           //   textAlign: TextAlign.center,
           //   text: TextSpan(
@@ -391,7 +390,7 @@ class LoginUtilisateur extends StatelessWidget {
   }
 
   //
-  TextStyle textStyle = TextStyle(
+  TextStyle textStyle = const TextStyle(
     fontWeight: FontWeight.bold,
   );
   //

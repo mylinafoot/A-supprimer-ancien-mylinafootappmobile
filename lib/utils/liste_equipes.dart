@@ -44,61 +44,65 @@ class ListEquipe extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: ListView(
-              children:
-                  List.generate(RapportController.equipes.length, (index) {
-                //
-                Map equipe = RapportController.equipes[index];
-                //
-                if ("${equipe['nom']}".contains(mot.value)) {
+            child: Obx(
+              () => ListView(
+                children:
+                    List.generate(RapportController.equipes.length, (index) {
                   //
-                  return ListTile(
-                    onTap: () {
-                      //
-                      if (des == "Equipe") {
-                        commissaireController.equipe.value = equipe;
-                        arbitreController.equipe.value = equipe;
-                      }
-                      //
-                      if (des == "Equipe A") {
-                        commissaireController.equipeA.value = equipe;
-                        arbitreController.equipeA.value = equipe;
-                      }
-                      //
-                      if (des == "Equipe B") {
-                        commissaireController.equipeB.value = equipe;
-                        arbitreController.equipeB.value = equipe;
-                      }
-                      //
-                      if (des == "Choix Equipe A") {
-                        commissaireController.equipeA.value = equipe;
-                        arbitreController.equipeA.value = equipe;
-                      }
+                  Map equipe = RapportController.equipes[index];
+                  //.toLowerCase()
+                  if ("${equipe['nom']}"
+                      .toLowerCase()
+                      .contains(mot.value.toLowerCase())) {
+                    //
+                    return ListTile(
+                      onTap: () {
+                        //
+                        if (des == "Equipe") {
+                          commissaireController.equipe.value = equipe;
+                          arbitreController.equipe.value = equipe;
+                        }
+                        //
+                        if (des == "Equipe A") {
+                          commissaireController.equipeA.value = equipe;
+                          arbitreController.equipeA.value = equipe;
+                        }
+                        //
+                        if (des == "Equipe B") {
+                          commissaireController.equipeB.value = equipe;
+                          arbitreController.equipeB.value = equipe;
+                        }
+                        //
+                        if (des == "Choix Equipe A") {
+                          commissaireController.equipeA.value = equipe;
+                          arbitreController.equipeA.value = equipe;
+                        }
 
-                      if (des == "Choix Equipe B") {
-                        commissaireController.equipeB.value = equipe;
-                        arbitreController.equipeB.value = equipe;
-                      }
-                      //
-                      Get.back();
-                      //
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/IcBaselineSportsSoccer.svg',
-                      width: 25,
-                      height: 25,
-                      color: Colors.blue,
-                      semanticsLabel: 'GalaPortrait1.svg',
-                    ),
-                    title: Text("${equipe['nom']}"),
-                    subtitle: Text("${equipe['province']}"),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
+                        if (des == "Choix Equipe B") {
+                          commissaireController.equipeB.value = equipe;
+                          arbitreController.equipeB.value = equipe;
+                        }
+                        //
+                        Get.back();
+                        //
+                      },
+                      leading: SvgPicture.asset(
+                        'assets/IcBaselineSportsSoccer.svg',
+                        width: 25,
+                        height: 25,
+                        color: Colors.blue,
+                        semanticsLabel: 'GalaPortrait1.svg',
+                      ),
+                      title: Text("${equipe['nom']}"),
+                      subtitle: Text("${equipe['province']}"),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

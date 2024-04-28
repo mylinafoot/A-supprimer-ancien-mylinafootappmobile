@@ -648,21 +648,37 @@ class Profile extends StatelessWidget {
   //
   Future<bool> getInfosOf(Map match) async {
     //
+    print("Profile of: ");
+    //
     officierController.commissaire.value =
         await profilController.getOneCommissaire("${match['commissaire']}");
     //
+    print("Profile of: commissaire-- ${officierController.commissaire.value}");
+    //
     officierController.arbitreCentral.value =
         await profilController.getOneArbitre("${match['arbitreCentrale']}");
-    //*
+    //
+    print(
+        "Profile of: arbitreCentral-- ${officierController.arbitreCentral.value}");
+    //
     officierController.arbitreAssistant1.value =
         await profilController.getOneArbitre("${match['arbitreAssitant1']}");
-    //*
+    //
+    print(
+        "Profile of: arbitreAssistant1-- ${officierController.arbitreAssistant1.value}");
+    //
 
     officierController.arbitreAssistant2.value =
         await profilController.getOneArbitre("${match['arbitreAssitant2']}");
-    //*
+    //
+    print(
+        "Profile of: arbitreAssistant2-- ${officierController.arbitreAssistant2.value}");
+    //
     officierController.arbitreProtocolaire.value =
         await profilController.getOneArbitre("${match['arbitreProtocolaire']}");
+    //
+    print(
+        "Profile of: arbitreProtocolaire-- ${officierController.arbitreProtocolaire.value}");
     //
     officierController.nMatch.value.text = "${match['nmatch']}";
     //*

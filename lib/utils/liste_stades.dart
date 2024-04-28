@@ -20,7 +20,7 @@ class ListStades extends StatelessWidget {
 4. Goma : Stade de L'unité 
 5. L'shi : KAMALONDO (T P Mazembe).
    */
-  RxList equipes = [
+  RxList equipe = [
     {"nom": "Tata Raphaël", "province": "Kinshasa", "categorie": "A2"},
     {"nom": "Kindu Joseph Kabila", "province": "Kundi", "categorie": "A2"},
     {
@@ -63,44 +63,65 @@ class ListStades extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: ListView(
-              children: List.generate(equipes.length, (index) {
-                //
-                Map equipe = equipes[index];
-                //
-                if ("${equipe['nom']}".contains(mot.value)) {
-                  //
-                  return ListTile(
-                    onTap: () {
+            child: FutureBuilder(
+              future: officierController.getStades(),
+              builder: (c, t) {
+                if (t.hasData) {
+                  List stades = t.data as List;
+                  print("stades: $stades");
+                  return ListView(
+                    children: List.generate(stades.length, (index) {
                       //
-                      commissaireController.stade.value = equipe;
-                      arbitreController.stade.value = equipe;
-                      officierController.stade.value = equipe;
-                      Get.back();
-                      // if (des == "Equipe A") {}
-                      // //
-                      // if (des == "Equipe B") {}
-                      // //
-                      // if (des == "Choix Equipe A") {}
+                      Map equipe = stades[index];
+                      //
+                      print("stade: $equipe");
+                      //
+                      if ("${equipe['nom']}".contains(mot.value)) {
+                        //
+                        return ListTile(
+                          onTap: () {
+                            //
+                            commissaireController.stade.value = equipe;
+                            arbitreController.stade.value = equipe;
+                            officierController.stade.value = equipe;
+                            Get.back();
+                            // if (des == "Equipe A") {}
+                            // //
+                            // if (des == "Equipe B") {}
+                            // //
+                            // if (des == "Choix Equipe A") {}
 
-                      // if (des == "Choix Equipe B") {}
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/IcBaselineSportsSoccer.svg',
-                      width: 25,
-                      height: 25,
-                      color: Colors.blue,
-                      semanticsLabel: 'GalaPortrait1.svg',
-                    ),
-                    title: Text("${equipe['nom']}"),
-                    subtitle: Text("${equipe['province']}"),
+                            // if (des == "Choix Equipe B") {}
+                          },
+                          leading: SvgPicture.asset(
+                            'assets/IcBaselineSportsSoccer.svg',
+                            width: 25,
+                            height: 25,
+                            color: Colors.blue,
+                            semanticsLabel: 'GalaPortrait1.svg',
+                          ),
+                          title: Text("${equipe['nom']}"),
+                          subtitle: Text("${equipe['region']}"),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
                   );
-                } else {
+                } else if (t.hasError) {
                   return Container();
                 }
-              }),
+
+                return Center(
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    child: const CircularProgressIndicator(),
+                  ),
+                );
+              },
             ),
-          )
+          ),
         ],
       ),
     );

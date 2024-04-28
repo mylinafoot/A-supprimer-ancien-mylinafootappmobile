@@ -39,7 +39,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
+                            <menuItem isSeparatorItem="YES" id="4je-Jn-u6R"/>
                             <menuItem title="Hide APP_NAME" keyEquivalent="h" id="Olw-nP-bQN">
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>

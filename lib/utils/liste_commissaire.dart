@@ -42,36 +42,40 @@ class ListCommissaire extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: ListView(
-              children:
-                  List.generate(RapportController.commissaires.length, (index) {
-                //
-                Map equipe = RapportController.commissaires[index];
-                //
-                if ("${equipe['nom']}".contains(mot.value)) {
+            child: Obx(
+              () => ListView(
+                children: List.generate(RapportController.commissaires.length,
+                    (index) {
                   //
-                  return ListTile(
-                    onTap: () {
-                      //
-                      arbitreController.commissaire.value = equipe;
-                      //
-                      Get.back();
-                      //
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/IcBaselineSportsSoccer.svg',
-                      width: 25,
-                      height: 25,
-                      color: Colors.blue,
-                      semanticsLabel: 'GalaPortrait1.svg',
-                    ),
-                    title: Text("${equipe['nom']}"),
-                    subtitle: Text("${equipe['league']}"),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
+                  Map equipe = RapportController.commissaires[index];
+                  //
+                  if ("${equipe['nom']}"
+                      .toLowerCase()
+                      .contains(mot.value.toLowerCase())) {
+                    //
+                    return ListTile(
+                      onTap: () {
+                        //
+                        arbitreController.commissaire.value = equipe;
+                        //
+                        Get.back();
+                        //
+                      },
+                      leading: SvgPicture.asset(
+                        'assets/IcBaselineSportsSoccer.svg',
+                        width: 25,
+                        height: 25,
+                        color: Colors.blue,
+                        semanticsLabel: 'GalaPortrait1.svg',
+                      ),
+                      title: Text("${equipe['nom']}"),
+                      subtitle: Text("${equipe['league']}"),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+              ),
             ),
           )
         ],

@@ -55,110 +55,115 @@ class ListJoueurs extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: ListView(
-              children: List.generate(equipes.length, (index) {
-                //
-                Map equipe = equipes[index];
-                //
-                if ("${equipe['nom']}".contains(mot.value)) {
+            child: Obx(
+              () => ListView(
+                children: List.generate(equipes.length, (index) {
                   //
-                  return ListTile(
-                    onTap: () {
-                      //ListJoueurs
-                      if ("Avertissements joueurs" == des) {
-                        commissaireController.avertissementsJoueurs.clear();
-                        commissaireController.avertissementsJoueurs.add(equipe);
+                  Map equipe = equipes[index];
+                  //
+                  if ("${equipe['nom']}"
+                      .toLowerCase()
+                      .contains(mot.value.toLowerCase())) {
+                    //
+                    return ListTile(
+                      onTap: () {
+                        //ListJoueurs
+                        if ("Avertissements joueurs" == des) {
+                          commissaireController.avertissementsJoueurs.clear();
+                          commissaireController.avertissementsJoueurs
+                              .add(equipe);
+                          //
+                          arbitreController.avertissementsJoueurs.clear();
+                          arbitreController.avertissementsJoueurs.add(equipe);
+                          //
+                          officierController.avertissementsJoueurs.clear();
+                          officierController.avertissementsJoueurs.add(equipe);
+                        }
                         //
-                        arbitreController.avertissementsJoueurs.clear();
-                        arbitreController.avertissementsJoueurs.add(equipe);
+                        if ("Buts joueurs" == des) {
+                          commissaireController.butsJoueurs.clear();
+                          commissaireController.butsJoueurs.add(equipe);
+                          //
+                          arbitreController.butsJoueurs.clear();
+                          arbitreController.butsJoueurs.add(equipe);
+                          //
+                          officierController.butsJoueurs.clear();
+                          officierController.butsJoueurs.add(equipe);
+                        }
                         //
-                        officierController.avertissementsJoueurs.clear();
-                        officierController.avertissementsJoueurs.add(equipe);
-                      }
-                      //
-                      if ("Buts joueurs" == des) {
-                        commissaireController.butsJoueurs.clear();
-                        commissaireController.butsJoueurs.add(equipe);
+                        if ("Expulsions joueurs" == des) {
+                          commissaireController.expulssionsJoueurs.clear();
+                          commissaireController.expulssionsJoueurs.add(equipe);
+                          //
+                          arbitreController.expulssionsJoueurs.clear();
+                          arbitreController.expulssionsJoueurs.add(equipe);
+                          //
+                          officierController.expulssionsJoueurs.clear();
+                          officierController.expulssionsJoueurs.add(equipe);
+                        }
+                        if ("autre A" == des) {
+                          //joueurEqupeA
+                          arbitreController.joueurEqupeA.add(equipe);
+                          //
+                          //officierController.joueurEqupeA.add(equipe);
+                        }
+                        if ("autre B" == des) {
+                          //joueurEqupeA
+                          arbitreController.joueurEqupeB.add(equipe);
+                          //
+                          //officierController.joueurEqupeB.add(equipe);
+                        }
                         //
-                        arbitreController.butsJoueurs.clear();
-                        arbitreController.butsJoueurs.add(equipe);
-                        //
-                        officierController.butsJoueurs.clear();
-                        officierController.butsJoueurs.add(equipe);
-                      }
-                      //
-                      if ("Expulsions joueurs" == des) {
-                        commissaireController.expulssionsJoueurs.clear();
-                        commissaireController.expulssionsJoueurs.add(equipe);
-                        //
-                        arbitreController.expulssionsJoueurs.clear();
-                        arbitreController.expulssionsJoueurs.add(equipe);
-                        //
-                        officierController.expulssionsJoueurs.clear();
-                        officierController.expulssionsJoueurs.add(equipe);
-                      }
-                      if ("autre A" == des) {
-                        //joueurEqupeA
-                        arbitreController.joueurEqupeA.add(equipe);
-                        //
-                        //officierController.joueurEqupeA.add(equipe);
-                      }
-                      if ("autre B" == des) {
-                        //joueurEqupeA
-                        arbitreController.joueurEqupeB.add(equipe);
-                        //
-                        //officierController.joueurEqupeB.add(equipe);
-                      }
-                      //
-                      if ("autre A r" == des) {
-                        //joueurEqupeA
-                        arbitreController.joueurEquipeRemplacantA.add(equipe);
-                        //
-                        //officierController.joueurEquipeRemplacantA.add(equipe);
-                      }
-                      if ("autre B r" == des) {
-                        //joueurEqupeA
-                        arbitreController.joueurEquipeRemplacantB.add(equipe);
-                        //
+                        if ("autre A r" == des) {
+                          //joueurEqupeA
+                          arbitreController.joueurEquipeRemplacantA.add(equipe);
+                          //
+                          //officierController.joueurEquipeRemplacantA.add(equipe);
+                        }
+                        if ("autre B r" == des) {
+                          //joueurEqupeA
+                          arbitreController.joueurEquipeRemplacantB.add(equipe);
+                          //
 
-                        //officierController.joueurEquipeRemplacantB.add(equipe);
-                      }
-                      //
-                      if ("entrant" == des) {
-                        //joueurEqupeA
-                        arbitreController.joueurRemplacantEntrant.value =
-                            equipe;
+                          //officierController.joueurEquipeRemplacantB.add(equipe);
+                        }
                         //
-                        officierController.joueurRemplacantEntrant.value =
-                            equipe;
-                      }
-                      if ("sortant" == des) {
-                        //joueurEqupeA
-                        arbitreController.joueurRemplacantSortant.value =
-                            equipe;
+                        if ("entrant" == des) {
+                          //joueurEqupeA
+                          arbitreController.joueurRemplacantEntrant.value =
+                              equipe;
+                          //
+                          officierController.joueurRemplacantEntrant.value =
+                              equipe;
+                        }
+                        if ("sortant" == des) {
+                          //joueurEqupeA
+                          arbitreController.joueurRemplacantSortant.value =
+                              equipe;
+                          //
+                          officierController.joueurRemplacantSortant.value =
+                              equipe;
+                        }
                         //
-                        officierController.joueurRemplacantSortant.value =
-                            equipe;
-                      }
-                      //
-                      Get.back();
-                      //
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/MakiSoccer11.svg',
-                      width: 25,
-                      height: 25,
-                      color: Colors.blue,
-                      semanticsLabel: 'MakiSoccer11.svg',
-                    ),
-                    title: Text(
-                        "${equipe['nom']} ${equipe['postnom'] ?? ''} ${equipe['prenom'] ?? ''}"),
-                    subtitle: Text("${equipe['numero']}"),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
+                        Get.back();
+                        //
+                      },
+                      leading: SvgPicture.asset(
+                        'assets/MakiSoccer11.svg',
+                        width: 25,
+                        height: 25,
+                        color: Colors.blue,
+                        semanticsLabel: 'MakiSoccer11.svg',
+                      ),
+                      title: Text(
+                          "${equipe['nom']} ${equipe['postnom'] ?? ''} ${equipe['prenom'] ?? ''}"),
+                      subtitle: Text("${equipe['numero']}"),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+              ),
             ),
           )
         ],

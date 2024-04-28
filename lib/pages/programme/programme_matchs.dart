@@ -7,18 +7,18 @@ class ProgrammeMatchs extends StatelessWidget {
   //
   ProgrammeController programmeController = Get.find();
   //
-  RxInt jr = 0.obs;
+  RxInt Jn = 0.obs;
   String idCalendrier, categorie;
   //
   ProgrammeMatchs(this.idCalendrier, this.categorie) {
     load();
-    //jr++;
+    //Jn++;
   }
   //
   load() async {
     List l = await programmeController.getAllJourneeDeLaSaison(
         idCalendrier, categorie);
-    jr.value = l.isEmpty ? 1 : l.length;
+    Jn.value = l.isEmpty ? 1 : l.length;
     //
   }
 
@@ -28,7 +28,7 @@ class ProgrammeMatchs extends StatelessWidget {
     //
     return Obx(
       () => DefaultTabController(
-        length: jr.value,
+        length: Jn.value,
         initialIndex: programmeController.journee.value - 1,
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -44,9 +44,9 @@ class ProgrammeMatchs extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   tabs: List.generate(
-                    jr.value,
+                    Jn.value,
                     (index) => Tab(
-                      text: "Jr ${index + 1}",
+                      text: "Jn ${index + 1}",
                     ),
                   ),
                 ),
@@ -55,9 +55,9 @@ class ProgrammeMatchs extends StatelessWidget {
                 flex: 1,
                 child: TabBarView(
                   children: List.generate(
-                    jr.value,
+                    Jn.value,
                     (e) {
-                      print("response jr $e");
+                      print("response Jn $e");
                       return ProgrammeJournee(
                         idCalendrier,
                         categorie,

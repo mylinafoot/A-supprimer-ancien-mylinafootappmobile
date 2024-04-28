@@ -6,16 +6,16 @@ import 'package:linafoot/utils/requete.dart';
 import 'programme_controller.dart';
 
 class ProgrammeJournee extends GetView<ProgrammeController> {
-  int jr;
+  int Jn;
   String idCalendrier, categorie;
   //
   ProgrammeController programmeController = Get.find();
   //
 
-  ProgrammeJournee(this.idCalendrier, this.categorie, this.jr, {super.key}) {
+  ProgrammeJournee(this.idCalendrier, this.categorie, this.Jn, {super.key}) {
     print(
-        "response jr $idCalendrier: $idCalendrier, categorie: $categorie, jr: $jr, key: $key");
-    controller.getAllMatchsDeLaJournee(idCalendrier, categorie, "$jr");
+        "response Jn $idCalendrier: $idCalendrier, categorie: $categorie, Jn: $Jn, key: $key");
+    controller.getAllMatchsDeLaJournee(idCalendrier, categorie, "$Jn");
   }
   //
   @override
@@ -26,7 +26,7 @@ class ProgrammeJournee extends GetView<ProgrammeController> {
       children: [
         FutureBuilder(
           future: controller.getAllMatchsDeLaJournee2(
-              idCalendrier, categorie, "$jr"),
+              idCalendrier, categorie, "$Jn"),
           builder: (c, t) {
             if (t.hasData) {
               List matchs = t.data as List;

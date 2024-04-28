@@ -29,6 +29,7 @@ class FormulaireCom1 extends StatelessWidget {
   FormulaireCom1(this.controller, this.match) {
     //
     getInfos();
+    //
   }
   //
   getInfos() async {
@@ -38,7 +39,10 @@ class FormulaireCom1 extends StatelessWidget {
     //commissaireController.commissaire.value = await commissaireController
     // .getOneCommissaire("${match['commissaire']}");
     //
-    commissaireController.date.value = "${d.day}-${d.month}-${d.year}";
+    commissaireController.date.value = match['date'];
+    commissaireController.heure.value = match['heure'];
+    commissaireController.stade['nom'] = match['stade'];
+    //"${d.day}-${d.month}-${d.year}";
     //
   }
 
@@ -104,18 +108,18 @@ class FormulaireCom1 extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                onTap: () {
-                  //
-                  showTimePicker(context: context, initialTime: TimeOfDay.now())
-                      .then((d) {
-                    //
-                    if (d != null) {
-                      commissaireController.heure.value =
-                          "${d.hour}:${d.minute}";
-                    }
-                  });
-                  //Recherche.affiche(ListEquipe("Equipe B"), context);
-                },
+                // onTap: () {
+                //   //
+                //   showTimePicker(context: context, initialTime: TimeOfDay.now())
+                //       .then((d) {
+                //     //
+                //     if (d != null) {
+                //       commissaireController.heure.value =
+                //           "${d.hour}:${d.minute}";
+                //     }
+                //   });
+                //   //Recherche.affiche(ListEquipe("Equipe B"), context);
+                // },
                 title: const Text("Ajouter"),
                 trailing: const Icon(Icons.timelapse),
               ),
@@ -280,7 +284,7 @@ class FormulaireCom1 extends StatelessWidget {
                 onTap: () {
                   //
                   //
-                  Recherche.affiche(ListStades(), context);
+                  //Recherche.affiche(ListStades(), context);
                 },
                 title: const Text("Ajouter"),
                 trailing: const Icon(Icons.add),
@@ -300,8 +304,8 @@ class FormulaireCom1 extends StatelessWidget {
                           semanticsLabel: 'IcSharpLocationOn.svg',
                         ),
                         title: Text("${commissaireController.stade['nom']}"),
-                        subtitle:
-                            Text("${commissaireController.stade['province']}"),
+                        //subtitle:
+                        //  Text("${commissaireController.stade['province']}"),
                         trailing: const Icon(
                           Icons.delete,
                           color: Colors.red,

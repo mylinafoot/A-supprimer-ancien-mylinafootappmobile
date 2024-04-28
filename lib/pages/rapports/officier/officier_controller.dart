@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -117,5 +119,20 @@ class OfficierController extends GetxController {
       //return [];
     }
   }
+
   //RxList butsJoueursGeneral = [].obs;
+  //
+  Future<List> getStades() async {
+    //
+    http.Response response = await requete.getE("stade/all");
+    //
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Arbitre: ${response.body}");
+      //
+      return jsonDecode(response.body);
+    } else {
+      //
+      return [];
+    }
+  }
 }
