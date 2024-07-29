@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class Requete extends GetConnect {
   //static String url = "http://10.0.2.2:8080";
   //static String url = "http://192.168.1.65:8080";
-  static String url = "https://serveurmylinafoot-f8addca483a9.herokuapp.com";
+  static String url = "https://mylinafootbackendserveur-9c1d6014e77f.herokuapp.com";
   //static String url = "https://linafoot-d19a287c9c29.herokuapp.com";
   //https://linafoot-d19a287c9c29.herokuapp.com/
   //

@@ -9,23 +9,14 @@ import 'package:linafoot/utils/loader.dart';
 import 'package:linafoot/utils/paiement.dart';
 import 'package:linafoot/utils/requete.dart';
 
-class Affiche extends GetView<LiveController> {
+class AfficheProgrammeWidget extends GetView<LiveController> {
   //
   String? idCalendrier;
-  Affiche(this.idCalendrier);
+  AfficheProgrammeWidget(this.idCalendrier);
   //
   ProgrammeController programmeController = Get.find();
   //
   var box = GetStorage();
-  //AS DAUPHIN NOIR.png
-  //AS MANIEMA UNION.png
-  //AS VITA CLUB.png
-  //CS DON BOSCO.png
-  //LOGO VERTICAL HD.png
-  //LES AIGLES DU CONGO.png
-  //LUBUMBASHI SPORT.png
-  //LUPOPO FC.png
-  //TP MAZEMBE.png
 
   @override
   Widget build(BuildContext context) {
@@ -66,23 +57,16 @@ class Affiche extends GetView<LiveController> {
                 var d = DateFormat.yMMMEd().format(date);
                 //
                 return Card(
-                  //color: Colors.white,
-                  color: Colors.black,
+                  color: Color(0xFFF0F0F0),
                   child: Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    height: 120,
+                    //padding: const EdgeInsets.only(left: 0, right: 0),
+                    height: MediaQuery.of(context).size.height * 0.12,
                     width: double.maxFinite,
                     child: InkWell(
                       onTap: () {
                         //
                         Get.to(Paiement(match, "Acheter le billet"));
-                        //
-                        // if (suivre) {
-                        //   Get.to(Paiement(match, "Acheter le billet"));
-                        // } else {
-                        //   //suivre le direct
-                        // }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,26 +79,26 @@ class Affiche extends GetView<LiveController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    height: 50,
-                                    width: 50,
+                                    height: MediaQuery.of(context).size.height * 0.06,
+                                    width: MediaQuery.of(context).size.height * 0.06,
                                     decoration: BoxDecoration(
-                                      //color: Colors.red,
                                       image: DecorationImage(
                                         image: NetworkImage(
                                             "${Requete.url}/equipe/logo/${match['idEquipeA']}"),
                                       ),
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.005,
                                   ),
                                   Text(
                                     "${match['nomEquipeA']}",
                                     textAlign: TextAlign.center,
+                                    maxLines: 2,
                                     style: const TextStyle(
                                       fontSize: 10,
-                                      color: Colors.white,
+                                      color: Color(0xFF3A3838),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -148,31 +132,31 @@ class Affiche extends GetView<LiveController> {
                                     child: Text(
                                       "JOURNEE ${match['journee']}",
                                       textAlign: TextAlign.center,
+                                      maxLines: 1,
                                       style: const TextStyle(
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
+                                        color: Color(0xFF3A3838),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+
                                   Container(
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.grey.shade400),
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Color(0xFFD9D9D9)),
                                     child: Column(children: [
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(
                                           "$d ${match['heure']}",
                                           textAlign: TextAlign.center,
+                                          maxLines: 2,
                                           style: TextStyle(
                                             fontSize: 11,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey.shade700,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFF3A3838),
                                           ),
                                         ),
                                       ),
@@ -181,8 +165,9 @@ class Affiche extends GetView<LiveController> {
                                         child: Text(
                                           "${match['stade']}",
                                           textAlign: TextAlign.center,
+                                          maxLines: 1,
                                           style: TextStyle(
-                                            fontSize: 10,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
                                           ),
@@ -191,10 +176,11 @@ class Affiche extends GetView<LiveController> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "linafoot",
+                                          "Linafoot",
                                           textAlign: TextAlign.center,
+                                          maxLines: 1,
                                           style: TextStyle(
-                                            fontSize: 5,
+                                            fontSize: 6,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.grey,
                                           ),
@@ -214,15 +200,15 @@ class Affiche extends GetView<LiveController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    height: 50,
-                                    width: 50,
+                                    height: MediaQuery.of(context).size.height * 0.06,
+                                    width: MediaQuery.of(context).size.height * 0.06,
                                     decoration: BoxDecoration(
                                       //color: Colors.red,
                                       image: DecorationImage(
                                         image: NetworkImage(
                                             "${Requete.url}/equipe/logo/${match['idEquipeB']}"),
                                       ),
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                   const SizedBox(
@@ -231,9 +217,10 @@ class Affiche extends GetView<LiveController> {
                                   Text(
                                     "${match['nomEquipeB']}", //nomEquipeA
                                     textAlign: TextAlign.center,
+                                    maxLines: 2,
                                     style: const TextStyle(
                                       fontSize: 10,
-                                      color: Colors.white,
+                                      color: Color(0xFF3A3838),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -256,7 +243,7 @@ class Affiche extends GetView<LiveController> {
           child: Container(
             height: 40,
             width: 40,
-            child: const CircularProgressIndicator(),
+            child: Loader.loadingW(),
           ),
         );
       },

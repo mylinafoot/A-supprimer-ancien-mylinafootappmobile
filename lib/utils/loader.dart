@@ -18,7 +18,7 @@ class Loader {
 
   //#DD0707
 
-  static var backgroundColor = HexColor("#DD0707");
+  static var backgroundColor = Colors.white;
 
   static Widget loadingW() {
     return Center(
@@ -26,7 +26,8 @@ class Loader {
         height: 40,
         width: 40,
         alignment: Alignment.center,
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 255, 80, 80),), // Couleur rouge
+        ),
       ),
     );
   }

@@ -4,16 +4,16 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:linafoot/pages/rapports/commissaire/commissaire_controller.dart';
 import 'package:linafoot/utils/paiement_controller.dart';
-import 'pages/accueil.dart';
+import 'package:provider/provider.dart';
+import 'controllers/EquipeController.dart';
+import 'controllers/ControlerPremierParametreInstallation.dart';
 import 'pages/historique/historique_controller.dart';
 import 'pages/live/live_controller.dart';
-import 'pages/login/login.dart';
 import 'pages/login/login_controller.dart';
 import 'pages/programme/programme_controller.dart';
 import 'pages/rapports/arbitre/arbitre_controller.dart';
 import 'pages/rapports/officier/officier_controller.dart';
-import 'pages/splash.dart';
-import 'utils/paiement.dart';
+import 'pages/bienvenue/SplashScreen.dart';
 
 void main() async {
   //
@@ -34,6 +34,8 @@ void main() async {
   //
   PaiementController paiementController = Get.put(PaiementController());
   //
+  EquipeController equipeController = Get.put(EquipeController());
+  //
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -43,7 +45,11 @@ void main() async {
   //
   await GetStorage.init();
   //
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider( // Envelopper MyApp avec ChangeNotifierProvider ou pouvoir utiliser
+    //ControlerPremier.... Car c'est ça la procédure avec la dépendence provider.
+    create: (context) => ControlerPremierParametreInstallation(stockage: GetStorage()),
+    child: MyApp(),
+  ),);
 }
 
 class MyApp extends StatelessWidget {
@@ -59,10 +65,10 @@ class MyApp extends StatelessWidget {
     //
     return GetMaterialApp(
         title: 'Linafoot',
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         theme: ThemeData.from(
-          colorScheme: const ColorScheme.dark(primary: Colors.red),
+          colorScheme: const ColorScheme.dark(primary: Colors.white),
           textTheme: const TextTheme(
             titleSmall: TextStyle(fontSize: 10),
           ),
@@ -74,7 +80,7 @@ class MyApp extends StatelessWidget {
         home:
             //Paiement()
             //Login(3),
-            Splash()
+            SplashScreen()
         //Accueil(),
         );
   }

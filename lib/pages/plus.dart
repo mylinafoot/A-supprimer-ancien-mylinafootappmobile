@@ -7,7 +7,7 @@ import 'package:linafoot/pages/rapports/rapports.dart';
 import 'package:linafoot/utils/loader.dart';
 import 'package:svg_flutter/svg_flutter.dart';
 
-import 'affiche/affiche.dart';
+import 'acceuil/widgets/AfficheProgrammeWidget.dart';
 import 'billets/billets.dart';
 import 'legale.dart';
 import 'nous.dart';
