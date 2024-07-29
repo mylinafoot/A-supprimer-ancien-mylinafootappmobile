@@ -579,7 +579,7 @@ class FormulaireCom1 extends StatelessWidget {
                   child: Text(":"),
                 ),
                 Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
